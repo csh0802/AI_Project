@@ -8,7 +8,11 @@ public class ColorBoxVO {
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		if(id ==null || id.equals("")) {
+			System.out.println("id 값 없음");
+		}else {
+			this.id = id;	
+		}
 	}
 
 	public String getPColor() {
@@ -16,7 +20,11 @@ public class ColorBoxVO {
 	}
 
 	public void setPColor(String pColor) {
-		this.pColor = pColor;
+		if(pColor ==null || pColor.equals("")) {
+			System.out.println("pColor 값 없음");
+		}else {
+			this.pColor = pColor;	
+		}
 	}
 
 	@Override

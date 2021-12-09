@@ -1,33 +1,4 @@
-$(document).ready(function(){
-	
-	const id=$.cookie("id");
-	if(id){
-		$("#loginSpan").html(id+" login ok <button id='logoutBtn'>logout</button>");
-	}
-	
-	$("#loginBtn").click(function(){
-		const id=$("#id").val();
-		const pw=$("#pw").val();
-		
-		alert(id+":"+pw);
-		
-		$.post('../login',{id,pw},function(data){
-			data=JSON.parse(data);
-			if(data.id){
-				$.cookie("id",data.id);
-				$("#loginSpan").html(data.id+" login ok <button id='logoutBtn'>logout</button>");
-			}else{
-				alert(data.msg);
-			}
-			
-		});
-	});
-	
-	$(document).on("click", "#logoutBtn", function(){
-		$.post('../logout',{},function(data){
-			data=JSON.parse(data);
-			if(data.msg=="ok"){
-				$.removeCookie("id");$(document).ready(function() {
+$(document).ready(function() {
 
 	const id = $.cookie("id");
 	if (id) {
@@ -208,13 +179,8 @@ $(document).ready(function(){
 	});
 
 
-});
-				location.reload();
-			}else{
-				alert(data.msg);
-			}
-		});
-	});
+
+
 	$(document).on('click',"#colorInsertBtn",function(){
 			const pColor=$("#colorText").val();
 			if(pColor){
@@ -303,12 +269,7 @@ $(document).ready(function(){
 				
 			});
 		});
-		$("#selectAllTypeBtn").click(function(){
-			alert();
-			$.post('selectAllType',{},function(data){
-				
-			});
-		});
+
 		$("#getPcolorBtn").click(function(){
 		let formData = new FormData();
 		formData.append('image', $("#file")[0].files[0]);
@@ -334,6 +295,5 @@ $(document).ready(function(){
 		});
 	});
 		
+	});
 	
-	
-});
