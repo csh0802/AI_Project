@@ -7,23 +7,30 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.demo.service.BoardService;
+import com.example.demo.service.MemberService;
+
 import com.example.demo.vo.BoardVO;
+import com.example.demo.vo.MemberVO;
+
 
 @Controller
 public class BoardController {
 
+
 	
 	@Autowired
 	BoardService boardService;
-	
+
 	//글목록 가져오기
 	@RequestMapping("boardList")
 	public ModelAndView boardList() {
@@ -34,6 +41,7 @@ public class BoardController {
 		//System.out.println(list.size());
 		return mav;
 	}
+	
 	
 	//글쓰기 화면 제공
 	
@@ -51,7 +59,7 @@ public class BoardController {
 		if(!fileName.equals("")) {
 			boardVO.setFileName(fileName);
 			try {
-				file.transferTo(new File("C:\\0AI\\5_backend\\springBoot_workspace\\Day1103_01\\src\\main\\webapp\\uploadImg\\"+fileName));
+				file.transferTo(new File("C:\\0AI\\5_backend\\springBoot_workspace\\AI_FinalProject\\src\\main\\webapp\\uploadImg\\"+fileName));
 			} catch (IllegalStateException | IOException e) {
 				
 				e.printStackTrace();
@@ -69,9 +77,9 @@ public class BoardController {
 	//글 상세보기
 	@RequestMapping("viewArticle")
 	public String viewArticle(@RequestParam int no,HttpSession session ) {
-		System.out.println(no+"번글보기");
+		//System.out.println(no+"번글보기");
 		BoardVO boardVO=boardService.viewArticle(no);
-		System.out.println(boardVO);
+		//System.out.println(boardVO);
 		session.setAttribute("article", boardVO);
 		return "viewArticle";
 	}
@@ -102,4 +110,10 @@ public class BoardController {
 			return new RedirectView("error");
 		}
 	}
+	
+
+	
+	
+	
+
 }

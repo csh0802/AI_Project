@@ -29,7 +29,8 @@ $(document).ready(function(){
 	<div  class="container">
 <h3 style="text-align:center">글쓰기</h3>
 <form action="boardWrite" method="post" enctype="multipart/form-data">
-<table class="table table-border">
+<table class="table table-striped"
+					style="text-align: center; border: 1px solid #dddddd">
 	<tr><td>작성자</td><td><input name="id"id="id" readonly style="background:lightgray"></td></tr>
 	<tr><td>글제목</td><td><input name="title"></td></tr>
 	<tr><td>글내용</td><td><textarea rows ="8" cols="10" name="content"></textarea></td></tr>
@@ -38,8 +39,8 @@ $(document).ready(function(){
 
 </table>
 <center>
-<input type="submit" value="글쓰기" class="btn btn-info">
-
+<input type="submit" value="글쓰기" class="btn btn-primary">
+<p class="btn btn-primary" onclick="history.back()">목록으로 가기</p>
 </center>
 </form>
 </div>

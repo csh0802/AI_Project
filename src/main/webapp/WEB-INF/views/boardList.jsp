@@ -5,9 +5,6 @@
 /* 03_community.css */
 /* 아래에 코드를 작성해 주세요. */
 
-.writeBtn{
-float:right;
-} 
 
 .main {
   margin-top: 120px;
@@ -55,6 +52,7 @@ footer {
     
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
  
+ 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
@@ -68,7 +66,11 @@ footer {
   <link rel="stylesheet" href="03_community.css">
 
   <title>Community</title>
-<script type="text/javascript">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script type="text/javascript">
+
+
 function a(url){
 	const id=getCookie("id");
 	if(id){
@@ -116,7 +118,7 @@ function getCookie(cname) {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="02_home.html">Home</a>
+            <a class="nav-link" id='exit' href="#">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="03_community.html">Community</a>
@@ -131,37 +133,7 @@ function getCookie(cname) {
     </div>
   </nav>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
-            </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   <!-- 03_community.html -->
   <div class="main">
@@ -171,17 +143,12 @@ function getCookie(cname) {
     <aside class="row row-cols-lg-1 mt-5">
       <ul class="list-group">
         <li class="list-group-item text-primary col-lg-12">
-          <a href="#" class="a_style">Boxoffice</a>
+             <a href="javascript:a('boardWriteForm')" class="a_style">글쓰기</a>
         </li>
         <li class="list-group-item text-primary col-lg-12">
-          <a href="#" class="a_style">Movies</a>
+          <a href="#" class="a_style">Q&A</a>
         </li>
-        <li class="list-group-item text-primary col-lg-12">
-          <a href="#" class="a_style">Genres</a> 
-        </li>
-        <li class="list-group-item text-primary col-lg-12">
-          <a href="#" class="a_style">Actors</a>
-        </li>
+       
       </ul>
     </aside>
     <!-- Board -->
@@ -192,7 +159,10 @@ function getCookie(cname) {
         <table class="table table-striped table-hover">
           <thead class="table-dark">
       <tr><th>글번호</th><th>제목</th><th>작성자</th><th>작성일</th><tr>
-	<c:forEach items="${boardList}" var="article">
+          </thead>
+          <tbody>
+            <tr>
+              <c:forEach items="${boardList}" var="article">
 	<tr>
 		<td>${article.no }</td><td><a href="viewArticle?no=${article.no }">
 		<c:choose>
@@ -206,46 +176,11 @@ function getCookie(cname) {
 		<td>${article.id }</td><td>${article.writeDate }</td>
 	</tr>
 	</c:forEach>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row" class="fw-bold">Greatest Movie Title</th>
-              <td>Best movie ever!!</td>
-              <td>user</td>
-              <td>1 minutes ago</td>
-            </tr>
-            <tr>
-              <th scope="row" class="fw-bold">Greatest Movie Title</th>
-              <td>Best movie ever!!</td>
-              <td>user</td>
-              <td>1 minutes ago</td>
-            </tr>
-            <tr>
-              <th scope="row" class="fw-bold">Greatest Movie Title</th>
-              <td>Best movie ever!!</td>
-              <td>user</td>
-              <td>1 minutes ago</td>
-            </tr>
-            <tr>
-              <th scope="row" class="fw-bold">Greatest Movie Title</th>
-              <td>Best movie ever!!</td>
-              <td>user</td>
-              <td>1 minutes ago</td>
-            </tr>
-            <tr>
-              <th scope="row" class="fw-bold">Greatest Movie Title</th>
-              <td>Best movie ever!!</td>
-              <td>user</td>
-              <td>1 minutes ago</td>
-            </tr>
-            <tr>
-              <th scope="row" class="fw-bold">Greatest Movie Title</th>
-              <td>Best movie ever!!</td>
-              <td>user</td>
-              <td>1 minutes ago</td>
             </tr>
           </tbody>
         </table>
+        
+ 
     
       </div>
 
@@ -253,7 +188,7 @@ function getCookie(cname) {
       <footer>
       <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3">
         <ul class="pagination">
-         <a href="javascript:a('boardWriteForm')"><li class="btn btn-light writeBtn"> 글쓰기</li></a>
+
           <li class="page-item"><a class="page-link" href="#">Previous</a></li>
           <li class="page-item"><a class="page-link" href="#">1</a></li>
           <li class="page-item"><a class="page-link" href="#">2</a></li>
