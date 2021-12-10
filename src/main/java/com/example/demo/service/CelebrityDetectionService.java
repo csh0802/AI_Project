@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import java.io.*;
+import java.io.*; 
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -19,8 +19,7 @@ import org.springframework.stereotype.Service;
 public class CelebrityDetectionService {
 
     public String celebrityDetect(File uploadFile) {
-
-        StringBuffer reqStr = new StringBuffer();
+ 
         String clientId = "c4gwa4h9p0";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "JXTKc5OX3vBneS31NxblU5amf3RlYcOSVXcIxZBM";//애플리케이션 클라이언트 시크릿값";
         
