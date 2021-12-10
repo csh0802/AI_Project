@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.service.CelebrityDetectionService;
+import com.example.demo.service.ColorBoxService;
 import com.example.demo.service.ColorTestService;
 import com.example.demo.service.ObjectDetectionService;
 import com.example.demo.service.PColorDetectionService;
 import com.example.demo.service.PersonDetectionService;
+import com.example.demo.vo.ColorBoxVO;
 import com.example.demo.vo.ColorTestVO;
+import com.example.demo.vo.MemberVO;
 
 @Controller
 public class ColorTestController {
@@ -41,6 +44,11 @@ public class ColorTestController {
 	
 	@Autowired
 	CelebrityDetectionService clerbrityDetection;
+	
+	@Autowired
+	ColorBoxService colorBoxService;
+	
+	String pColor;
 	
 	@PostMapping("celebrityDetect")
 	@ResponseBody
@@ -100,7 +108,7 @@ public class ColorTestController {
 	}
 	@PostMapping("getPcolor")
 	@ResponseBody
-	public String getPcolor(MultipartFile image) {
+	public String getPcolor(MultipartFile image,HttpSession session) {
 		System.out.println(image.getOriginalFilename());
 		int no = 0, sum=0, temp = 1000;
 		int [] a = new int[3];
@@ -133,7 +141,11 @@ public class ColorTestController {
 				jo.put("msg", "퍼스널컬러 기준 테이블 없음");
 			}
 //			System.out.println(colorTestService.selectPeronalType(no));
-			jo.put("pColor", colorTestService.selectPeronalType(no));
+			pColor = colorTestService.selectPeronalType(no);
+			jo.put("pColor", pColor);
+			if(session.getAttribute("memberVO")!=null) {
+				session.setAttribute("pColor", pColor);
+			}
 		} catch (IllegalStateException e1) {
 			// TODO Auto-generated catch block
 //			e1.printStackTrace();
@@ -150,7 +162,37 @@ public class ColorTestController {
 		
 		return jo.toString();
 	}
-	
+	@PostMapping("insertPcolorInColorBox")
+	@ResponseBody
+	public String insertColorBox(ColorBoxVO colorBoxVO, HttpSession session) {
+		JSONObject jo = new JSONObject();
+//		System.out.println(colorBoxVO);
+		
+		try {
+			MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+			System.out.println(memberVO);
+			pColor = (String)session.getAttribute("pColor");
+			if(memberVO!=null && pColor!=null) {
+				
+				colorBoxVO.setId(memberVO.getId());
+				colorBoxVO.setPColor(pColor);
+				if(colorBoxVO.toString().contains("error")) {
+					System.out.println("colorBoxVO NullPointException");
+					jo.put("msg", "NullPointError");
+				}else {
+					colorBoxService.insertColorBox(colorBoxVO);				
+					System.out.println("colorInsert");
+					jo.put("success", pColor+"colorInsert");
+				}
+				
+			}else {
+				jo.put("msg", "로그인 하세요") ;
+			}
+		} catch (Exception e) {
+			jo.put("msg", "error");
+		}
+		return jo.toString();
+	}
 	
 	
 }

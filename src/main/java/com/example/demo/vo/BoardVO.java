@@ -15,7 +15,7 @@ public class BoardVO {
 	}
 	public void setNo(int no) {
 		if(no <=0) {
-			System.out.println("no 값 오류");
+//			System.out.println("no 값 오류");
 			this.no=-1;
 		}else {
 			this.no = no;	
@@ -56,7 +56,7 @@ public class BoardVO {
 	}
 	public void setId(String id) {
 		if(id ==null || id.equals("")) {
-			System.out.println("id 값 없음");
+//			System.out.println("id 값 없음");
 			this.id="error";
 		}else {
 			this.id = id;	
@@ -67,7 +67,7 @@ public class BoardVO {
 	}
 	public void setTitle(String title) {
 		if(title ==null || title.equals("")) {
-			System.out.println("title 값 없음");
+//			System.out.println("title 값 없음");
 			this.title="error";
 		}else {
 			this.title = title;	
@@ -78,7 +78,7 @@ public class BoardVO {
 	}
 	public void setContent(String content) {
 		if(content ==null || content.equals("")) {
-			System.out.println("content 값 없음");
+//			System.out.println("content 값 없음");
 			this.content="error";
 		}else {
 			this.content = content;	

@@ -63,10 +63,13 @@ public class ColorBoxController {
 	public ModelAndView showBasket(HttpSession session, ColorBoxVO colorBoxVO) {
 		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 		ModelAndView mav = new ModelAndView();
-		colorBoxVO.setId(memberVO.getId());
+		if(memberVO!=null) {
+			colorBoxVO.setId(memberVO.getId());
+		}
 		try {
 		
 			blist = colorBoxService.selectAllBasketList(colorBoxVO);
+			System.out.println(blist);
 			if(blist.size()==0) {
 				session.setAttribute("msg", "no");
 			}else {

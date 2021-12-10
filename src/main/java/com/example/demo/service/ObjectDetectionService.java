@@ -74,9 +74,7 @@ public class ObjectDetectionService {
         // Image.SCALE_SMOOTH  : 속도보다 이미지 부드러움을 우선
         // Image.SCALE_AREA_AVERAGING  : 평균 알고리즘 사용
         Image resizeImage = image.getScaledInstance(w, h, Image.SCALE_SMOOTH);
-        System.out.println("reimageWidth : " + resizeImage.getWidth(null)); 
-        System.out.println("reimageHeight : " + resizeImage.getHeight(null));
-
+        
 
         // 새 이미지  저장하기
         BufferedImage newImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
@@ -147,7 +145,7 @@ public class ObjectDetectionService {
 				BufferedImage bimg = ImageIO.read(uploadFile); 
 				int width = bimg.getWidth();
 				int height = bimg.getHeight();
-				System.out.println(response.toString());
+//				System.out.println(response.toString());
                 JSONObject jo=new JSONObject(response.toString());    
                 jo.put("width", width);
                 jo.put("height", height);
