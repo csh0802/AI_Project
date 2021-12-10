@@ -22,6 +22,14 @@ $(document).ready(function(){
 		alert("로그인후 글쓰기가 가능합니다.");
 	}
 	
+	$("#writeBtn").click(function(){
+		const title = $("#title").val();
+		const content = $("#content").val();
+		if(!title || !content){
+			alert("제목과 본문 내용은 필수입니다.");			
+		}
+	});
+	
 });
 </script>
 </head>
@@ -30,17 +38,20 @@ $(document).ready(function(){
 <h3 style="text-align:center">글쓰기</h3>
 <form action="boardWrite" method="post" enctype="multipart/form-data">
 <table class="table table-border">
-	<tr><td>작성자</td><td><input name="id"id="id" readonly style="background:lightgray"></td></tr>
-	<tr><td>글제목</td><td><input name="title"></td></tr>
-	<tr><td>글내용</td><td><textarea rows ="8" cols="10" name="content"></textarea></td></tr>
+	<tr><td>작성자</td><td><input name="id" id="id" readonly style="background:lightgray"></td></tr>
+	<tr><td>글제목</td><td><input name="title" id="title"></td></tr>
+	<tr><td>글내용</td><td><textarea rows ="8" cols="10" name="content" id="content"></textarea></td></tr>
 	<tr><td>파일첨부</td><td><input type="file" name="file"></td><tr>
 
 
 </table>
 <center>
-<input type="submit" value="글쓰기" class="btn btn-info">
+<input type="submit" value="글쓰기" id ="writeBtn" class="btn btn-info">
 
 </center>
+	
+
+
 </form>
 </div>
 </body>

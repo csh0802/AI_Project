@@ -34,34 +34,21 @@ $(document).ready(function() {
 			}
 		});
 	});
-
-	$(document).on('click',"#colorInsertBtn",function(){
-			const pColor=$("#colorText").val();
-			if(pColor){
-				$.post('../insertColorBox',{id,pColor},function(data){
-					if(data.msg){
-						alert(data.msg);
-					}
-				});
-			}else{
-				alert("컬러입력하세요");
-			}
-		});
-	$("#basketBtn").click(function(){
-		const id = $.cookie("id");
-		if(id){
-			$.post("../basketList",{id},function(){
-				window.open("basketList");
+	$(document).on('click', "#colorInsertBtn", function() {
+		const pColor = $("#colorText").val();
+		if (pColor) {
+			$.post('../insertColorBox', { id, pColor }, function(data) {
+				if (data.msg) {
+					alert(data.msg);
+				}
 			});
-		}else{
-			alert("로그인 해야 이용 가능합니다.");
+		} else {
+			alert("컬러입력하세요");
 		}
 	});
-		
-	$("#fileUploadBtn").click(function(){
-	let formData = new FormData();
-	formData.append('image', $("#file")[0].files[0]);
-		
+	$("#fileUploadBtn").click(function() {
+		let formData = new FormData();
+		formData.append('image', $("#file")[0].files[0]);
 
 		$.ajax({
 			type: 'post',
@@ -94,14 +81,14 @@ $(document).ready(function() {
 			contentType: false,
 			success: function(data) {
 				data = JSON.parse(data);
-				$("#drawCanvas").attr('width', data.width + 'px');
-				$("#drawCanvas").attr('height', data.height + 'px');
+				$("#drawCanvas").attr('width', data.info.size.width + 'px');
+				$("#drawCanvas").attr('height', data.info.size.height + 'px');
 				$("#drawCanvas").attr('style', "border: 1px solid #993300");
 				const canvas = document.getElementById("drawCanvas");
 				const context = canvas.getContext("2d");
 				const image = new Image();
 
-				image.src = '../media/upload.png';
+				image.src = '../media/test.png';
 
 				image.onload = function() {
 					context.drawImage(image, 0, 0);
@@ -195,9 +182,99 @@ $(document).ready(function() {
 			}
 
 		});
-
 	});
 
+
+
+
+	$(document).on('click',"#colorInsertBtn",function(){
+			const pColor=$("#colorText").val();
+			if(pColor){
+				$.post('../insertColorBox',{id,pColor},function(data){
+					if(data.msg){
+						alert(data.msg);
+					}
+				});
+			}else{
+				alert("컬러입력하세요");
+			}
+		});
+	$("#basketBtn").click(function(){
+		const id = $.cookie("id");
+		if(id){
+			$.post("../basketList",{id},function(){
+				window.open("basketList");
+			});
+		}else{
+			alert("로그인 해야 이용 가능합니다.");
+		}
+	});
+		
+	$("#fileUploadBtn").click(function(){
+	let formData = new FormData();
+	formData.append('image', $("#file")[0].files[0]);
+		
+		$.ajax({
+			type : 'post',
+			url : '../personDetect',
+			cache : false,
+			data : formData,
+			processData : false,
+			contentType : false,
+			success : function(data) {
+				data=JSON.parse(data);
+				if(data.result){
+					alert(data.result);
+				}else{
+					alert("data.result없음");
+				}
+			}
+			
+		});
+	});
+		$("#faceDetectBtn").click(function(){
+		let formData = new FormData();
+		formData.append('image', $("#file")[0].files[0]);
+		
+		$.ajax({
+			type : 'post',
+			url : '../objectDetect',
+			cache : false,
+			data : formData,
+			processData : false,
+			contentType : false,
+			success : function(data) {
+				data=JSON.parse(data);
+				$("#drawCanvas").attr('width',data.info.size.width+'px');
+				$("#drawCanvas").attr('height',data.info.size.height+'px');
+				$("#drawCanvas").attr('style',"border: 1px solid #993300");
+				const canvas=document.getElementById("drawCanvas");
+				const context=canvas.getContext("2d");
+				const image=new Image();
+				
+				image.src='../media/test.png';
+				
+				image.onload=function(){
+					context.drawImage(image,0,0);
+					context.strokeStyle = 'yellow';
+					context.lineWidth = 3;
+					
+					
+						const x=(data.faces[0].roi.x)	
+						const y=(data.faces[0].roi.y)
+										
+						const width=(data.faces[0].roi.width)	
+						const height=(data.faces[0].roi.height)
+						
+					
+						console.log(x,y,width,height);
+					
+						context.strokeRect(x,y,width,height);
+					}
+				}	
+				
+			});
+		});
 
 		$("#getPcolorBtn").click(function(){
 		let formData = new FormData();
@@ -223,5 +300,18 @@ $(document).ready(function() {
 			
 		});  
 	});
-		
-});
+	$("#insertPcolorBtn").click(function(){
+		$.post('insertPcolorInColorBox',{id},function(data){
+			data = JSON.parse(data);
+			if(data.success){
+				alert(data.success);
+			}else{
+				alert(data.msg);
+			}
+		});
+	});
+	$("#updateColorBoxBtn").click(function(data){
+		alert(data);
+	});
+	});
+	

@@ -71,9 +71,7 @@ public class CelebrityDetectionService {
             // Image.SCALE_SMOOTH  : 속도보다 이미지 부드러움을 우선
             // Image.SCALE_AREA_AVERAGING  : 평균 알고리즘 사용
             Image resizeImage = image.getScaledInstance(w, h, Image.SCALE_SMOOTH);
-            System.out.println("reimageWidth : " + resizeImage.getWidth(null)); 
-            System.out.println("reimageHeight : " + resizeImage.getHeight(null));
-
+      
  
             // 새 이미지  저장하기
             BufferedImage newImage = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
@@ -101,8 +99,6 @@ public class CelebrityDetectionService {
             OutputStream outputStream = con.getOutputStream();
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(outputStream, "UTF-8"), true);
             String LINE_FEED = "\r\n";
-            
-            
             // file 추가
             String fileName = newFile.getName();
             writer.append("--" + boundary).append(LINE_FEED);
@@ -136,7 +132,7 @@ public class CelebrityDetectionService {
                     response.append(inputLine);
                 }
                 br.close();
-                System.out.println(response.toString());
+//                System.out.println(response.toString());
                 return (response.toString());
             } 
         } catch (Exception e) {

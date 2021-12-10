@@ -30,19 +30,15 @@ public class MemberController {
 	public String memberInsert(MemberVO memberVO) {
 		System.out.println(memberVO);
 		
-		if(memberVO.getId() ==null || memberVO.getId().equals("") || 
-				memberVO.getPw()==null || memberVO.getPw().equals("") 
-				|| memberVO.getPhone()==null || memberVO.getPhone().equals("")
-			|| memberVO.getGender()==null || memberVO.getGender().equals("")){
-			System.out.println("error");
-
-		}
-		
-		
 		try {
-			memberService.memberInsert(memberVO);
-			System.out.println("memberInsert");
-			return "memberInsertOk";
+			if(memberVO.toString().contains("error")) {
+				System.out.println("memberVO NullPointException");
+				return "error";
+			}else {
+				memberService.memberInsert(memberVO);
+				System.out.println("memberInsert");
+				return "memberInsertOk";
+			}
 			
 		}catch(DataAccessException e) {
 			System.out.println(e);

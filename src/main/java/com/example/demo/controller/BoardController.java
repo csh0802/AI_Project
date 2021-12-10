@@ -46,7 +46,7 @@ public class BoardController {
 	
 	@RequestMapping("boardWrite")
 	public RedirectView boardWrite(BoardVO boardVO,MultipartFile file) {
-		//System.out.println(file);
+//		System.out.println(file);
 		String fileName=file.getOriginalFilename();
 		if(!fileName.equals("")) {
 			boardVO.setFileName(fileName);
@@ -59,10 +59,14 @@ public class BoardController {
 			
 		}
 		//System.out.println(boardVO);	
-		
-		
-		boardService.boardWrite(boardVO);
-		
+		if(boardVO.getId()=="error" || boardVO.getNo()==-1 ||
+				boardVO.getTitle()=="error"||boardVO.getContent()=="error")
+			{
+				System.out.println("error");
+				return new RedirectView("boardWriteForm");
+			}else {
+				boardService.boardWrite(boardVO);
+			}
 		return new RedirectView("boardList");
 	}
 	
