@@ -121,13 +121,15 @@ function getCookie(cname) {
             <a class="nav-link" id='exit' href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="03_community.html">Community</a>
-
+            <a class="nav-link text-white" href="boardList">Community</a>
+		<li class="nav-item">
+            <a class="nav-link text-white" href="basketList">ColorBox</a>
       
-          </li>
+      
+          <!-- </li>
           <li class="nav-item">
             <a class="nav-link" href="exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
