@@ -171,6 +171,12 @@ $(document).ready(function() {
 							console.log(result);
 							$("#resultDiv").append(result);
 						}
+						var celebrity = data.faces[0].celebrity.value;
+						//console.log(celebrity);
+						$.post('../celeImg', { celebrity }, function() {
+							console.log(data);
+							$("#celeImg").attr("src","../media/newCele.png");
+						});
 
 					} else {
 						$("#resultDiv").text("닮은꼴 연예인이 없네요 ㅠㅠ");
