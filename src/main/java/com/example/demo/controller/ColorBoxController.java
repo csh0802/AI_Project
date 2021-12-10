@@ -43,8 +43,13 @@ public class ColorBoxController {
 			System.out.println(memberVO);
 			if(memberVO!=null) {
 				colorBoxVO.setId(memberVO.getId());
-				colorBoxService.insertColorBox(colorBoxVO);				
-				System.out.println("colorInsert");
+				if(colorBoxVO.toString().contains("error")) {
+					System.out.println("colorBoxVO NullPointException");
+					jo.put("msg", "NullPointError");
+				}else {
+					colorBoxService.insertColorBox(colorBoxVO);				
+					System.out.println("colorInsert");
+				}
 				
 			}else {
 				jo.put("msg", "로그인 하세요") ;

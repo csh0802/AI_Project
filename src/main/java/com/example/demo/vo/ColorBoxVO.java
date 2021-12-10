@@ -10,6 +10,7 @@ public class ColorBoxVO {
 	public void setId(String id) {
 		if(id ==null || id.equals("")) {
 			System.out.println("id 값 없음");
+			this.id="error";
 		}else {
 			this.id = id;	
 		}
@@ -23,7 +24,8 @@ public class ColorBoxVO {
 		if(pColor ==null || pColor.equals("")) {
 			System.out.println("pColor 값 없음");
 		}else {
-			this.pColor = pColor;	
+			this.pColor = pColor;
+			this.pColor = "error";
 		}
 	}
 

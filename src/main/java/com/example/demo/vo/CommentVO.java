@@ -9,7 +9,7 @@ public class CommentVO {
     private String content;
     private String writer;
     private Date reg_date;
-    
+    private String dataError = null;
     
  
     public CommentVO() {
@@ -31,7 +31,11 @@ public class CommentVO {
     }
  
     public void setCno(int cno) {
-        this.cno = cno;
+    	if(cno<0) {
+			this.cno= -1;
+		}else {
+			this.cno=cno;
+		}
     }
  
     public int getBno() {
@@ -39,7 +43,11 @@ public class CommentVO {
     }
  
     public void setBno(int bno) {
-        this.bno = bno;
+    	if(bno<0) {
+			this.bno= -1;
+		}else {
+			this.bno=bno;
+		}
     }
  
     public String getContent() {
@@ -47,7 +55,12 @@ public class CommentVO {
     }
  
     public void setContent(String content) {
-        this.content = content;
+    	if(content ==null || content.equals("")) {
+			System.out.println("content 값 없음");
+			this.content="error";
+		}else {
+			this.content = content;	
+		}
     }
  
     public String getWriter() {
@@ -55,7 +68,12 @@ public class CommentVO {
     }
  
     public void setWriter(String writer) {
-        this.writer = writer;
+    	if(writer ==null || writer.equals("")) {
+			System.out.println("writer 값 없음");
+			this.writer="error";
+		}else {
+			this.writer = writer;	
+		}
     }
  
     public Date getReg_date() {
@@ -63,13 +81,18 @@ public class CommentVO {
     }
  
     public void setReg_date(Date reg_date) {
-        this.reg_date = reg_date;
+    	if(reg_date ==null || reg_date.equals("")) {
+			System.out.println("reg_date 값 없음");
+			dataError = "error";
+		}else {
+			this.reg_date = reg_date;	
+		}
     }
 
 	@Override
 	public String toString() {
 		return "CommentVO [cno=" + cno + ", bno=" + bno + ", content=" + content + ", writer=" + writer + ", reg_date="
-				+ reg_date + "]";
+				+ reg_date + "]"+dataError;
 	}
     
     

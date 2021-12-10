@@ -19,8 +19,7 @@ public class BoardService {
 	}
 
 	public void boardWrite(BoardVO boardVO) {
-		boardDAO.boardWrite(boardVO);
-		
+			boardDAO.boardWrite(boardVO);
 	}
 
 	public BoardVO viewArticle(int no) {

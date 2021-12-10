@@ -81,14 +81,14 @@ $(document).ready(function() {
 			contentType: false,
 			success: function(data) {
 				data = JSON.parse(data);
-				$("#drawCanvas").attr('width', data.width + 'px');
-				$("#drawCanvas").attr('height', data.height + 'px');
+				$("#drawCanvas").attr('width', data.info.size.width + 'px');
+				$("#drawCanvas").attr('height', data.info.size.height + 'px');
 				$("#drawCanvas").attr('style', "border: 1px solid #993300");
 				const canvas = document.getElementById("drawCanvas");
 				const context = canvas.getContext("2d");
 				const image = new Image();
 
-				image.src = '../media/upload.png';
+				image.src = '../media/test.png';
 
 				image.onload = function() {
 					context.drawImage(image, 0, 0);

@@ -11,6 +11,7 @@ public class MemberVO {
 	public void setId(String id) {
 		if(id ==null || id.equals("")) {
 			System.out.println("id 값 없음");
+			this.id = "error";
 		}else {
 			this.id = id;	
 		}
@@ -24,6 +25,7 @@ public class MemberVO {
 	public void setPw(String pw) {
 		if(pw ==null || pw.equals("")) {
 			System.out.println("pw 값 없음");
+			this.pw = "error";
 		}else {
 			this.pw = pw;	
 		}
@@ -36,6 +38,7 @@ public class MemberVO {
 	public void setPhone(String phone) {
 		if(phone ==null || phone.equals("")) {
 			System.out.println("phone 값 없음");
+			this.phone = "error";
 		}else {
 			this.phone = phone;	
 		}
@@ -48,6 +51,7 @@ public class MemberVO {
 	public void setEmail(String email) {
 		if(email ==null || email.equals("")) {
 			System.out.println("email 값 없음");
+			this.email = "error";
 		}else {
 			this.email = email;	
 		}
@@ -60,6 +64,7 @@ public class MemberVO {
 	public void setGender(String gender) {
 		if(gender ==null || gender.equals("")) {
 			System.out.println("gender 값 없음");
+			this.gender = "error";
 		}else {
 			this.gender = gender;	
 		}
@@ -72,6 +77,7 @@ public class MemberVO {
 	public void setAge(String age) {
 		if(age ==null || age.equals("")) {
 			System.out.println("age 값 없음");
+			this.age = "error";
 		}else {
 			this.age = age;	
 		}

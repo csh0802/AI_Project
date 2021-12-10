@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.service.CelebrityDetectionService;
 import com.example.demo.service.ColorTestService;
 import com.example.demo.service.ObjectDetectionService;
 import com.example.demo.service.PColorDetectionService;
@@ -38,6 +39,26 @@ public class ColorTestController {
 	@Autowired
 	ObjectDetectionService objectDetectionService;
 	
+	@Autowired
+	CelebrityDetectionService clerbrityDetection;
+	
+	@PostMapping("celebrityDetect")
+	@ResponseBody
+	public String celebrityDetect(MultipartFile image) {
+
+		System.out.println(image.getOriginalFilename());
+		try {
+			File uploadFile = new File("C:\\temp2\\" + image.getOriginalFilename());
+			image.transferTo(uploadFile);
+			return clerbrityDetection.celebrityDetect(uploadFile);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "upload fail!!!";
+		}
+
+	}
 	@PostMapping("personDetect")
 	@ResponseBody
 	public String detectPerson(MultipartFile image) {

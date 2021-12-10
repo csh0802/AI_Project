@@ -102,8 +102,6 @@ public class CelebrityDetectionService {
             OutputStream outputStream = con.getOutputStream();
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(outputStream, "UTF-8"), true);
             String LINE_FEED = "\r\n";
-            
-            
             // file 추가
             String fileName = newFile.getName();
             writer.append("--" + boundary).append(LINE_FEED);

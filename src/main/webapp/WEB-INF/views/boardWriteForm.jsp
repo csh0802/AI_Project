@@ -22,6 +22,17 @@ $(document).ready(function(){
 		alert("로그인후 글쓰기가 가능합니다.");
 	}
 	
+	$("#writeBtn").click(function(){
+		const title = $("#title").val();
+		const content = $("#content").val();
+		if(!title || !content){
+			alert("제목과 본문 내용은 필수입니다.");
+			
+		}else{
+			
+		}
+	});
+	
 });
 </script>
 </head>
@@ -38,9 +49,12 @@ $(document).ready(function(){
 
 </table>
 <center>
-<input type="submit" value="글쓰기" class="btn btn-info">
+<input type="submit" value="글쓰기" id ="writeBtn" class="btn btn-info">
 
 </center>
+	
+
+
 </form>
 </div>
 </body>
