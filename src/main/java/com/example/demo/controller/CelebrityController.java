@@ -43,7 +43,7 @@ public class CelebrityController {
 	}
 	
 	@PostMapping("celeImg")
-	@ResponseBody  
+	@ResponseBody   
 	public void celebrityImg(String celebrity) { 
 		//System.out.println(celebrity);
 		String URL = "https://www.google.com/search?q="+celebrity+"&sxsrf=AOaemvIjhb1NgGRF5kcdWUV53WrtFFaa9Q:1639099768794&source=lnms&tbm=isch&sa=X&sqi=2&ved=2ahUKEwifl-G7itj0AhUStaQKHVhXB1IQ_AUoAXoECAIQAw&biw=1059&bih=668&dpr=1&sfr=gws&gbv=1&sei=5a2yYaqZMqHyhwOV55b4Aw";

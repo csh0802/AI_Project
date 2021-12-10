@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class CelebrityDetectionService {
 
     public String celebrityDetect(File uploadFile) {
- 
+  
         String clientId = "c4gwa4h9p0";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "JXTKc5OX3vBneS31NxblU5amf3RlYcOSVXcIxZBM";//애플리케이션 클라이언트 시크릿값";
         
