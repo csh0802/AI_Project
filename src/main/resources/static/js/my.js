@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	const id = $.cookie("id");
 	if (id) {
-		$("#loginSpan").html(id + " login ok <button id='logoutBtn'>logout</button>");
+		$("#loginSpan").html(id + "님 환영힙니다.<a href='#' class='get-started-btn2 scrollto' id='logoutBtn' >로그아웃</a>");
 	}
 
 	$("#loginBtn").click(function() {
@@ -15,7 +15,7 @@ $(document).ready(function() {
 			data = JSON.parse(data);
 			if (data.id) {
 				$.cookie("id", data.id);
-				$("#loginSpan").html(data.id + " login ok <button id='logoutBtn'>logout</button>");
+				$("#loginSpan").html(data.id + "님 환영힙니다.<a href='#' class='get-started-btn2 scrollto' id='logoutBtn' >로그아웃</a>");
 			} else {
 				alert(data.msg);
 			}

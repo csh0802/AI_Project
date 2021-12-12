@@ -84,15 +84,6 @@ function a(url){
 	    alert("로그인 후 글쓰기가 가능합니다.")
 	    window.close();
 
-
-function a(url){
-   const id=getCookie("id");
-   if(id){
-      location.href=url;
-   }else{
-       alert("로그인 후 글쓰기가 가능합니다.")
-       window.close();
-
    }
    
 }

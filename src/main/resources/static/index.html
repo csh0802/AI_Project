@@ -2,6 +2,10 @@
 <html lang="en">
 
 <head>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../js/my.js"></script>
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -43,6 +47,7 @@
 
       <div class="row justify-content-center">
         <div class="col-xl-9 d-flex align-items-center justify-content-lg-between">
+        <img src="assets/img/favicon.png" width="40px" height="40px">
           <h1 class="logo me-auto me-lg-0"><a href="index.html">옛다 컬너</a></h1>
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
@@ -54,6 +59,8 @@
               <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
               <li><a class="nav-link scrollto" onclick='window.open("boardList", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=600,width=1200,height=800")'>
               Community</a></li>
+              <li><a class="nav-link scrollto" onclick='window.open("basketList", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=600,width=1200,height=800")'>
+              ColorBox</a></li>
               <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
                   <li><a href="#">Drop Down 1</a></li>
@@ -75,10 +82,13 @@
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
           </nav><!-- .navbar -->
-
-          <a href="#" class="get-started-btn scrollto" onclick='window.open("memberInsert.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=400,height=800");'>
-          로그인</a>
-          <a href="#" class="get-started-btn scrollto" onclick='window.open("login.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=400,height=800");'>
+			<span id="loginSpan">
+          		ID <input size="6" id="id">
+          		PW <input size="6" id="pw" type="password">
+          		<a href="#" class="get-started-btn2 scrollto" id='loginBtn' >로그인</a>
+            </span>
+          
+          <a href="#" class="get-started-btn2 scrollto" onclick='window.open("memberInsert.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=400,height=800");'>
           회원가입</a>
         </div>
       </div>
@@ -91,9 +101,11 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-xl-8">
-          <h1>KnightOne - Create Bootstrap Website Template</h1>
-          <h2>We are team of designers making websites with Bootstrap</h2>
-          <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox play-btn mb-4"></a>
+          <h1>옛다 컬너</h1>
+          <h2>당신의 퍼스널 컬러를 찾아드립니다!</h2>
+          <h2>진단시작하기</h2>
+          <a href="#" onclick='window.open("objectDetection.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=800,height=600");'
+          class=" play-btn mb-4"></a>
         </div>
       </div>
     </div>
@@ -277,7 +289,78 @@
       </div>
     </section><!-- End Portfolio Section -->
 
-  
+  <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+      </div>
+
+      <div>
+      </div>
+
+      <div class="container">
+
+        <div class="row mt-5">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="ri-map-pin-line"></i>
+                <h4>Location:</h4>
+                <p>A108 Adam Street, New York, NY 535022</p>
+              </div>
+
+              <div class="email">
+                <i class="ri-mail-line"></i>
+                <h4>Email:</h4>
+                <p>info@example.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="ri-phone-line"></i>
+                <h4>Call:</h4>
+                <p>+1 5589 55488 55s</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
 
  
 
