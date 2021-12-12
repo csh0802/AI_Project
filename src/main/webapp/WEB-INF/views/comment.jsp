@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
@@ -43,10 +44,12 @@ function commentList(){
            // console.log(data);
             data.commentList.forEach(function(item,index){
             	  a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-                  a += '<div class="commentInfo'+item.cno+'">'+'댓글번호 : '+item.cno+' / 작성자 : '+item.writer;
-                  a += '<a onclick="commentUpdate('+item.cno+',\''+item.content+'\');"> 수정 </a>';
-                  a += '<a onclick="commentDelete('+item.cno+');"> 삭제 </a> </div>';
-                  a += '<div class="commentContent'+item.cno+'"> <p> 내용 : '+item.content +'</p>';
+                  a += '<div class="commentInfo'+item.cno+'">'+'Date : '+item.reg_date+' / ID : '+item.writer;               
+                  a += '<div class="commentContent'+item.cno+'"> <p>  : '+item.content +'</p>';
+                  a += '<span style="display: inline-block; width: 1000px; background-color: burlywood;"></span>'
+                  a += '<a  class="btn btn-outline-dark" onclick="commentUpdate('+item.cno+',\''+item.content+'\');"> 수정 </a>';
+                  a += '<a class="btn btn-outline-dark" onclick="commentDelete('+item.cno+');"> 삭제 </a> </div>';
+                  
                   a += '</div></div>';
                 //console.log(item.content);
             });
