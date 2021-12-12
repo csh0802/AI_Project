@@ -27,7 +27,7 @@ $(document).ready(function(){
 </head>
 <body>
 	<div  class="container">
-<h3 style="text-align:center">${param.no }번 글 답글쓰기</h3>
+<h3 style="text-align:center">${param.no }번 글 댓글쓰기</h3>
 <form action="replyWrite" method="post" enctype="multipart/form-data">
 <input type="hidden" name="parentNo" value="${param.no }">
 

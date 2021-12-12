@@ -48,11 +48,9 @@ public class CommentController {
 		
 		comment.setBno(parentVO.getNo());
 		//System.out.println(comment);
-		if(comment.toString().contains("error")) {
-			System.out.println("comment NullPointException");
-		}else {
-			commentService.commentInsert(comment);
-		}
+
+	  commentService.commentInsert(comment);
+
 	}
 	
 	

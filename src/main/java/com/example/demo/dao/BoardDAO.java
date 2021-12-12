@@ -19,5 +19,7 @@ public interface BoardDAO {
 
 	public void replyWrite(BoardVO boardVO) throws DataAccessException;
 
+	public void searchWord(String searchData) throws DataAccessException;
+
 }
 
