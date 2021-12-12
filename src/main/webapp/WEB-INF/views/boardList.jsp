@@ -72,6 +72,7 @@ text-align: right;
   <title>Community</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 	<script type="text/javascript">
 
 
@@ -83,25 +84,34 @@ function a(url){
 	    alert("로그인 후 글쓰기가 가능합니다.")
 	    window.close();
 
-	}
-	
+
+function a(url){
+   const id=getCookie("id");
+   if(id){
+      location.href=url;
+   }else{
+       alert("로그인 후 글쓰기가 가능합니다.")
+       window.close();
+
+   }
+   
 }
 
 function getCookie(cname) {
-	  let name = cname + "=";
-	  let decodedCookie = decodeURIComponent(window.opener.document.cookie);
-	  let ca = decodedCookie.split(';');
-	  for(let i = 0; i <ca.length; i++) {
-	    let c = ca[i];
-	    while (c.charAt(0) == ' ') {
-	      c = c.substring(1);
-	    }
-	    if (c.indexOf(name) == 0) {
-	      return c.substring(name.length, c.length);
-	    }
-	  }
-	  return "";
-	}
+     let name = cname + "=";
+     let decodedCookie = decodeURIComponent(window.opener.document.cookie);
+     let ca = decodedCookie.split(';');
+     for(let i = 0; i <ca.length; i++) {
+       let c = ca[i];
+       while (c.charAt(0) == ' ') {
+         c = c.substring(1);
+       }
+       if (c.indexOf(name) == 0) {
+         return c.substring(name.length, c.length);
+       }
+     }
+     return "";
+   }
 
 $(document).ready(function(){
 	$("#searchBtn").click(function(){
@@ -138,13 +148,15 @@ $(document).ready(function(){
             <a class="nav-link" id='exit' href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="03_community.html">Community</a>
-
+            <a class="nav-link text-white" href="boardList">Community</a>
+		<li class="nav-item">
+            <a class="nav-link text-white" href="basketList">ColorBox</a>
       
-          </li>
+      
+          <!-- </li>
           <li class="nav-item">
             <a class="nav-link" href="exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
@@ -160,10 +172,12 @@ $(document).ready(function(){
     <aside class="row row-cols-lg-1 mt-5">
       <ul class="list-group">
         <li class="list-group-item text-primary col-lg-12">
+
              <a href="javascript:a('boardWriteForm')" class="a_style btn btn-light">글쓰기</a>
         </li>
         <li class="list-group-item text-primary col-lg-12">
           <a href="#" class="a_style btn btn-light">Q&A</a>
+
         </li>
        
       </ul>
@@ -196,19 +210,23 @@ $(document).ready(function(){
           <tbody>
             <tr>
               <c:forEach items="${boardList}" var="article">
+
 	<tr>
 		<td>${article.no }</td><td><a href="viewArticle?no=${article.no }">
 		<c:choose>
+
                <c:when test='${article.lvl > 0 }'>  
                   <c:forEach begin="1" end="${article.lvl }" step="1">
          <!--   <span style="padding-left:20px"></span> -->   ↪  
                   </c:forEach>
               </c:when>
              </c:choose>
+
 		${article.title }</a></td>
 		<td>${article.id }</td><td><fmt:formatDate pattern="yyyy/MM/dd" value="${article.writeDate }"/></td>
 	</tr>
 	</c:forEach>
+
             </tr>
           </tbody>
         </table>
@@ -219,8 +237,10 @@ $(document).ready(function(){
 
 
       <footer>
+
       <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 ">
     <ul class="pagination">
+
 
           <li class="page-item"><a class="page-link" href="#">Previous</a></li>
           <li class="page-item"><a class="page-link" href="#">1</a></li>

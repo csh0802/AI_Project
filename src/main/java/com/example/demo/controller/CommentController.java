@@ -48,7 +48,9 @@ public class CommentController {
 		
 		comment.setBno(parentVO.getNo());
 		//System.out.println(comment);
+
 	  commentService.commentInsert(comment);
+
 	}
 	
 	

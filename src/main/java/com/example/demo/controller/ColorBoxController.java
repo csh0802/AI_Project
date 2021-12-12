@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.service.ColorBoxService;
-import com.example.demo.service.ObjectDetection;
+import com.example.demo.service.PersonDetectionService;
 import com.example.demo.service.ObjectDetectionService;
 import com.example.demo.vo.ColorBoxVO;
 import com.example.demo.vo.MemberVO;
@@ -30,25 +30,26 @@ public class ColorBoxController {
 	
 	List<ColorBoxVO> blist;
 	
-	@Autowired
-	ObjectDetection objectDetection;
-	
-	@Autowired
-	ObjectDetectionService objectDetectionService;
+
 	
 	@PostMapping("insertColorBox")
 	@ResponseBody
 	public String insertColorBox(ColorBoxVO colorBoxVO, HttpSession session) {
 		JSONObject jo = new JSONObject();
-		System.out.println(colorBoxVO);
+//		System.out.println(colorBoxVO);
 
 		try {
 			MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 			System.out.println(memberVO);
 			if(memberVO!=null) {
 				colorBoxVO.setId(memberVO.getId());
-				colorBoxService.insertColorBox(colorBoxVO);				
-				System.out.println("colorInsert");
+				if(colorBoxVO.toString().contains("error")) {
+					System.out.println("colorBoxVO NullPointException");
+					jo.put("msg", "NullPointError");
+				}else {
+					colorBoxService.insertColorBox(colorBoxVO);				
+					System.out.println("colorInsert");
+				}
 				
 			}else {
 				jo.put("msg", "로그인 하세요") ;
@@ -58,68 +59,36 @@ public class ColorBoxController {
 		}
 		return jo.toString();
 	}
-	@RequestMapping("basket_list.do")
+	@RequestMapping("basketList")
 	public ModelAndView showBasket(HttpSession session, ColorBoxVO colorBoxVO) {
 		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 		ModelAndView mav = new ModelAndView();
-		colorBoxVO.setId(memberVO.getId());
-		try {		
-			
+		if(memberVO!=null) {
+			colorBoxVO.setId(memberVO.getId());
+		}
+		try {
+		
 			blist = colorBoxService.selectAllBasketList(colorBoxVO);
+			System.out.println(blist);
 			if(blist.size()==0) {
 				session.setAttribute("msg", "no");
+			}else {
+				session.setAttribute("blist", blist);
+				session.setAttribute("id",memberVO.getId());
+				mav.addObject("blist",blist);
+				mav.addObject("id",memberVO.getId());
+//				System.out.println(blist);
 			}
-			session.setAttribute("blist", blist);
-			session.setAttribute("id",memberVO.getId());
-			mav.addObject("blist",blist);
-			mav.addObject("id",memberVO.getId());
 			
-			System.out.println(blist);
 		}catch(Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			System.out.println("가져온 멤버정보 없음");
 		}	
 		
 		
 		return mav;
 	}
-	@PostMapping("personDetect")
-	@ResponseBody
-	public String detectPerson(MultipartFile image) {
-		System.out.println(image.getOriginalFilename());
-		JSONObject jo = new JSONObject();
-		try {
-			File uploadFile=new File("C:\\temp2\\"+image.getOriginalFilename());
-			image.transferTo(uploadFile);
-			
-			jo.put("result", objectDetection.detectPerson(uploadFile));
-			System.out.println(jo.get("result"));
-			return jo.toJSONString();
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "upload fail!!!";
-		} 
-	}
-
-	 
-	     
-	@PostMapping("objectDetect")
-	@ResponseBody
-	public String objectDetection(MultipartFile image){
-		System.out.println(image.getOriginalFilename());
-		try {
-			File uploadFile=new File("C:\\temp2\\"+image.getOriginalFilename());
-			image.transferTo(uploadFile);
-			return objectDetectionService.objectDetect(uploadFile);
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "upload fail!!!";
-		} 
-	}
+	
 }
 
 

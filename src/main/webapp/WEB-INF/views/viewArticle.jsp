@@ -70,6 +70,7 @@ footer {
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
  <link rel="stylesheet" type="text/css" href="css/jquery.lightbox.css" media="screen" />
 
+
    
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  
@@ -110,12 +111,15 @@ footer {
       
   
 
+
 	<div  class="container">
 <%-- <h3 style="text-align:center">${article.no }번 글보기</h3> --%>
+
 
 <form action="replyWriteForm" method="post">
       <input type="hidden" name="no" value="${article.no }" >
 <table class="table table-striped"
+
 					style="text-align: center; border: 1px solid #dddddd">
 	<tr><td>작성자</td><td><input value="${article.id }"  readonly style="background:lightgray"></td></tr>
 	<tr><td>글제목</td><td><input  value="${article.title }" readonly style="background:lightgray"></td></tr>
@@ -159,6 +163,7 @@ footer {
         <!-- </form> -->
     </div>
 
+
     <div class="container">
         <div class="commentList" id="commentList"></div>
     </div>
@@ -170,9 +175,11 @@ footer {
 
 <center>
 
+
 &nbsp;&nbsp; <p class="btn btn-dark" onclick="history.back()">목록으로 가기</p>
 
 <!-- &nbsp;&nbsp; <p class="btn btn-primary" onclick="window.close()">홈으로</p> -->
+
 
 </center>
 
@@ -186,9 +193,11 @@ footer {
 <!-- Activate the jQuery lightBox plugin -->
 <script type="text/javascript">
 $(function() {
+
 	
 	$('#div1 a').lightBox();
 });
+
 
 
 </script>

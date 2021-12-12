@@ -55,12 +55,14 @@ public class BoardController {
 	
 	@RequestMapping("boardWrite")
 	public RedirectView boardWrite(BoardVO boardVO,MultipartFile file) {
-		//System.out.println(file);
+//		System.out.println(file);
 		String fileName=file.getOriginalFilename();
 		if(!fileName.equals("")) {
 			boardVO.setFileName(fileName);
 			try {
-				file.transferTo(new File("C:\\0AI\\5_backend\\springBoot_workspace\\AI_FinalProject\\src\\main\\webapp\\uploadImg\\"+fileName));
+
+				file.transferTo(new File("C:\\0AI\\5_backend\\springBoot_workspace\\FinalProject_4\\src\\main\\webapp\\uploadImg\\"+fileName));
+
 			} catch (IllegalStateException | IOException e) {
 				
 				e.printStackTrace();
@@ -68,10 +70,14 @@ public class BoardController {
 			
 		}
 		//System.out.println(boardVO);	
-		
-		
-		boardService.boardWrite(boardVO);
-		
+		if(boardVO.getId()=="error" || boardVO.getNo()==-1 ||
+				boardVO.getTitle()=="error"||boardVO.getContent()=="error")
+			{
+				System.out.println("error");
+				return new RedirectView("boardWriteForm");
+			}else {
+				boardService.boardWrite(boardVO);
+			}
 		return new RedirectView("boardList");
 	}
 	
