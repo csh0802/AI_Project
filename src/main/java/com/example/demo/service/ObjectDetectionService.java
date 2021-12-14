@@ -130,7 +130,7 @@ public class ObjectDetectionService {
             if(responseCode==200) { // 정상 호출
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
             } else {  // 오류 발생
-//                System.out.println("error!!!!!!! responseCode= " + responseCode);
+                System.out.println("error!!!!!!! responseCode= " + responseCode);
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
             }
             String inputLine;
@@ -140,12 +140,10 @@ public class ObjectDetectionService {
                     response.append(inputLine);
                 }
                 br.close();
-//                System.out.println(response.toString());
                 
 				BufferedImage bimg = ImageIO.read(uploadFile); 
 				int width = bimg.getWidth();
 				int height = bimg.getHeight();
-//				System.out.println(response.toString());
                 JSONObject jo=new JSONObject(response.toString());    
                 jo.put("width", width);
                 jo.put("height", height);

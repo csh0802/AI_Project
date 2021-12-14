@@ -75,15 +75,15 @@ public class ColorTestController {
 		try {
 			File uploadFile=new File("C:\\temp2\\"+image.getOriginalFilename());
 			image.transferTo(uploadFile);
-			
+			System.out.println(uploadFile);
 			jo.put("result", personDetectionService.detectPerson(uploadFile));
-			
+			 	
 //			System.out.println(jo.get("result"));
 			return jo.toString();
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-//			e.printStackTrace();
+			e.printStackTrace();
 			return "upload fail!!!";
 		} 
 	}
