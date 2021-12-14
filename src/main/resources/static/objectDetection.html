@@ -1,29 +1,259 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
 <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-	
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+   src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 <script type="text/javascript" src="../js/my.js"></script>
+<style type="text/css">
+html, body {
+   width: 100%;
+   height: 100%;
+   background: pink;
+}
+
+.frame-btn {
+   margin-top: 50px;
+   line-height: 10px;
+   display: inline-block;
+   padding: 25px 30px;
+   font-size: 10px;
+   letter-spacing: 3px;
+   text-decoration: none;
+   position: relative;
+}
+
+.frame-btn__text {
+   color: #b2876f;
+   font-weight: bold;
+   text-transform: uppercase;
+   transition: 300ms ease;
+   position: relative;
+}
+
+.frame-btn:hover .frame-btn__text {
+   color: white;
+}
+
+.frame-btn__solid {
+   position: absolute;
+   top: 0;
+   left: 0;
+   margin: 10px;
+   background-color: #b2876f;
+   width: calc(100% - ( 5px * 4));
+   height: calc(100% - ( 5px * 4));
+   transform-origin: 50%;
+   transform: scale(0.85);
+   opacity: 0;
+   transition: 500ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.frame-btn:hover .frame-btn__solid {
+   opacity: 1;
+   transform: scale(1);
+}
+
+.frame-btn__outline {
+   position: absolute;
+   top: 0;
+   left: 0;
+}
+
+.frame-btn__outline--tall {
+   margin: 0 5px;
+   width: calc(100% - ( 5px * 2));
+   height: 100%;
+}
+
+.frame-btn__outline--flat {
+   margin: 5px 0;
+   height: calc(100% - ( 5px * 2));
+   width: 100%;
+}
+
+.frame-btn__line {
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   left: 0;
+   top: 0;
+}
+
+.frame-btn__line--tall:before, .frame-btn__line--tall:after {
+   height: 100%;
+   width: 1px;
+   top: 0;
+}
+
+.frame-btn:hover .frame-btn__outline--flat .frame-btn__line--tall:before,
+   .frame-btn:hover .frame-btn__outline--flat .frame-btn__line--tall:after
+   {
+   transform: scaleY(0);
+}
+
+.frame-btn:hover .frame-btn__outline--tall .frame-btn__line--tall:before,
+   .frame-btn:hover .frame-btn__outline--tall .frame-btn__line--tall:after
+   {
+   margin: 5px 0;
+   height: calc(100% - ( 5px * 2));
+}
+
+.frame-btn__line--tall:before {
+   left: 0;
+}
+
+.frame-btn__line--tall:after {
+   right: 0;
+}
+
+.frame-btn__line--flat:before, .frame-btn__line--flat:after {
+   width: 100%;
+   height: 1px;
+   left: 0;
+}
+
+.frame-btn:hover .frame-btn__outline--tall .frame-btn__line--flat:before,
+   .frame-btn:hover .frame-btn__outline--tall .frame-btn__line--flat:after
+   {
+   transform: scaleX(0);
+}
+
+.frame-btn:hover .frame-btn__outline--flat .frame-btn__line--flat:before,
+   .frame-btn:hover .frame-btn__outline--flat .frame-btn__line--flat:after
+   {
+   margin: 0 5px;
+   width: calc(100% - ( 5px * 2));
+}
+
+.frame-btn__line--flat:before {
+   top: 0;
+}
+
+.frame-btn__line--flat:after {
+   bottom: 0;
+}
+
+.frame-btn__line:before, .frame-btn__line:after {
+   content: '';
+   display: block;
+   position: absolute;
+   background-color: #b2876f;
+   transition: 800ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.frame-btn:hover .frame-btn__line:before, .frame-btn:hover .frame-btn__line:after
+   {
+   transition: 400ms cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.fancy-button:hover .fancy-flipper {
+   transform: rotateX(0deg);
+}
+
+.fancy-button:active .fancy-flipper {
+   transform: rotateX(0deg) scale(0.95);
+   transition: transform 0.05s ease;
+}
+
+.fancy-button .button-text {
+   letter-spacing: 0.01em;
+   font-family: Futura, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.filebox .upload-name {
+   display: inline-block;
+   height: 40px;
+   padding: 0 10px;
+   vertical-align: middle;
+   border: 1px solid #dddddd;
+   width: 78%;
+   color: #999999;
+}
+
+.filebox label {
+   display: inline-block;
+   padding: 10px 20px;
+   color: #fff;
+   vertical-align: middle;
+   background-color: #999999;
+   cursor: pointer;
+   height: 40px;
+   margin-left: 10px;
+}
+
+.filebox input[type="file"] {
+   position: absolute;
+   width: 0;
+   height: 0;
+   padding: 0;
+   overflow: hidden;
+   border: 0;
+}
+</style>
 </head>
+
 <body>
-	<input type="file" id="file"><button id='fileUploadBtn'>전송</button>
-	<button id='faceDetectBtn'>얼굴인식</button>
-	
-	<button id='celebrityDetection'>닮은꼴 연예인 찾기</button>
+   <div align="center" class="container">
+      <div class="filebox">
+         <input class="upload-name" value="첨부파일" placeholder="첨부파일"> <label
+            for="file">파일찾기</label> <input type="file" id="file">
+      </div>
+      <hr>
+      <div id="resultDiv"></div>
+      <div>
+         <canvas id="drawCanvas"></canvas>
+         <img id="celeImg" src="" alt="">
+      </div>
+      <span class="frame-btn" id='fileUploadBtn'> <span
+         class="frame-btn__outline frame-btn__outline--tall"> <span
+            class="frame-btn__line frame-btn__line--tall"></span> <span
+            class="frame-btn__line frame-btn__line--flat"></span>
+      </span> <span class="frame-btn__outline frame-btn__outline--flat"> <span
+            class="frame-btn__line frame-btn__line--tall"></span> <span
+            class="frame-btn__line frame-btn__line--flat"></span>
+      </span> <span class="frame-btn__solid"></span> <span class="frame-btn__text">전송</span>
+      </span><br> <span class="frame-btn" id='faceDetectBtn'> <span
+         class="frame-btn__outline frame-btn__outline--tall"> <span
+            class="frame-btn__line frame-btn__line--tall"></span> <span
+            class="frame-btn__line frame-btn__line--flat"></span>
+      </span> <span class="frame-btn__outline frame-btn__outline--flat"> <span
+            class="frame-btn__line frame-btn__line--tall"></span> <span
+            class="frame-btn__line frame-btn__line--flat"></span>
+      </span> <span class="frame-btn__solid"></span> <span class="frame-btn__text">얼굴인식</span>
+      </span><br> <span class="frame-btn" id='getPcolorBtn'> <span
+         class="frame-btn__outline frame-btn__outline--tall"> <span
+            class="frame-btn__line frame-btn__line--tall"></span> <span
+            class="frame-btn__line frame-btn__line--flat"></span>
+      </span> <span class="frame-btn__outline frame-btn__outline--flat"> <span
+            class="frame-btn__line frame-btn__line--tall"></span> <span
+            class="frame-btn__line frame-btn__line--flat"></span>
+      </span> <span class="frame-btn__solid"></span> <span class="frame-btn__text">getPcolor</span>
+      </span><br> <span class="frame-btn" id='insertPcolorBtn'> <span
+         class="frame-btn__outline frame-btn__outline--tall"> <span
+            class="frame-btn__line frame-btn__line--tall"></span> <span
+            class="frame-btn__line frame-btn__line--flat"></span>
+      </span> <span class="frame-btn__outline frame-btn__outline--flat"> <span
+            class="frame-btn__line frame-btn__line--tall"></span> <span
+            class="frame-btn__line frame-btn__line--flat"></span>
+      </span> <span class="frame-btn__solid"></span> <span class="frame-btn__text">colorBox에
+            진단결과 추가</span>
+      </span><br> <span class="frame-btn" id='celebrityDetection'> <span
+         class="frame-btn__outline frame-btn__outline--tall"> <span
+            class="frame-btn__line frame-btn__line--tall"></span> <span
+            class="frame-btn__line frame-btn__line--flat"></span>
+      </span> <span class="frame-btn__outline frame-btn__outline--flat"> <span
+            class="frame-btn__line frame-btn__line--tall"></span> <span
+            class="frame-btn__line frame-btn__line--flat"></span>
+      </span> <span class="frame-btn__solid"></span> <span class="frame-btn__text">닮은꼴
+            연예인 찾기</span>
+      </span><br>
+   </div>
 
-	<button id='getPcolorBtn'>getPcolor</button>
-
-	<button id='insertPcolorBtn'>colorBox에 진단결과 추가</button>
-	<hr>
-	
-	<div id="resultDiv"></div>
-	<div>
-		<canvas id="drawCanvas"></canvas>
-		<img id="celeImg" src="" alt="">
-	</div>
 </body>
 </html>
