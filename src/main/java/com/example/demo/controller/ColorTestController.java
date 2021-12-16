@@ -194,6 +194,7 @@ public class ColorTestController {
 			jo.put("pColor", pColor);
 			if(session.getAttribute("memberVO")!=null) {
 				session.setAttribute("pColor", pColor);
+				System.out.println("세션에 pcolor값 추가");
 			}
 		} catch (IllegalStateException e1) {
 			// TODO Auto-generated catch block

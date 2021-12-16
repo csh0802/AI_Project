@@ -9,7 +9,7 @@ $(document).ready(function() {
 		const id = $("#id").val();
 		const pw = $("#pw").val();
 
-		alert(id + ":" + pw);
+		
 
 		$.post('../login', { id, pw }, function(data) {
 			data = JSON.parse(data);
@@ -48,6 +48,7 @@ $(document).ready(function() {
 	});
 	
 	$("#celebrityDetection").click(function() {
+		alert();
 		$("#resultDiv").text("");
 		let formData = new FormData();
 		formData.append('image', $("#file")[0].files[0]);
@@ -237,6 +238,7 @@ $(document).ready(function() {
 		});  
 	});
 	$("#insertPcolorBtn").click(function(){
+		alert()
 		$.post('insertPcolorInColorBox',{id},function(data){
 			data = JSON.parse(data);
 			if(data.success){
