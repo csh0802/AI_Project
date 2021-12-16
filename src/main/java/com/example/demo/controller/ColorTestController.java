@@ -43,30 +43,11 @@ public class ColorTestController {
 	ObjectDetectionService objectDetectionService;
 	
 	@Autowired
-	CelebrityDetectionService clerbrityDetection;
-	
-	@Autowired
 	ColorBoxService colorBoxService;
 	
 	String pColor;
 	
-	@PostMapping("celebrityDetect")
-	@ResponseBody
-	public String celebrityDetect(MultipartFile image) {
-
-		System.out.println(image.getOriginalFilename());
-		try {
-			File uploadFile = new File("C:\\temp2\\" + image.getOriginalFilename());
-			image.transferTo(uploadFile);
-			return clerbrityDetection.celebrityDetect(uploadFile);
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "upload fail!!!";
-		}
-
-	}
+	
 	@PostMapping("personDetect")
 	@ResponseBody
 	public String detectPerson(MultipartFile image) {

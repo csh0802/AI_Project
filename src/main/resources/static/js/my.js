@@ -124,134 +124,93 @@ $(document).ready(function() {
 			processData: false,
 			contentType: false,
 			success: function(data) {
-				data = JSON.parse(data);
-				//console.log(data.info.size.width)
-				if (data.info.faceCount == 1) {
-					$("#drawCanvas").attr('width', data.info.size.width + 'px');
-					$("#drawCanvas").attr('height', data.info.size.height + 'px');
-					$("#drawCanvas").attr('style', "border: 1px solid #993300");
-					const canvas = document.getElementById("drawCanvas");
-					const context = canvas.getContext("2d");
-					const image = new Image();
-
-					image.src = '../media/test.png';
-
-					image.onload = function() {
-						context.drawImage(image, 0, 0);
-					}
-
-					var jsonArray = new Array();
-					if (data.info.faceCount > 0) {
-						let faces = data.info.faceCount;
-						for (let i = 0; i < faces; i++) {
-							var jsonObj = new Object();
-							jsonObj.celebrity = data.faces[i].celebrity.value;
-							jsonObj.confidence = (data.faces[i].celebrity.confidence) * 100 + "%";
-
-							jsonObj = JSON.stringify(jsonObj);
-							//String 형태로 파싱한 객체를 다시 json으로 변환
-							jsonArray.push(JSON.parse(jsonObj));
-						}
-						console.log(jsonArray);
-						for (let i = 0; i < jsonArray.length; i++) {
-							var result = jsonArray[i].celebrity + "을(를) " + jsonArray[i].confidence + "정도 닮았습니다.<br>";
-							console.log(result);
-							$("#resultDiv").append(result);
-						}
-						var celebrity = data.faces[0].celebrity.value;
-						//console.log(celebrity);
-						$.post('../celeImg', { celebrity }, function() {
-							console.log(data);
-							$("#celeImg").attr("src","../media/newCele.png");
-						});
-
-					} else {
-						$("#resultDiv").text("닮은꼴 연예인이 없네요 ㅠㅠ");
-					}
-				}else if(data.info.faceCount>1){
-					alert("얼굴이 2개이상 검출되었습니다 한개의 얼굴만 들어간 사진을 넣어주세요~");
-				}else{
-					alert("얼굴이 검출되지 않았습니다 사진을 다시한번 확인해 주세요");
+				if (data == "이미지가 없습니다") {
+					alert("사진첨부 필요");
+				} else {
+					console.log(data);
+					var result = data;
+					localStorage.setItem('result', JSON.stringify(result));
+					window.location = "celebrity.html";
 				}
-
 
 			},
 			error: function(e) {
 				console.log("ERROR : ", e);
-				alert("사진을 첨부해주세요");
-			}
 
+			}
 		});
+
 	});
 
 
 
 
-	$(document).on('click',"#colorInsertBtn",function(){
-			const pColor=$("#colorText").val();
-			if(pColor){
-				$.post('../insertColorBox',{id,pColor},function(data){
-					if(data.msg){
-						alert(data.msg);
-					}
-				});
-			}else{
-				alert("컬러입력하세요");
-			}
-		});
-	$("#basketBtn").click(function(){
+	$(document).on('click', "#colorInsertBtn", function() {
+		const pColor = $("#colorText").val();
+		if (pColor) {
+			$.post('../insertColorBox', { id, pColor }, function(data) {
+				if (data.msg) {
+					alert(data.msg);
+				}
+			});
+		} else {
+			alert("컬러입력하세요");
+		}
+	});
+	$("#basketBtn").click(function() {
 		const id = $.cookie("id");
-		if(id){
-			$.post("../basketList",{id},function(){
+		if (id) {
+			$.post("../basketList", { id }, function() {
 				window.open("basketList");
 			});
-		}else{
+		} else {
 			alert("로그인 해야 이용 가능합니다.");
 		}
 	});
-		
 
-		$("#getPcolorBtn").click(function(){
+
+	$("#getPcolorBtn").click(function() {
 		let formData = new FormData();
 		formData.append('image', $("#file")[0].files[0]);
-		
+
 		$.ajax({
-			type : 'post',
-			url : '../getPcolor',
-			cache : false,
-			data : formData,
-			processData : false,
-			contentType : false,
-			success : function(data) {
-				data=JSON.parse(data);
-				if(data.pColor){
+			type: 'post',
+			url: '../getPcolor',
+			cache: false,
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				data = JSON.parse(data);
+				if (data.pColor) {
 					alert(data.pColor);
-				}else if(data.msg){
+				} else if (data.msg) {
 					alert(data.msg);
-				}else{
+				} else {
 					alert("data없음")
 				}
 			}
-			
-		});  
-	});
-	$("#insertPcolorBtn").click(function(){
-		$.post('insertPcolorInColorBox',{id},function(data){
-			data = JSON.parse(data);
-			if(data.success){
-				alert(data.success);
-			}else{
-				alert(data.msg);
-			}
+
 		});
 	});
-	$("#updateColorBoxBtn").click(function(data){
+	$("#insertPcolorBtn").click(function() {
+		$.post('insertPcolorInColorBox', { id }, function(data) {
+			data = JSON.parse(data);
+			if (data.success) {
+				alert(data.success);
+			} else {
+				alert(data.msg);
+			}
+
+		});
+	});
+	$("#updateColorBoxBtn").click(function(data) {
 		alert(data);
 	});
-	
+
 	$("#file").on('change', function() {
-      var fileName = $("#file").val();
-      $(".upload-name").val(fileName);
-   });
+		var fileName = $("#file").val();
+		$(".upload-name").val(fileName);
+	});
 });
-	
+
