@@ -96,7 +96,7 @@ public class ColorTestController {
 			         System.out.println("Sorry couldn’t create specified directory");
 			      }
 			 }
-
+			 
 			File uploadFile = new File("/upload/" + image.getOriginalFilename());
 			image.transferTo(uploadFile);
 			System.out.println(uploadFile);

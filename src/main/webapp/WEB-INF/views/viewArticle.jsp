@@ -124,7 +124,7 @@ footer {
 	<tr><td>작성자</td><td><input value="${article.id }"  readonly style="background:lightgray"></td></tr>
 	<tr><td>글제목</td><td><input  value="${article.title }" readonly style="background:lightgray"></td></tr>
 	<tr><td>글내용</td><td><textarea rows ="8" cols="10" readonly style="background:lightgray" >${article.content}</textarea></td></tr>
-	<tr><td>첨부된파일</td><td><div id="div1" class="div"><a href="uploadImg/${article.fileName }"><img src="uploadImg/${article.fileName }" height="50"></a></div></td><tr>
+	<tr><td>첨부된파일</td><td><div id="div1" class="div"><a href="upload/${article.fileName }"><img src="uploadImg/${article.fileName }" height="50"></a></div></td><tr>
 
 
 </table>

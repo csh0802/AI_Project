@@ -88,7 +88,7 @@ $(document).ready(function() {
 				const context = canvas.getContext("2d");
 				const image = new Image();
 
-				image.src = '../media/test.png';
+				image.src = '/home/ubuntu/0csh/upload/test.png';
 
 				image.onload = function() {
 					context.drawImage(image, 0, 0);
@@ -134,7 +134,7 @@ $(document).ready(function() {
 					const context = canvas.getContext("2d");
 					const image = new Image();
 
-					image.src = '../media/test.png';
+					image.src = '/home/ubuntu/0csh/upload/test.png';
 
 					image.onload = function() {
 						context.drawImage(image, 0, 0);
@@ -162,7 +162,7 @@ $(document).ready(function() {
 						//console.log(celebrity);
 						$.post('../celeImg', { celebrity }, function() {
 							console.log(data);
-							$("#celeImg").attr("src","../media/newCele.png");
+							$("#celeImg").attr("src","/home/ubuntu/0csh/upload/newCele.png");
 						});
 
 					} else {
