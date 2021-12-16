@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Service;
-
+ 
 // 네이버 얼굴인식 API 예제
 @Service
 public class CelebrityDetectionService {

@@ -29,7 +29,7 @@ $(document).ready(function() {
 			if (data.msg == "ok") {
 				$.removeCookie("id");
 				location.reload();
-			} else {
+			} else { 
 				alert(data.msg);
 			}
 		});
@@ -140,10 +140,7 @@ $(document).ready(function() {
 			}
 		});
 
-	});
-
-
-
+	});s
 
 	$(document).on('click', "#colorInsertBtn", function() {
 		const pColor = $("#colorText").val();
