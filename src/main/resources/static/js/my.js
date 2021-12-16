@@ -2,20 +2,23 @@ $(document).ready(function() {
 
 	const id = $.cookie("id");
 	if (id) {
-		$("#loginSpan").html(id + " login ok <button id='logoutBtn'>logout</button>");
+		$("#loginSpan").html(id + "님 환영힙니다.<a href='#' class='get-started-btn2 scrollto' id='logoutBtn' >로그아웃</a>");
 	}
 
 	$("#loginBtn").click(function() {
 		const id = $("#id").val();
 		const pw = $("#pw").val();
 
-		
+<<<<<<< Updated upstream
+		alert(id + ":" + pw);
 
+=======
+>>>>>>> Stashed changes
 		$.post('../login', { id, pw }, function(data) {
 			data = JSON.parse(data);
 			if (data.id) {
 				$.cookie("id", data.id);
-				$("#loginSpan").html(data.id + " login ok <button id='logoutBtn'>logout</button>");
+				$("#loginSpan").html(data.id + "님 환영힙니다.<a href='#' class='get-started-btn2 scrollto' id='logoutBtn' >로그아웃</a>");
 			} else {
 				alert(data.msg);
 			}
@@ -46,9 +49,72 @@ $(document).ready(function() {
 			alert("컬러입력하세요");
 		}
 	});
-	
+	$("#fileUploadBtn").click(function() {
+		let formData = new FormData();
+		formData.append('image', $("#file")[0].files[0]);
+
+		$.ajax({
+			type: 'post',
+			url: '../personDetect',
+			cache: false,
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				data = JSON.parse(data);
+				if (data.result) {
+					alert(data.result);
+				} else {
+					alert("data.result없음");
+				}
+			}
+
+		});
+	});
+	$("#faceDetectBtn").click(function() {
+		let formData = new FormData();
+		formData.append('image', $("#file")[0].files[0]);
+
+		$.ajax({
+			type: 'post',
+			url: '../objectDetect',
+			cache: false,
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(data) {
+				data = JSON.parse(data);
+				$("#drawCanvas").attr('width', data.info.size.width + 'px');
+				$("#drawCanvas").attr('height', data.info.size.height + 'px');
+				$("#drawCanvas").attr('style', "border: 1px solid #993300");
+				const canvas = document.getElementById("drawCanvas");
+				const context = canvas.getContext("2d");
+				const image = new Image();
+
+				image.src = '../media/test.png';
+
+				image.onload = function() {
+					context.drawImage(image, 0, 0);
+					context.strokeStyle = 'yellow';
+					context.lineWidth = 3;
+
+
+					const x = (data.faces[0].roi.x)
+					const y = (data.faces[0].roi.y)
+
+					const width = (data.faces[0].roi.width)
+					const height = (data.faces[0].roi.height)
+
+
+					console.log(x, y, width, height);
+
+					context.strokeRect(x, y, width, height);
+				}
+			}
+
+		});
+	});
 	$("#celebrityDetection").click(function() {
-		alert();
 		$("#resultDiv").text("");
 		let formData = new FormData();
 		formData.append('image', $("#file")[0].files[0]);
@@ -147,71 +213,6 @@ $(document).ready(function() {
 		}
 	});
 		
-	$("#fileUploadBtn").click(function(){
-	let formData = new FormData();
-	formData.append('image', $("#file")[0].files[0]);
-		
-		$.ajax({
-			type : 'post',
-			url : '../personDetect',
-			cache : false,
-			data : formData,
-			processData : false,
-			contentType : false,
-			success : function(data) {
-				data=JSON.parse(data);
-				if(data.result){
-					alert(data.result);
-				}else{
-					alert("data.result없음");
-				}
-			}
-			
-		});
-	});
-		$("#faceDetectBtn").click(function(){
-		let formData = new FormData();
-		formData.append('image', $("#file")[0].files[0]);
-		
-		$.ajax({
-			type : 'post',
-			url : '../objectDetect',
-			cache : false,
-			data : formData,
-			processData : false,
-			contentType : false,
-			success : function(data) {
-				data=JSON.parse(data);
-				$("#drawCanvas").attr('width',data.info.size.width+'px');
-				$("#drawCanvas").attr('height',data.info.size.height+'px');
-				$("#drawCanvas").attr('style',"border: 1px solid #993300");
-				const canvas=document.getElementById("drawCanvas");
-				const context=canvas.getContext("2d");
-				const image=new Image();
-				
-				image.src='../media/test.png';
-				
-				image.onload=function(){
-					context.drawImage(image,0,0);
-					context.strokeStyle = 'yellow';
-					context.lineWidth = 3;
-					
-					
-						const x=(data.faces[0].roi.x)	
-						const y=(data.faces[0].roi.y)
-										
-						const width=(data.faces[0].roi.width)	
-						const height=(data.faces[0].roi.height)
-						
-					
-						console.log(x,y,width,height);
-					
-						context.strokeRect(x,y,width,height);
-					}
-				}	
-				
-			});
-		});
 
 		$("#getPcolorBtn").click(function(){
 		let formData = new FormData();
@@ -238,7 +239,6 @@ $(document).ready(function() {
 		});  
 	});
 	$("#insertPcolorBtn").click(function(){
-		alert()
 		$.post('insertPcolorInColorBox',{id},function(data){
 			data = JSON.parse(data);
 			if(data.success){
@@ -248,10 +248,13 @@ $(document).ready(function() {
 			}
 		});
 	});
-
+	$("#updateColorBoxBtn").click(function(data){
+		alert(data);
+	});
+	
 	$("#file").on('change', function() {
       var fileName = $("#file").val();
       $(".upload-name").val(fileName);
    });
- });
+});
 	
