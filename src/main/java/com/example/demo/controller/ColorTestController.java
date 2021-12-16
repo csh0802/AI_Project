@@ -56,7 +56,19 @@ public class ColorTestController {
 
 		System.out.println(image.getOriginalFilename());
 		try {
-			File uploadFile = new File("C:\\temp2\\" + image.getOriginalFilename());
+			 File dir = new File("/upload");
+			 if(!dir.exists()) {
+			      //Creating the directory
+			      boolean bool = dir.mkdir();
+			      if(bool){
+			         System.out.println("Directory created successfully");
+			         
+			      }else{
+			         System.out.println("Sorry couldn’t create specified directory");
+			      }
+			 }
+
+			File uploadFile = new File("/upload/" + image.getOriginalFilename());
 			image.transferTo(uploadFile);
 			return clerbrityDetection.celebrityDetect(uploadFile);
 
@@ -73,7 +85,19 @@ public class ColorTestController {
 //		System.out.println(image.getOriginalFilename());
 		JSONObject jo = new JSONObject();
 		try {
-			File uploadFile=new File("C:\\temp2\\"+image.getOriginalFilename());
+			File dir = new File("/upload");
+			 if(!dir.exists()) {
+			      //Creating the directory
+			      boolean bool = dir.mkdir();
+			      if(bool){
+			         System.out.println("Directory created successfully");
+			         
+			      }else{
+			         System.out.println("Sorry couldn’t create specified directory");
+			      }
+			 }
+
+			File uploadFile = new File("/upload/" + image.getOriginalFilename());
 			image.transferTo(uploadFile);
 			System.out.println(uploadFile);
 			jo.put("result", personDetectionService.detectPerson(uploadFile));
@@ -96,7 +120,19 @@ public class ColorTestController {
 //		System.out.println(image.getOriginalFilename());
 		JSONObject jo = new JSONObject();
 		try {
-			File uploadFile=new File("C:\\temp2\\"+image.getOriginalFilename());
+			File dir = new File("/upload");
+			 if(!dir.exists()) {
+			      //Creating the directory
+			      boolean bool = dir.mkdir();
+			      if(bool){
+			         System.out.println("Directory created successfully");
+			         
+			      }else{
+			         System.out.println("Sorry couldn’t create specified directory");
+			      }
+			 }
+
+			File uploadFile = new File("/upload/" + image.getOriginalFilename());
 			image.transferTo(uploadFile);
 			return objectDetectionService.objectDetect(uploadFile);
 			
@@ -115,8 +151,21 @@ public class ColorTestController {
 		JSONObject jo = new JSONObject();
 		///home/ubuntu/0csh/git_registry/test-1/media
 		
-		File uploadFile=new File("C:\\temp2\\"+image.getOriginalFilename());
+		
 		try {
+			File dir = new File("/upload");
+			 if(!dir.exists()) {
+			      //Creating the directory
+			      boolean bool = dir.mkdir();
+			      if(bool){
+			         System.out.println("Directory created successfully");
+			         
+			      }else{
+			         System.out.println("Sorry couldn’t create specified directory");
+			      }
+			 }
+
+			File uploadFile = new File("/upload/" + image.getOriginalFilename());
 			testList = colorTestService.selectAllType();
 			image.transferTo(uploadFile);
 			a = getColorService.getColor(uploadFile); 
