@@ -190,7 +190,7 @@ public class CelebrityDetectionService {
             // Image.SCALE_REPLICATE : ReplicateScaleFilter 클래스로 구체화 된 이미지 크기 조절 알고리즘
             // Image.SCALE_SMOOTH  : 속도보다 이미지 부드러움을 우선
             // Image.SCALE_AREA_AVERAGING  : 평균 알고리즘 사용
-            Image resizeImage = image.getScaledInstance(w, h, Image.SCALE_REPLICATE);
+            Image resizeImage = image.getScaledInstance(w, h, Image.SCALE_SMOOTH);
             System.out.println("reimageWidth : " + resizeImage.getWidth(null)); 
             System.out.println("reimageHeight : " + resizeImage.getHeight(null));
 

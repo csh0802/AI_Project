@@ -65,6 +65,8 @@ public class ColorBoxController {
 		ModelAndView mav = new ModelAndView();
 		if(memberVO!=null) {
 			colorBoxVO.setId(memberVO.getId());
+		}else {
+			System.out.println("로그인안됨");
 		}
 		try {
 		
