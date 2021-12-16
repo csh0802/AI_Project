@@ -313,5 +313,46 @@ $(document).ready(function() {
 	$("#updateColorBoxBtn").click(function(data){
 		alert(data);
 	});
+			
+	$("#ItemBtn").click(function(){
+		const id = $.cookie("id");
+		if(id){
+			$.post("../item",{id},function(){
+				window.open("item");
+			});
+		}else{
+			alert("로그인 해야 이용 가능합니다.");
+		}
 	});
+	$("#getItemBtn").click(function(){
+		$.post('selectItem',{},function(data){
+			console.log(data);
+			data=JSON.parse(data)
+			console.log(data);
+		
+		const resultDiv = document.getElementById("resultDiv")
+		for(let i=0; i<data.length; i++){
+			const link = document.createElement("a");
+			link.setAttribute("href",data[i]["siteLink"])
+			link.setAttribute("target","_blank")
+
+			
+			const itemImg = document.createElement("img");
+			itemImg.setAttribute("src",data[i]["imgUrl"])
+			itemImg.setAttribute("width",200);
+			itemImg.setAttribute("height",200);
+			link.appendChild(itemImg)
+			resultDiv.appendChild(link)
+			
+			const itemName = document.createTextNode(data[i]["itemName"]);
+			//itemName.setAttribute("title",data[i]["itemName"])
+			resultDiv.appendChild(itemName)
+			document.body.appendChild(resultDiv)
+			}
+		})
+	})
+	
+	
+	
+});
 	

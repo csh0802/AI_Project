@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.example.demo.dao.ItemDAO">
+  	<insert id="insertItem" parameterType="ItemVO">
+  		insert into item(pColor,itemName,imgUrl,siteLink) values(#{pColor},#{itemNames},#{filePath},#{siteLink})
+  	</insert>
+  	
+	<select id="selectItem" resultType="map">
+		select imgUrl,itemName,siteLink from item where pColor=#{pColor} 
+	</select>
+
+  </mapper>
