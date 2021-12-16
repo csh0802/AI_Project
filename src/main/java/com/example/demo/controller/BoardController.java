@@ -61,6 +61,7 @@ public class BoardController {
 			boardVO.setFileName(fileName);
 			try {
 
+
 				File dir = new File("/upload");
 				 if(!dir.exists()) {
 				      //Creating the directory
@@ -72,6 +73,7 @@ public class BoardController {
 				         System.out.println("Sorry couldn’t create specified directory");
 				      }
 				 }
+
 
 				File uploadFile = new File("/upload/" + fileName);
 			} catch (IllegalStateException e) {
