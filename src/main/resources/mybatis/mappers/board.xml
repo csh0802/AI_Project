@@ -24,4 +24,8 @@ insert into board( id,title,content, grp, seq, lvl, fileName)
 values(#{id},#{title}, #{content},#{grp},#{seq},#{lvl},#{fileName})
 
 </insert>
+
+<select id="searchWord" resultType="boardVO">
+select * from board where title like concat('%',#{keyword},'%' )
+</select>
 </mapper>  
