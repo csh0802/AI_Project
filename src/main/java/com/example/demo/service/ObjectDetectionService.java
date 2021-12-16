@@ -28,7 +28,7 @@ public class ObjectDetectionService {
      String imgFormat = "png";                             
 	 int newWidth = 300;                                  // 변경 할 넓이
      int newHeight = 400;                                 // 변경 할 높이
-     String mainPosition = "W";                             // W:넓이중심, H:높이중심, X:설정한 수치로(비율무시)
+     String mainPosition = "X";                             // W:넓이중심, H:높이중심, X:설정한 수치로(비율무시)
 
      Image image;
      int imageWidth;
