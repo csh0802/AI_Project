@@ -50,6 +50,8 @@ public class ColorTestController {
 	
 	String pColor;
 	
+	
+	
 	@PostMapping("celebrityDetect")
 	@ResponseBody
 	public String celebrityDetect(MultipartFile image) {
@@ -79,6 +81,14 @@ public class ColorTestController {
 		}
 
 	}
+	@PostMapping("myImg")
+	public File getImg() {
+		
+		File uploadFile = new File("/upload/test.png");
+		System.out.println(uploadFile.getPath());
+		return uploadFile;
+		
+	}
 	@PostMapping("personDetect")
 	@ResponseBody
 	public String detectPerson(MultipartFile image) {
@@ -101,7 +111,7 @@ public class ColorTestController {
 			image.transferTo(uploadFile);
 			System.out.println(uploadFile);
 			jo.put("result", personDetectionService.detectPerson(uploadFile));
-			 	
+				
 //			System.out.println(jo.get("result"));
 			return jo.toString();
 			

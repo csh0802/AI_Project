@@ -144,7 +144,7 @@ public class CelebrityDetectionService {
     public void getCeleImg(String getURL) {
 		URL url;
 		         // 원본 이미지 파일명
-        String imgTargetPath= "upload/newCele.png";    // 새 이미지 파일명
+        String imgTargetPath= "/upload/newCele.png";    // 새 이미지 파일명
         String imgFormat = "png";                             // 새 이미지 포맷
         int newWidth = 300;                                  // 변경 할 넓이
         int newHeight = 400;                                 // 변경 할 높이
@@ -160,7 +160,7 @@ public class CelebrityDetectionService {
 			url = new URL(getURL);
 			System.out.println(url);
 			BufferedImage image = ImageIO.read(url);
-			File imgFile = new File("upload/cele.png");
+			File imgFile = new File("/upload/cele.png");
 			System.out.println(imgFile.exists());
 			ImageIO.write(image,"png",imgFile);
 			
