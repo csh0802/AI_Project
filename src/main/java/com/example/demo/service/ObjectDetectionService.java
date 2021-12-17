@@ -36,7 +36,7 @@ public class ObjectDetectionService {
      double ratio;
      int w;
      int h;
-    public  String objectDetect(File uploadFile) {
+    public  JSONObject objectDetect(File uploadFile) {
     	try {
         Files.copy(uploadFile.toPath(), new File("src\\main\\webapp\\media\\upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
 
@@ -150,7 +150,7 @@ public class ObjectDetectionService {
                 jo.put("width", width);
                 jo.put("height", height);
                 
-                return (response.toString());
+                return jo;
             }
         } catch (Exception e) {
 //            e.printStackTrace();
