@@ -128,7 +128,6 @@ public class ColorTestController {
 			// TODO Auto-generated catch block
 //			e.printStackTrace();
 			jo3.put("msg", "error");
-			ja.put(jo3);
 		}
 		
 		// System.out.println(ja.toString());
