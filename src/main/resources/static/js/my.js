@@ -330,24 +330,26 @@ $(document).ready(function() {
 			data=JSON.parse(data)
 			console.log(data);
 		
-		const resultDiv = document.getElementById("resultDiv")
-		for(let i=0; i<data.length; i++){
-			const link = document.createElement("a");
-			link.setAttribute("href",data[i]["siteLink"])
-			link.setAttribute("target","_blank")
+		const resultDiv = document.getElementById("resultDiv") // html에 id가 resultDiv인 것 가져오기 
+		for(let i=0; i<data.length; i++){ // db 데이터 반복문으로 pColor에 맞는 것만 가져오기 
+			const link = document.createElement("a"); //링크 변수 만들어서 html에 a태그 만들기
+			link.setAttribute("href",data[i]["siteLink"]) // 만든 a태그에 href걸고 db에 사이트링크 가져오기 (pColor에 맞는 것만)
+			link.setAttribute("target","_blank") // a=href 를 새 창으로 띄우게 하기
 
 			
-			const itemImg = document.createElement("img");
-			itemImg.setAttribute("src",data[i]["imgUrl"])
-			itemImg.setAttribute("width",200);
+			const itemImg = document.createElement("img"); //이미지 태그 만들기
+			itemImg.setAttribute("src",data[i]["imgUrl"]) // 이미지 경로 (<img src="">) 설정 위 for안에 있으므로 이미지경로 전부다 가져옴
+			itemImg.setAttribute("width",200); //사이즈 설정
 			itemImg.setAttribute("height",200);
-			link.appendChild(itemImg)
-			resultDiv.appendChild(link)
+			link.appendChild(itemImg) // 링크 안에 이미지를 넣음 (케이스안에 사진을 넣는 느낌)
+			resultDiv.appendChild(link) // html에 resultDiv에 링크를 띄움 (링크안에 이미지가 들어가 있음)
 			
-			const itemName = document.createTextNode(data[i]["itemName"]);
-			//itemName.setAttribute("title",data[i]["itemName"])
-			resultDiv.appendChild(itemName)
-			document.body.appendChild(resultDiv)
+			const itemName = document.createTextNode(data[i]["itemName"]); // db에 itemName 데이터 다 가져오기
+			resultDiv.appendChild(itemName) // html resultDiv에 텍스트로 출력
+			
+			$("#resultDiv").append("<hr>");
+			
+			itemContainer.appendChild(resultDiv) //컨테이너 안에 넣기
 			}
 		})
 	})
