@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,94 +27,116 @@ import com.example.demo.vo.MemberVO;
 
 @Controller
 public class ColorTestController {
-
+	
 	@Autowired
 	PColorDetectionService getColorService;
-
+	
 	@Autowired
 	ColorTestService colorTestService;
-
+	
 	List<ColorTestVO> testList;
-
+	
 	@Autowired
 	PersonDetectionService personDetectionService;
-
+	
 	@Autowired
 	ObjectDetectionService objectDetectionService;
-
+	
+	@Autowired
+	CelebrityDetectionService clerbrityDetection;
+	
 	@Autowired
 	ColorBoxService colorBoxService;
-
-
+	
 	String pColor;
+	
+	@PostMapping("celebrityDetect")
+	@ResponseBody
+	public String celebrityDetect(MultipartFile image) {
 
+		System.out.println(image.getOriginalFilename());
+		try {
+			File uploadFile = new File("C:\\temp2\\" + image.getOriginalFilename());
+			image.transferTo(uploadFile);
+			return clerbrityDetection.celebrityDetect(uploadFile);
 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "upload fail!!!";
+		}
+
+	}
+	@PostMapping("personDetect")
+	@ResponseBody
+	public String detectPerson(MultipartFile image) {
+//		System.out.println(image.getOriginalFilename());
+		JSONObject jo = new JSONObject();
+		try {
+			File uploadFile=new File("C:\\temp2\\"+image.getOriginalFilename());
+			image.transferTo(uploadFile);
+			
+			jo.put("result", personDetectionService.detectPerson(uploadFile));
+			
+//			System.out.println(jo.get("result"));
+			return jo.toString();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			return "upload fail!!!";
+		} 
+	}
+
+	 
+	     
+	@PostMapping("objectDetect")
+	@ResponseBody
+	public String objectDetection(MultipartFile image){
+//		System.out.println(image.getOriginalFilename());
+		JSONObject jo = new JSONObject();
+		try {
+			File uploadFile=new File("C:\\temp2\\"+image.getOriginalFilename());
+			image.transferTo(uploadFile);
+			return objectDetectionService.objectDetect(uploadFile);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+			return "upload fail!!!";
+		} 
+	}
 	@PostMapping("getPcolor")
 	@ResponseBody
-	public String getPcolor(MultipartFile image, HttpSession session) {
+	public String getPcolor(MultipartFile image,HttpSession session) {
 		System.out.println(image.getOriginalFilename());
-
-		int no = 0, sum = 0, temp = 1000;
-		int[] a = new int[3];
-		JSONArray ja = new JSONArray();
-		JSONObject jo1 = new JSONObject();// 사람탐지
-		JSONObject jo2 = new JSONObject();// 얼굴탐지
-		JSONObject jo3 = new JSONObject();// pcolor
-		/// home/ubuntu/0csh/git_registry/test-1/media
-
+		int no = 0, sum=0, temp = 1000;
+		int [] a = new int[3];
+		JSONObject jo = new JSONObject();
+		///home/ubuntu/0csh/git_registry/test-1/media
+		
+		File uploadFile=new File("C:\\temp2\\"+image.getOriginalFilename());
 		try {
-			File uploadFile = new File("/upload/" + image.getOriginalFilename());
-
 			testList = colorTestService.selectAllType();
 			image.transferTo(uploadFile);
-			String result1 = personDetectionService.detectPerson(uploadFile);
-			jo1.put("result1", result1);
-			ja.put(jo1);
-			if (result1 == "사람탐지") {
-				JSONObject result2 = objectDetectionService.objectDetect(uploadFile);
-				jo2.put("result2", result2);
-				ja.put(jo2);
-				// System.out.println(jo2.toString());
-				JSONObject test = (JSONObject) jo2.get("result2");
-				test = (JSONObject) test.get("info");
-				// System.out.println(test.toString());
-				int faceCount = test.getInt("faceCount");
-				// System.out.println(faceCount);
-				if (faceCount == 1) {
-					a = getColorService.getColor(uploadFile);
-					if (testList != null) {
-						for (int i = 0; i < 8; i++) {
-							sum += Math.abs(testList.get(i).getRed() - a[0]);
-							sum += Math.abs(testList.get(i).getBlue() - a[2]);
-							sum += Math.abs(testList.get(i).getGreen() - a[1]);
-
-//							System.out.println(sum);
-							if (sum < temp) {
-								temp = sum;
-								no = i + 1;
-//								System.out.println("no"+no);
-//								System.out.println("sum"+sum);
-							}
-							sum = 0;
-						}
-					} else {
-						System.out.println("colorTestVO is null");
-						jo3.put("msg", "퍼스널컬러 기준 테이블 없음");
+			a = getColorService.getColor(uploadFile); 
+			if(testList!=null) {
+				for(int i=0;i<8;i++) {
+					sum += Math.abs(testList.get(i).getRed() - a[0]);
+					sum += Math.abs(testList.get(i).getBlue() - a[2]);
+					sum += Math.abs(testList.get(i).getGreen() - a[1]);
+					
+					
+//					System.out.println(sum);
+					if(sum<temp) {
+						temp = sum;
+						no = i+1;
+//						System.out.println("no"+no);
+//						System.out.println("sum"+sum);
 					}
-//					System.out.println(colorTestService.selectPeronalType(no));
-					pColor = colorTestService.selectPeronalType(no);
-					jo3.put("pColor", pColor);
-					if (session.getAttribute("memberVO") != null) {
-						session.setAttribute("pColor", pColor);
-					}
-					ja.put(jo3);
-					return ja.toString();
-				}else {
-					return "null2";
+					sum=0;
 				}
-
 			}else {
-
 				System.out.println("colorTestVO is null");
 				jo.put("msg", "퍼스널컬러 기준 테이블 없음");
 			}
@@ -124,63 +145,54 @@ public class ColorTestController {
 			jo.put("pColor", pColor);
 			if(session.getAttribute("memberVO")!=null) {
 				session.setAttribute("pColor", pColor);
-				System.out.println("세션에 pcolor값 추가");
-
-				return "null1";
-
 			}
-
 		} catch (IllegalStateException e1) {
 			// TODO Auto-generated catch block
 //			e1.printStackTrace();
-			jo3.put("msg", "ISEerror");
-			ja.put(jo3);
+			jo.put("msg", "ISEerror");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 //			e1.printStackTrace();
-			jo3.put("msg", "IOEerror");
-			ja.put(jo3);
+			jo.put("msg", "IOEerror");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 //			e.printStackTrace();
-			jo3.put("msg", "error");
-			ja.put(jo3);
+			jo.put("msg", "error");
 		}
 		
-		// System.out.println(ja.toString());
-		return ja.toString();
+		return jo.toString();
 	}
-
 	@PostMapping("insertPcolorInColorBox")
 	@ResponseBody
 	public String insertColorBox(ColorBoxVO colorBoxVO, HttpSession session) {
 		JSONObject jo = new JSONObject();
 //		System.out.println(colorBoxVO);
-
+		
 		try {
-			MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+			MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 			System.out.println(memberVO);
-			pColor = (String) session.getAttribute("pColor");
-			if (memberVO != null && pColor != null) {
-
+			pColor = (String)session.getAttribute("pColor");
+			if(memberVO!=null && pColor!=null) {
+				
 				colorBoxVO.setId(memberVO.getId());
 				colorBoxVO.setPColor(pColor);
-				if (colorBoxVO.toString().contains("error")) {
+				if(colorBoxVO.toString().contains("error")) {
 					System.out.println("colorBoxVO NullPointException");
 					jo.put("msg", "NullPointError");
-				} else {
-					colorBoxService.insertColorBox(colorBoxVO);
+				}else {
+					colorBoxService.insertColorBox(colorBoxVO);				
 					System.out.println("colorInsert");
-					jo.put("success", pColor + "colorInsert");
+					jo.put("success", pColor+"colorInsert");
 				}
-
-			} else {
-				jo.put("msg", "로그인 하세요");
+				
+			}else {
+				jo.put("msg", "로그인 하세요") ;
 			}
 		} catch (Exception e) {
 			jo.put("msg", "error");
 		}
 		return jo.toString();
 	}
-
+	
+	
 }

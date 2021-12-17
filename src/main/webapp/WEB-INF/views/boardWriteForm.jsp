@@ -3,6 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
 <style type="text/css">
 /* 03_community.css */
 /* 아래에 코드를 작성해 주세요. */
@@ -50,7 +54,7 @@ footer {
 </style>
 
 <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
   <!-- Custom CSS -->
@@ -76,15 +80,19 @@ $(document).ready(function(){
 		alert("로그인후 글쓰기가 가능합니다.");
 	}
 	
+	
 	$("#writeBtn").click(function(){
 		const title = $("#title").val();
 		const content = $("#content").val();
 		if(!title || !content){
 			alert("제목과 본문 내용은 필수입니다.");			
+		}else{
+			alert("게시글이 등록 되었습니다.")
 		}
 	});
 	
 });
+
 </script>
 </head>
 <body>
@@ -98,7 +106,7 @@ $(document).ready(function(){
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+  <!--       <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" id='exit' href="#">Home</a>
           </li>
@@ -110,33 +118,44 @@ $(document).ready(function(){
           <li class="nav-item">
             <a class="nav-link" href="exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </nav>
 
   
 	<div  class="container">
-<h3 style="text-align:center">글쓰기</h3>
+<h2 style="text-align:center"><i class="fas fa-bullhorn"></i></h2>
 <form action="boardWrite" method="post" enctype="multipart/form-data">
 
 <table class="table table-striped"
 					style="text-align: center; border: 1px solid #dddddd">
-	<tr><td>작성자</td><td><input name="id"id="id" readonly style="background:lightgray"></td></tr>
-	<tr><td>글제목</td><td><input name="title"></td></tr>
-	<tr><td>글내용</td><td><textarea rows ="8" cols="20" name="content"></textarea></td></tr>
-
+	<tr><td>아이디</td><td><input name="id"id="id" readonly style="background:lightgray"></td></tr>
+	<tr><td>마이컬러</td><td> 
+	<input list="browsers" name="title" id="title">
+		  <datalist id="browsers">
+		    <option value="봄웜톤">
+		    <option value="여름쿨톤">
+		    <option value="가을웜톤">
+		    <option value="겨울쿨톤">
+		  </datalist>
+	</td></tr>
+	<tr><td>추천아이템</td><td><textarea rows ="8" cols="20" name="content" id="content"></textarea></td></tr>
 	<tr><td>파일첨부</td><td><input type="file" name="file"></td><tr>
 
 
 </table>
-<center>
 
-<input type="submit" value="글쓰기" class="btn btn-dark">
-<p class="btn btn-dark" onclick="history.back()">목록</p>
-
-</center>
-	
+		<footer>
+		 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
+  		 	 <ul class="pagination">
+			
+					<li><input type="submit" value="작성" id="writeBtn" class="btn btn-dark"></li>
+					<li> <p onclick="location='boardList'" class="btn btn-dark ">목록</p></li>
+				
+			</ui>			
+		</nav>
+	</footer>
 
 
 </form>

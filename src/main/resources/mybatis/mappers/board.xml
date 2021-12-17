@@ -6,26 +6,41 @@
 <mapper namespace="com.example.demo.dao.BoardDAO">	
 	
 	<select id="boardList"  resultType="boardVO">
-		select * from board order by grp desc
+		select * from board order by no
 	</select>	
 	<insert id="boardWrite" parameterType="boardVO">
 	<![CDATA[
-		insert into board( id,title,content, grp, seq, lvl, fileName) 
-		values(#{id}, #{title}, #{content},  (select last_insert_id()+1 from board board_ limit 1), 1, 0,#{fileName} )
+		insert into board( id,title,content,fileName) 
+		values(#{id}, #{title}, #{content},#{fileName} )
 	]]>
-</insert>
+	</insert>
 	
 	<select id="viewArticle"  resultType="boardVO" parameterType="int">
 		select * from board where no=#{no}
 	</select>
 	
-<insert id="replyWrite" parameterType="boardVO">
-insert into board( id,title,content, grp, seq, lvl, fileName) 
-values(#{id},#{title}, #{content},#{grp},#{seq},#{lvl},#{fileName})
+	<delete id="delete" parameterType="int" >
+	      delete from board where no=#{no}
+	</delete>
+	    
+	<update id="update" parameterType="boardVO">
+	update board set title=#{title},content=#{content},fileName=#{fileName} where no=#{no}
+	</update>
+	
+	<select id="search" parameterType="boardVO" resultType="boardVO">
+	select * from board 
+		 <if test='searchType!=null and searchType.equals("id")'>
+		  WHERE id LIKE concat('%', #{keyword}, '%')
+		 </if>
+		 
+		 <if test='searchType!=null and searchType.equals("title")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%')
+		 </if>	 
+	</select>
+	
+	
+	<select id="selectScrap" parameterType="boardVO" resultType="boardVO" >
+	select * from board where id=#{id} and no=#{no}
+	</select>
 
-</insert>
-
-<select id="searchWord" resultType="boardVO">
-select * from board where title like concat('%',#{keyword},'%' )
-</select>
 </mapper>  

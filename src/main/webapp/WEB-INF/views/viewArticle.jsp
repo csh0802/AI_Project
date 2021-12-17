@@ -2,12 +2,33 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
+ <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <style type="text/css">
-/* 03_community.css */
-/* 아래에 코드를 작성해 주세요. */
+.feeling_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-
+} 
+.button-container {
+  margin-left: 20px;
+}
+.feeling_a {
+  background-color: #fff;
+  border: 2px solid #F08080;
+  padding: 10px 20px;
+  border-radius: 2px;
+  color: #F08080;
+}     
+.feeling_b {
+  background-color: #fff;
+  border: 2px solid #F08080;
+  padding: 10px 20px;
+  border-radius: 2px;
+  color: #F08080;
+}     
 .main {
   margin-top: 120px;
   margin-right: 70px;
@@ -32,10 +53,6 @@ section {
   float: right;
   width: 900px;
   
- 
-/* 01_nav_footer.css */
-/* 아래에 코드를 작성해 주세요. */
-
 
 .nav_factor {
   text-decoration: none;
@@ -48,6 +65,14 @@ footer {
 }  
 }
 
+.articleDiv{
+text-align: right;
+}
+
+.active {
+  background-color: #F08080;
+  color: #fff;
+}
 
 </style>
 
@@ -69,19 +94,94 @@ footer {
 <title>Insert title here</title>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
  <link rel="stylesheet" type="text/css" href="css/jquery.lightbox.css" media="screen" />
-
-
-   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(window.opener.document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+
+
+
+$(document).ready(function(){
+	
+	$("#deleteBtn").click(function(){
+	var id=getCookie("id");
+		$.post('delete',{id},function(data){
+				//alert(data);
+				if(data=="ok"){
+					alert("게시글이 삭제되었습니다.");
+					location.href="deleteOK.html";
+				}else{
+					alert("작성자 본인만 수정/삭제가 가능합니다.");
+				 location.href = "deleteFail.html";}
+				//location.reload();
+				//history.go(-1);
+			
+		});
+	});
+	
+	
+	$("#updateBtn").click(function(){
+		var id = getCookie("id");
+		var title='${article.title}';
+		var content='${article.content}';
+		
+		if(id=='${article.id}'){
+			//alert(title+":"+content);
+			$.post('updateArticleForm',{id,title,content},function(){
+				location.href="updateArticleForm";
+			});
+		}else{
+			alert("작성자 본인만 수정/삭제가 가능합니다.");
+		}
+	});
+	
+	$('.like-container > .feeling_a, .dislike-container  > .feeling_a').click(function(){
+	
+	    event.preventDefault();
+	    $('.active').removeClass('active');
+	    $(this).addClass('active');
+	});
+	
+	
+	$("#scrapBtn").click(function(){
+		var cookieId = getCookie("id");
+		var id='${article.id}';
+		var no = '${article.no}';
+		//alert(id+":"+no);
+		$.post('scrapArticle',{no,id,cookieId},function(data){
+			alert("스크랩 되었습니다.");
+		})
+		
+		
+	});
+
+	
+});
+
+
+
+
+</script>
 
 
 </head>
 <body>
   <!-- 01_nav_footer.html -->
-  <!-- 01_nav_footer 에서 완성한 Navigation bar 코드를 붙여넣어 주세요. -->
   <nav class="d-flex fixed-top align-items-center justify-content-between navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
     <a href="02_home.html"><img  src="./images/logo.png"   height="50px" alt=""></img></a>
     <div class="me-2">
@@ -91,15 +191,15 @@ footer {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" id='exit' href="#">Home</a>
+            <a class="nav-link" id='exit' href="#"></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white"  onclick="history.back()">Community</a>
+            <a class="nav-link text-white"  onclick="history.back()"></a>
 
       
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal">님</a>
+            <a class="nav-link" href="exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal"></a>
           </li>
         </ul>
       </div>
@@ -107,82 +207,85 @@ footer {
   </nav>
   <!-- 03_community.html -->
   <div class="main">
-    <h2>${article.no }번 글</h2>
-      
-  
-
-
 	<div  class="container">
-<%-- <h3 style="text-align:center">${article.no }번 글보기</h3> --%>
-
-
-<form action="replyWriteForm" method="post">
+	<h2>${article.id }님의 글<!--  <i style="color:salmon" class="far fa-comment  fa-2x"></i> --></h2>
+	<br>
+	
+<br>
+<form action="" id="FormID" method="post">
       <input type="hidden" name="no" value="${article.no }" >
+      <input type="hidden" name="id" value="${article.id }">
+      <input type="hidden" name="title" value="${article.title }">
+      <input type="hidden" name="content" value="${article.content }">
+      <input type="hidden" name="fileName" value="${article.fileName }">
 <table class="table table-striped"
 
 					style="text-align: center; border: 1px solid #dddddd">
-	<tr><td>작성자</td><td><input value="${article.id }"  readonly style="background:lightgray"></td></tr>
-	<tr><td>글제목</td><td><input  value="${article.title }" readonly style="background:lightgray"></td></tr>
-	<tr><td>글내용</td><td><textarea rows ="8" cols="10" readonly style="background:lightgray" >${article.content}</textarea></td></tr>
-	<tr><td>첨부된파일</td><td><div id="div1" class="div"><a href="upload/${article.fileName }"><img src="uploadImg/${article.fileName }" height="50"></a></div></td><tr>
+	<tr><td>아이디</td><td><input value="${article.id }"  readonly style="background:lightgray"></td></tr>
+	<tr><td>마이컬러</td><td><input  value="${article.title }" readonly style="background:lightgray"></td></tr>
+	<tr><td>추천아이템</td><td><textarea rows ="8" cols="10" readonly style="background:lightgray" >${article.content}</textarea></td></tr>
+	<tr><td>첨부파일</td><td><div id="div1" class="div"><a href="uploadImg/${article.fileName }"><img src="uploadImg/${article.fileName }" height="50"></a></div></td><tr>
 
 
 </table>
-
+<div class="articleDiv"><input type="submit" id="updateBtn" class="btn btn-outline-dark" value="수정"><button  class="btn btn-outline-dark " id="deleteBtn">삭제</button></div>
 
 </form>
 
-	
-	<h3 style="text-align:center">댓글</h3>
+	 	<div class="feeling_div">
+			<div class="button-container like-container">
+			    <button class="feeling_a">
+			      <i class="fa fa-heart"> Like</i>    
+			    </a>
+			  </div>
+			  <div class="button-container dislike-container">
+			    <button class="feeling_a">
+			      <i class="far fa-sad-tear"> Dislike</i>
+			    </a>
+			</div>
+			<div class="button-container dislike-container">
+			    <button class="feeling_b" id="scrapBtn">
+			     <i class="far fa-star"> 스크랩</i>
+			    </a>
+			</div>
+			
+		</div> 
+	<br>
+	<br>
+	<h3 style="text-align:center"><i style="color:salmon" class="far fa-comments  fa-4x"></i></h3>
 
-<!-- <table class="table table-striped"
-					style="text-align: center; border: 1px solid #dddddd">	
 
-								<td>
-
-						<textarea type="text" class="form-control"
-								placeholder="댓글을 입력하세요." name="replyContent" maxlength="2048"></textarea>
-								</td>
-						<td style="text-align: left; "><input type="submit" value="댓글쓰기" class="btn btn-primary"></td>
-					
-				</table>
-			 -->
   <!--  댓글  -->
     <div class="container">
         <label for="content">comment</label>
-     
-      <!--   <form name="commentInsertForm" id="commentInsertForm"> -->
             <div class="input-group" id='input'>
-               <input type="hidden" name="bno" value="${article.no}"/>
+               <input type="hidden" name="bno" value="${article.no}"/>              
                <input type="text" class="form-control" id="content" name="content" placeholder="댓글을 입력해주세요.">
                <span class="input-group-btn">
                     <button class="btn btn-dark" type="button" id="commentInsertBtn">등록</button>
                </span>
               </div>
-       
-        <!-- </form> -->
     </div>
 
 
-    <div class="container">
-        <div class="commentList" id="commentList"></div>
-    </div>
+		     <div class="container">
+		        <div class="commentList" id="commentList"></div>
+		    </div>
 </div>
 
 
 <%@ include file="comment.jsp" %>
 
 
-<center>
-
-
-&nbsp;&nbsp; <p class="btn btn-dark" onclick="history.back()">목록으로 가기</p>
-
-<!-- &nbsp;&nbsp; <p class="btn btn-primary" onclick="window.close()">홈으로</p> -->
-
-
-</center>
-
+	<footer>
+		 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
+  		 	 <ul class="pagination">
+			
+<li><button type="button" class="btn btn-secondary btn-lg" onclick="history.back()">목록으로 가기</button></li>
+			
+			</ui>			
+		</nav>
+	</footer>
 
 </div>
 
@@ -191,14 +294,11 @@ footer {
 <!-- Make sure there is a jQuery framework, loaded, before the plugin script loads -->
 <script type="text/javascript" src="js/jquery.lightbox.min.js"></script>
 <!-- Activate the jQuery lightBox plugin -->
+
 <script type="text/javascript">
 $(function() {
-
-	
 	$('#div1 a').lightBox();
 });
-
-
 
 </script>
 </body>

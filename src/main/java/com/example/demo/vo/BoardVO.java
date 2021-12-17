@@ -4,11 +4,14 @@ import java.util.Date;
 
 public class BoardVO {
 
-	private int no,grp,seq,lvl;
+	private int no;
 	private String id,title,content,fileName;
 	private Date writeDate;
 	
+	private String searchType;
+	private String keyword;
 	
+
 	
 	public int getNo() {
 		return no;
@@ -19,36 +22,6 @@ public class BoardVO {
 			this.no=-1;
 		}else {
 			this.no = no;	
-		}
-	}
-	public int getGrp() {
-		return grp;
-	}
-	public void setGrp(int grp) {
-		if(grp<0) {
-			this.grp = -1;
-		}else {
-			this.grp=grp;
-		}
-	}
-	public int getSeq() {
-		return seq;
-	}
-	public void setSeq(int seq) {
-		if(seq<0) {
-			this.seq = -1;
-		}else {
-			this.seq=seq;
-		}
-	}
-	public int getLvl() {
-		return lvl;
-	}
-	public void setLvl(int lvl) {
-		if(lvl<0) {
-			this.lvl = -1;
-		}else {
-			this.lvl=lvl;
 		}
 	}
 	public String getId() {
@@ -96,11 +69,27 @@ public class BoardVO {
 	public void setWriteDate(Date writeDate) {
 		this.writeDate = writeDate;
 	}
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	@Override
 	public String toString() {
-		return "BoardVO [no=" + no + ", grp=" + grp + ", seq=" + seq + ", lvl=" + lvl + ", id=" + id + ", title="
-				+ title + ", content=" + content + ", fileName=" + fileName + ", writeDate=" + writeDate + "]";
+		return "BoardVO [no=" + no + ", id=" + id + ", title=" + title + ", content=" + content + ", fileName="
+				+ fileName + ", writeDate=" + writeDate + ", searchType=" + searchType + ", keyword=" + keyword + "]";
 	}
+
+
+	
+	
 
 	
 }
