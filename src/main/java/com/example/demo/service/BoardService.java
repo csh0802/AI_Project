@@ -31,4 +31,9 @@ public class BoardService {
 		boardDAO.replyWrite(replyVO);
 		
 	}
+
+	public void searchWord(String searchData) {
+		boardDAO.searchWord(searchData);
+		
+	}
 }

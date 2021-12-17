@@ -23,12 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ObjectDetectionService {
 	
-	 String imgOriginalPath= "src\\main\\webapp\\media\\upload.png";           // 원본 이미지 파일명
-     String imgTargetPath= "src\\main\\webapp\\media\\test.png";    // 새 이미지 파일명
+	 String imgOriginalPath= "/upload/upload.png";           // 원본 이미지 파일명
+     String imgTargetPath= "/upload/test.png";    // 새 이미지 파일명
      String imgFormat = "png";                             
 	 int newWidth = 300;                                  // 변경 할 넓이
      int newHeight = 400;                                 // 변경 할 높이
-     String mainPosition = "W";                             // W:넓이중심, H:높이중심, X:설정한 수치로(비율무시)
+     String mainPosition = "X";                             // W:넓이중심, H:높이중심, X:설정한 수치로(비율무시)
 
      Image image;
      int imageWidth;
@@ -38,7 +38,7 @@ public class ObjectDetectionService {
      int h;
     public  String objectDetect(File uploadFile) {
     	try {
-        Files.copy(uploadFile.toPath(), new File("src\\main\\webapp\\media\\upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
+        Files.copy(uploadFile.toPath(), new File("/upload/upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
 
     	JSONObject jo1 = new JSONObject();
     	int[] a = new int[3];
@@ -130,7 +130,7 @@ public class ObjectDetectionService {
             if(responseCode==200) { // 정상 호출
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
             } else {  // 오류 발생
-//                System.out.println("error!!!!!!! responseCode= " + responseCode);
+                System.out.println("error!!!!!!! responseCode= " + responseCode);
                 br = new BufferedReader(new InputStreamReader(con.getInputStream()));
             }
             String inputLine;
@@ -140,12 +140,10 @@ public class ObjectDetectionService {
                     response.append(inputLine);
                 }
                 br.close();
-//                System.out.println(response.toString());
                 
 				BufferedImage bimg = ImageIO.read(uploadFile); 
 				int width = bimg.getWidth();
 				int height = bimg.getHeight();
-//				System.out.println(response.toString());
                 JSONObject jo=new JSONObject(response.toString());    
                 jo.put("width", width);
                 jo.put("height", height);

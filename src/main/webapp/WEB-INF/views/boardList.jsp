@@ -45,6 +45,11 @@ footer {
   height: 60px;
 }  
 }
+
+.searchDiv{
+text-align: right;
+}
+
 </style>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -54,7 +59,6 @@ footer {
  
  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,16 +72,17 @@ footer {
   <title>Community</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-   <script type="text/javascript">
+
+	<script type="text/javascript">
 
 
 function a(url){
-   const id=getCookie("id");
-   if(id){
-      location.href=url;
-   }else{
-       alert("로그인 후 글쓰기가 가능합니다.")
-       window.close();
+	const id=getCookie("id");
+	if(id){
+		location.href=url;
+	}else{
+	    alert("로그인 후 글쓰기가 가능합니다.")
+	    window.close();
 
    }
    
@@ -98,6 +103,19 @@ function getCookie(cname) {
      }
      return "";
    }
+
+$(document).ready(function(){
+	$("#searchBtn").click(function(){
+		var keyWord=$("#keyWordInput").val();
+		$.post('search',{keyWord},function(data){
+			console.log(data);
+		})
+		
+		
+		
+		//alert(search);
+	});
+});
 
 
 </script>
@@ -145,16 +163,34 @@ function getCookie(cname) {
     <aside class="row row-cols-lg-1 mt-5">
       <ul class="list-group">
         <li class="list-group-item text-primary col-lg-12">
-             <a href="javascript:a('boardWriteForm')" class="a_style">글쓰기</a>
+
+             <a href="javascript:a('boardWriteForm')" class="a_style btn btn-light">글쓰기</a>
         </li>
         <li class="list-group-item text-primary col-lg-12">
-          <a href="#" class="a_style">Q&A</a>
+          <a href="#" class="a_style btn btn-light">Q&A</a>
+
         </li>
        
       </ul>
     </aside>
     <!-- Board -->
- 
+   <!--  <form action="getBoardList.jsp" method="get">
+			<table border="1" cellpadding="0" cellspacing="0" width="700">
+				<tr>
+					<td align="right">
+						<select id="searchCondition" name="searchCondition">
+							<option value="TITLE">제목</option>
+							<option value="CONTENT">내용</option>
+						</select>
+						<input id="searchKeyword" name="searchKeyword" type="text">
+						<input type="submit" value="검색 ">
+					</td>
+				</tr>		
+			</table>
+		</form> -->
+ <div class="searchDiv" >
+ <input type="text" id="keyWordInput" placeholder="검색어를 입력해주세요"><button id="searchBtn">검색</button>
+ </div>
     <section>
    
       <div class="row row-cols-lg-10 mt-5">
@@ -165,19 +201,23 @@ function getCookie(cname) {
           <tbody>
             <tr>
               <c:forEach items="${boardList}" var="article">
-   <tr>
-      <td>${article.no }</td><td><a href="viewArticle?no=${article.no }">
-      <c:choose>
+
+	<tr>
+		<td>${article.no }</td><td><a href="viewArticle?no=${article.no }">
+		<c:choose>
+
                <c:when test='${article.lvl > 0 }'>  
                   <c:forEach begin="1" end="${article.lvl }" step="1">
          <!--   <span style="padding-left:20px"></span> -->   ↪  
                   </c:forEach>
               </c:when>
              </c:choose>
-      ${article.title }</a></td>
-      <td>${article.id }</td><td>${article.writeDate }</td>
-   </tr>
-   </c:forEach>
+
+		${article.title }</a></td>
+		<td>${article.id }</td><td><fmt:formatDate pattern="yyyy/MM/dd" value="${article.writeDate }"/></td>
+	</tr>
+	</c:forEach>
+
             </tr>
           </tbody>
         </table>
@@ -188,15 +228,17 @@ function getCookie(cname) {
 
 
       <footer>
-      <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3">
-        <ul class="pagination">
+
+      <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 ">
+    <ul class="pagination">
+
 
           <li class="page-item"><a class="page-link" href="#">Previous</a></li>
           <li class="page-item"><a class="page-link" href="#">1</a></li>
           <li class="page-item"><a class="page-link" href="#">2</a></li>
           <li class="page-item"><a class="page-link" href="#">3</a></li>
           <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
+        </ul> 
       </nav>
     </section>
   </div>

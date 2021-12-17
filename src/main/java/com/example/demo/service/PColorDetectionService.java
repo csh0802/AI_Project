@@ -32,7 +32,7 @@ public class PColorDetectionService {
         String clientSecret = "JXTKc5OX3vBneS31NxblU5amf3RlYcOSVXcIxZBM";//애플리케이션 클라이언트 시크릿값";
 
         try {
-        	Files.copy(uploadFile.toPath(), new File("src\\main\\webapp\\media\\upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
+        	Files.copy(uploadFile.toPath(), new File("..\\media\\upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
             String paramName = "image"; // 파라미터명은 image로 지정
             
             String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/face"; // 얼굴 감지

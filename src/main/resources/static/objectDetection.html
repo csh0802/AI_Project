@@ -15,8 +15,7 @@
 
   <!--javascript 영역-->
   <script src="../js/my.js"></script>
-  <script>
-    
+
     
   </script>
   <style>
@@ -42,8 +41,10 @@
       border: 1px solid;
       padding: 5px;
       border-color: black;
-      width: 200px;
-      height: 250px;
+
+      width: 310px;
+		height: 410px;
+
       margin-top: 30px;
     }
 
@@ -53,22 +54,36 @@
   <div class="container">  
     <div class="main-container">
         <center>
-        <div class="imgBox">
-          사진 표시 영역
-        </div>
+
+       <div class="imgBox" >
+			<div class="divleftImg">
+				<canvas id="drawCanvas"></canvas>
+			</div>
+			<div class="divRightImg">
+				<img id="celeImg" src="" alt="">
+			</div>
+		</div>
+
         <div class="mb-3 mt-3">
           <label for="file" class="form-label" style="font-size: small; color: gray;">이미지를 업로드 하세요</label>
           <input class="form-control form-control-sm" style="width: 350px;" id="file" type="file">
         </div>
         <div class="d-grid col-6 mt-5">
+
+          <button id="faceDetectBtn" class="btn" type="button" style="background-color: rgb(142, 68, 173); font-weight: bold; color: white;">얼굴인식</button>
+        </div>
+        <div class="d-grid col-6 mt-5">
+
           <button id="getPcolorBtn" class="btn" type="button" style="background-color: rgb(142, 68, 173); font-weight: bold; color: white;">퍼스널컬러 진단하기</button>
         </div>
         <div class="d-grid col-6 mt-3">
           <button id="celebrityDetection" class="btn" type="button" style="background-color: white; font-weight: bold; color: rgb(142, 68, 173); font-size: smaller;">나와 닮은 연예인은?</button>
         </div>
+
         <div class="d-grid col-6 mt-3">
           <button id="ItemBtn" class="btn" type="button"  style="background-color: white; font-weight: bold; color: rgb(142, 68, 173); font-size: smaller;" onclick='window.open("item.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=800,height=800");'>컬러에 맞는 패션아이템은?</button>
         </div>
+
         </center>
 
     </div>

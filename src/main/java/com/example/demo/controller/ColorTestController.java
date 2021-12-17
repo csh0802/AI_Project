@@ -50,13 +50,27 @@ public class ColorTestController {
 	
 	String pColor;
 	
+	
+	
 	@PostMapping("celebrityDetect")
 	@ResponseBody
 	public String celebrityDetect(MultipartFile image) {
 
 		System.out.println(image.getOriginalFilename());
 		try {
-			File uploadFile = new File("C:\\temp2\\" + image.getOriginalFilename());
+			 File dir = new File("/upload");
+			 if(!dir.exists()) {
+			      //Creating the directory
+			      boolean bool = dir.mkdir();
+			      if(bool){
+			         System.out.println("Directory created successfully");
+			         
+			      }else{
+			         System.out.println("Sorry couldn’t create specified directory");
+			      }
+			 }
+
+			File uploadFile = new File("/upload/" + image.getOriginalFilename());
 			image.transferTo(uploadFile);
 			return clerbrityDetection.celebrityDetect(uploadFile);
 
@@ -67,23 +81,43 @@ public class ColorTestController {
 		}
 
 	}
+	@PostMapping("myImg")
+	public File getImg() {
+		
+		File uploadFile = new File("/upload/test.png");
+		System.out.println(uploadFile.getPath());
+		return uploadFile;
+		
+	}
 	@PostMapping("personDetect")
 	@ResponseBody
 	public String detectPerson(MultipartFile image) {
 //		System.out.println(image.getOriginalFilename());
 		JSONObject jo = new JSONObject();
 		try {
-			File uploadFile=new File("C:\\temp2\\"+image.getOriginalFilename());
+			File dir = new File("/upload");
+			 if(!dir.exists()) {
+			      //Creating the directory
+			      boolean bool = dir.mkdir();
+			      if(bool){
+			         System.out.println("Directory created successfully");
+			         
+			      }else{
+			         System.out.println("Sorry couldn’t create specified directory");
+			      }
+			 }
+			 
+			File uploadFile = new File("/upload/" + image.getOriginalFilename());
 			image.transferTo(uploadFile);
-			
+			System.out.println(uploadFile);
 			jo.put("result", personDetectionService.detectPerson(uploadFile));
-			
+				
 //			System.out.println(jo.get("result"));
 			return jo.toString();
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-//			e.printStackTrace();
+			e.printStackTrace();
 			return "upload fail!!!";
 		} 
 	}
@@ -96,7 +130,19 @@ public class ColorTestController {
 //		System.out.println(image.getOriginalFilename());
 		JSONObject jo = new JSONObject();
 		try {
-			File uploadFile=new File("C:\\temp2\\"+image.getOriginalFilename());
+			File dir = new File("/upload");
+			 if(!dir.exists()) {
+			      //Creating the directory
+			      boolean bool = dir.mkdir();
+			      if(bool){
+			         System.out.println("Directory created successfully");
+			         
+			      }else{
+			         System.out.println("Sorry couldn’t create specified directory");
+			      }
+			 }
+
+			File uploadFile = new File("/upload/" + image.getOriginalFilename());
 			image.transferTo(uploadFile);
 			return objectDetectionService.objectDetect(uploadFile);
 			
@@ -115,8 +161,21 @@ public class ColorTestController {
 		JSONObject jo = new JSONObject();
 		///home/ubuntu/0csh/git_registry/test-1/media
 		
-		File uploadFile=new File("C:\\temp2\\"+image.getOriginalFilename());
+		
 		try {
+			File dir = new File("/upload");
+			 if(!dir.exists()) {
+			      //Creating the directory
+			      boolean bool = dir.mkdir();
+			      if(bool){
+			         System.out.println("Directory created successfully");
+			         
+			      }else{
+			         System.out.println("Sorry couldn’t create specified directory");
+			      }
+			 }
+
+			File uploadFile = new File("/upload/" + image.getOriginalFilename());
 			testList = colorTestService.selectAllType();
 			image.transferTo(uploadFile);
 			a = getColorService.getColor(uploadFile); 
@@ -145,6 +204,7 @@ public class ColorTestController {
 			jo.put("pColor", pColor);
 			if(session.getAttribute("memberVO")!=null) {
 				session.setAttribute("pColor", pColor);
+				System.out.println("세션에 pcolor값 추가");
 			}
 		} catch (IllegalStateException e1) {
 			// TODO Auto-generated catch block

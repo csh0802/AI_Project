@@ -18,19 +18,18 @@ import org.springframework.stereotype.Service;
 // Object Detection API 예제
 public class PersonDetectionService {
 
-    public String detectPerson(File file) {
+    public String detectPerson(File uploadFile) {
 
         StringBuffer reqStr = new StringBuffer();
         String clientId = "YOUR_CLIENT_ID";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "YOUR_CLIENT_SECRET";//애플리케이션 클라이언트 시크릿값";
 
         try {
-        	Files.copy(file.toPath(), new File("src\\main\\webapp\\media\\upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
+        	Files.copy(uploadFile.toPath(), new File("/media/upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
+
 
             String paramName = "image"; // 파라미터명은 image로 지정
-            String imgFile = file.getPath();
 //            System.out.println(imgFile);
-            File uploadFile = new File(imgFile);
             String apiURL = "https://naveropenapi.apigw.ntruss.com/vision-obj/v1/detect"; // 객체 인식
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -100,9 +99,9 @@ public class PersonDetectionService {
                 String result = ja.toString();
 //                System.out.println(result);
                 if(result.contains("person")) {
-                	return "사람탐지";
+                   return "사람탐지";
                 }else {
-                	return "사람없음";
+                   return "사람없음";
                 }
                 
             } else {
@@ -113,6 +112,6 @@ public class PersonDetectionService {
 //            System.out.println(e);
             return e.getMessage();
         }
-		
+      
     }
 }
