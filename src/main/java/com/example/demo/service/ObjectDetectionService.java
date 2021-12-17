@@ -23,8 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ObjectDetectionService {
 	
-	 String imgOriginalPath= "src\\main\\webapp\\media\\upload.png";           // 원본 이미지 파일명
-     String imgTargetPath= "src\\main\\webapp\\media\\test.png";    // 새 이미지 파일명
+	 String imgOriginalPath= "/upload/upload.png";           // 원본 이미지 파일명
+     String imgTargetPath= "/upload/test.png";    // 새 이미지 파일명
      String imgFormat = "png";                             
 	 int newWidth = 300;                                  // 변경 할 넓이
      int newHeight = 400;                                 // 변경 할 높이
@@ -38,7 +38,7 @@ public class ObjectDetectionService {
      int h;
     public  String objectDetect(File uploadFile) {
     	try {
-        Files.copy(uploadFile.toPath(), new File("src\\main\\webapp\\media\\upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
+        Files.copy(uploadFile.toPath(), new File("/upload/upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
 
     	JSONObject jo1 = new JSONObject();
     	int[] a = new int[3];
