@@ -24,7 +24,33 @@ public class CelebrityController {
 	@Autowired
 	CelebrityDetectionService clerbrityDetection;
 
-	
+
+	@PostMapping("celebrityDetect")
+	@ResponseBody
+
+	public String celebrityDetect(MultipartFile image) {
+		if (image != null) {
+
+			System.out.println(image.getOriginalFilename());
+			try {
+				File uploadFile = new File("C:\\temp2\\" + image.getOriginalFilename());
+				image.transferTo(uploadFile);
+				System.out.println(clerbrityDetection.celebrityDetect(uploadFile).toString());
+				return clerbrityDetection.celebrityDetect(uploadFile);
+				
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+		}else {
+			return null;
+		}
+
+	}
+
+
 	@PostMapping("celeImg")
 	@ResponseBody   
 	public void celebrityImg(String celebrity) { 

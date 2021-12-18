@@ -157,7 +157,9 @@ public class ColorTestController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 //			e.printStackTrace();
-			jo.put("msg", "error");
+
+			jo3.put("msg", "error");
+
 		}
 		
 		return jo.toString();

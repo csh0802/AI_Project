@@ -140,38 +140,60 @@ $(document).ready(function() {
 						context.drawImage(image, 0, 0);
 					}
 
-					var jsonArray = new Array();
-					if (data.info.faceCount > 0) {
-						let faces = data.info.faceCount;
-						for (let i = 0; i < faces; i++) {
-							var jsonObj = new Object();
-							jsonObj.celebrity = data.faces[i].celebrity.value;
-							jsonObj.confidence = (data.faces[i].celebrity.confidence) * 100 + "%";
 
-							jsonObj = JSON.stringify(jsonObj);
-							//String 형태로 파싱한 객체를 다시 json으로 변환
-							jsonArray.push(JSON.parse(jsonObj));
-						}
-						console.log(jsonArray);
-						for (let i = 0; i < jsonArray.length; i++) {
-							var result = jsonArray[i].celebrity + "을(를) " + jsonArray[i].confidence + "정도 닮았습니다.<br>";
-							console.log(result);
-							$("#resultDiv").append(result);
-						}
-						var celebrity = data.faces[0].celebrity.value;
-						//console.log(celebrity);
-						$.post('../celeImg', { celebrity }, function() {
-							console.log(data);
-							$("#celeImg").attr("src","../media/newCele.png");
-						});
+		var fileCheck = document.getElementById("file").value;
+		if (!fileCheck) {
+			alert("파일을 첨부해 주세요");
+			return false;
+		} else {
+			let formData = new FormData();
+			formData.append('image', $("#file")[0].files[0]);
 
+			$.ajax({
+				type: 'post',
+				url: '../celebrityDetect',
+				cache: false,
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function(data) {
+
+					if (data != null) {
+						data = JSON.parse(data);
+
+						console.log(data);
+						var faceCount = data.info.faceCount;
+						console.log(faceCount);
+						if (faceCount > 1) {
+							alert("한명의 얼굴만 분석 가능합니다!!");
+						} else {
+							var result = data;
+							localStorage.setItem('result', JSON.stringify(result));
+							window.location = "celebrity.html";
+						}
 					} else {
-						$("#resultDiv").text("닮은꼴 연예인이 없네요 ㅠㅠ");
+						alert("페이지 오류");
 					}
-				}else if(data.info.faceCount>1){
-					alert("얼굴이 2개이상 검출되었습니다 한개의 얼굴만 들어간 사진을 넣어주세요~");
-				}else{
-					alert("얼굴이 검출되지 않았습니다 사진을 다시한번 확인해 주세요");
+
+					/*if (data == null) {
+						alert("사진첨부 필요");
+					} else if(data!=null){
+						data = JSON.parse(data);
+						console.log(data.info.faceCount);
+						
+						alert("한명의 얼굴만 분석 가능합니다!!");
+					}else{
+						
+						var result = data;
+						localStorage.setItem('result', JSON.stringify(result));
+						window.location = "celebrity.html";
+					}*/
+
+
+				},
+				error: function(e) {
+					console.log("ERROR : ", e);
+
 				}
 
 
