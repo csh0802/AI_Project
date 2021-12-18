@@ -25,7 +25,8 @@ public class PersonDetectionService {
         String clientSecret = "YOUR_CLIENT_SECRET";//애플리케이션 클라이언트 시크릿값";
 
         try {
-        	Files.copy(uploadFile.toPath(), new File("src\\main\\webapp\\media\\upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
+        	Files.copy(uploadFile.toPath(), new File("/media/upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
+
 
             String paramName = "image"; // 파라미터명은 image로 지정
 //            System.out.println(imgFile);
@@ -98,9 +99,9 @@ public class PersonDetectionService {
                 String result = ja.toString();
 //                System.out.println(result);
                 if(result.contains("person")) {
-                	return "사람탐지";
+                   return "사람탐지";
                 }else {
-                	return "사람없음";
+                   return "사람없음";
                 }
                 
             } else {
@@ -111,6 +112,6 @@ public class PersonDetectionService {
 //            System.out.println(e);
             return e.getMessage();
         }
-		
+      
     }
 }

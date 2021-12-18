@@ -46,12 +46,15 @@ public class ColorTestController {
 	@Autowired
 	ColorBoxService colorBoxService;
 
+
 	String pColor;
+
 
 	@PostMapping("getPcolor")
 	@ResponseBody
 	public String getPcolor(MultipartFile image, HttpSession session) {
 		System.out.println(image.getOriginalFilename());
+
 		int no = 0, sum = 0, temp = 1000;
 		int[] a = new int[3];
 		JSONArray ja = new JSONArray();
@@ -61,7 +64,8 @@ public class ColorTestController {
 		/// home/ubuntu/0csh/git_registry/test-1/media
 
 		try {
-			File uploadFile = new File("C:\\temp2\\" + image.getOriginalFilename());
+			File uploadFile = new File("/upload/" + image.getOriginalFilename());
+
 			testList = colorTestService.selectAllType();
 			image.transferTo(uploadFile);
 			String result1 = personDetectionService.detectPerson(uploadFile);
@@ -111,7 +115,19 @@ public class ColorTestController {
 				}
 
 			}else {
+
+				System.out.println("colorTestVO is null");
+				jo.put("msg", "퍼스널컬러 기준 테이블 없음");
+			}
+//			System.out.println(colorTestService.selectPeronalType(no));
+			pColor = colorTestService.selectPeronalType(no);
+			jo.put("pColor", pColor);
+			if(session.getAttribute("memberVO")!=null) {
+				session.setAttribute("pColor", pColor);
+				System.out.println("세션에 pcolor값 추가");
+
 				return "null1";
+
 			}
 
 		} catch (IllegalStateException e1) {

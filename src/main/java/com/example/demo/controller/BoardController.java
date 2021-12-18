@@ -61,9 +61,22 @@ public class BoardController {
 			boardVO.setFileName(fileName);
 			try {
 
-				file.transferTo(new File("C:\\0AI\\5_backend\\springBoot_workspace\\FinalProject_4\\src\\main\\webapp\\uploadImg\\"+fileName));
 
-			} catch (IllegalStateException | IOException e) {
+				File dir = new File("/upload");
+				 if(!dir.exists()) {
+				      //Creating the directory
+				      boolean bool = dir.mkdir();
+				      if(bool){
+				         System.out.println("Directory created successfully");
+				         
+				      }else{
+				         System.out.println("Sorry couldn’t create specified directory");
+				      }
+				 }
+
+
+				File uploadFile = new File("/upload/" + fileName);
+			} catch (IllegalStateException e) {
 				
 				e.printStackTrace();
 			}
