@@ -169,15 +169,38 @@ $(document).ready(function() {
 				processData: false,
 				contentType: false,
 				success: function(data) {
-					if (data == "이미지가 없습니다") {
-						alert("사진첨부 필요");
 
-					} else {
+					if (data != null) {
+						data = JSON.parse(data);
+
 						console.log(data);
+						var faceCount = data.info.faceCount;
+						console.log(faceCount);
+						if (faceCount > 1) {
+							alert("한명의 얼굴만 분석 가능합니다!!");
+						} else {
+							var result = data;
+							localStorage.setItem('result', JSON.stringify(result));
+							window.location = "celebrity.html";
+						}
+					} else {
+						alert("페이지 오류");
+					}
+
+					/*if (data == null) {
+						alert("사진첨부 필요");
+					} else if(data!=null){
+						data = JSON.parse(data);
+						console.log(data.info.faceCount);
+						
+						alert("한명의 얼굴만 분석 가능합니다!!");
+					}else{
+						
 						var result = data;
 						localStorage.setItem('result', JSON.stringify(result));
 						window.location = "celebrity.html";
-					}
+					}*/
+
 
 				},
 				error: function(e) {

@@ -36,16 +36,17 @@ public class CelebrityController {
 			try {
 				File uploadFile = new File("C:\\temp2\\" + image.getOriginalFilename());
 				image.transferTo(uploadFile);
+				System.out.println(clerbrityDetection.celebrityDetect(uploadFile).toString());
 				return clerbrityDetection.celebrityDetect(uploadFile);
 				
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return "upload fail!!!";
+				return null;
 			}
 		}else {
-			return "이미지가 없습니다";
+			return null;
 		}
 
 	}
