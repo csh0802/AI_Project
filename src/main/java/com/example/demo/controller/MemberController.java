@@ -62,7 +62,8 @@ public class MemberController {
 		try {
 			MemberVO vo=memberService.login(memberVO);
 			if(vo!=null) {
-				session.setAttribute("memberVO", memberVO);			
+				session.setAttribute("memberVO", memberVO);	
+				session.setAttribute("id", vo.getId());
 				jo.put("id", vo.getId());
 			}else {
 				jo.put("msg", "id와 pw를 확인하세요");
