@@ -1,7 +1,7 @@
 package com.example.demo.vo;
 
 public class ItemVO {
-	String pColor,itemNames,imgUrl,siteLink;
+	String pColor,itemName,imgUrl,siteLink;
 
 	public String getpColor() {
 		return pColor;
@@ -12,11 +12,11 @@ public class ItemVO {
 	}
 
 	public String getItemNames() {
-		return itemNames;
+		return itemName;
 	}
 
-	public void setItemNames(String itemNames) {
-		this.itemNames = itemNames;
+	public void setItemNames(String itemName) {
+		this.itemName = itemName;
 	}
 
 	public String getImgUrl() {
@@ -37,14 +37,14 @@ public class ItemVO {
 
 	@Override
 	public String toString() {
-		return "ItemVO [pColor=" + pColor + ", itemNames=" + itemNames + ", imgUrl=" + imgUrl + ", siteLink=" + siteLink
+		return "ItemVO [pColor=" + pColor + ", itemName=" + itemName + ", imgUrl=" + imgUrl + ", siteLink=" + siteLink
 				+ "]";
 	}
 
-	public ItemVO(String pColor, String itemNames, String imgUrl, String siteLink) {
+	public ItemVO(String pColor, String itemName, String imgUrl, String siteLink) {
 		super();
 		this.pColor = pColor;
-		this.itemNames = itemNames;
+		this.itemName = itemName;
 		this.imgUrl = imgUrl;
 		this.siteLink = siteLink;
 	}

@@ -23,11 +23,11 @@ public class CelebrityDetectionService {
         String clientId = "c4gwa4h9p0";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "JXTKc5OX3vBneS31NxblU5amf3RlYcOSVXcIxZBM";//애플리케이션 클라이언트 시크릿값";
         
-        String imgOriginalPath= "src\\main\\webapp\\media\\upload.png";           // 원본 이미지 파일명
-        String imgTargetPath= "src\\main\\webapp\\media\\test.png";    // 새 이미지 파일명
+        String imgOriginalPath= "upload/upload.png";           // 원본 이미지 파일명
+        String imgTargetPath= "/upload/test.png";    // 새 이미지 파일명
         String imgFormat = "png";                             // 새 이미지 포맷. jpg, gif 등
-        int newWidth = 300;                                  // 변경 할 넓이
-        int newHeight = 400;                                 // 변경 할 높이
+        int newWidth = 200;                                  // 변경 할 넓이
+        int newHeight = 260;                                 // 변경 할 높이
         String mainPosition = "W";                             // W:넓이중심, H:높이중심, X:설정한 수치로(비율무시)
  
         Image image;
@@ -37,7 +37,7 @@ public class CelebrityDetectionService {
         int w;
         int h;
         try {
-        	Files.copy(uploadFile.toPath(), new File("src\\main\\webapp\\media\\upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
+        	Files.copy(uploadFile.toPath(), new File("upload/upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
         	
         	 // 원본 이미지 가져오기
             image = ImageIO.read(new File(imgOriginalPath));
@@ -144,7 +144,7 @@ public class CelebrityDetectionService {
     public void getCeleImg(String getURL) {
 		URL url;
 		         // 원본 이미지 파일명
-        String imgTargetPath= "src\\main\\webapp\\media\\newCele.png";    // 새 이미지 파일명
+        String imgTargetPath= "upload/newCele.png";    // 새 이미지 파일명
         String imgFormat = "png";                             // 새 이미지 포맷
         int newWidth = 300;                                  // 변경 할 넓이
         int newHeight = 400;                                 // 변경 할 높이
@@ -160,7 +160,7 @@ public class CelebrityDetectionService {
 			url = new URL(getURL);
 			System.out.println(url);
 			BufferedImage image = ImageIO.read(url);
-			File imgFile = new File("src\\main\\webapp\\media\\cele.png");
+			File imgFile = new File("upload/cele.png");
 			System.out.println(imgFile.exists());
 			ImageIO.write(image,"png",imgFile);
 			

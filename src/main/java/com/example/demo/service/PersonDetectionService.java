@@ -25,7 +25,7 @@ public class PersonDetectionService {
         String clientSecret = "YOUR_CLIENT_SECRET";//애플리케이션 클라이언트 시크릿값";
 
         try {
-        	Files.copy(file.toPath(), new File("src\\main\\webapp\\media\\upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
+        	Files.copy(file.toPath(), new File("upload/upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
 
             String paramName = "image"; // 파라미터명은 image로 지정
             String imgFile = file.getPath();

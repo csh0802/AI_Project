@@ -1,7 +1,6 @@
-<!DOCTYPE html>  
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +20,7 @@
   <style>
     .container {
       width: 600px;
-      height: 600px;
+      height: 650px;
 
       background-image: url('../img/gradient-bg.jpg');
 
@@ -33,7 +32,7 @@
 
     .main-container {
       width: 590px;
-      height: 580px;
+      height: 640px;
       background-color: white;
       background-size: cover;
       padding: 20px; 
@@ -44,30 +43,54 @@
       padding: 5px;
       border-color: black;
 
-      width: 310px;
-		height: 410px;
+      width: 210px;
+	  height: 270px;
 
       margin-top: 30px;
     }
 
   </style>
-
 </head>
 <body>
-	<input type="file" id="file"><button id='fileUploadBtn'>전송</button>
-	<button id='faceDetectBtn'>얼굴인식</button>
-	
-	<button id='celebrityDetection'>닮은꼴 연예인 찾기</button>
+  <div class="container">  
+    <div class="main-container">
+        <center>
 
-	<button id='getPcolorBtn'>getPcolor</button>
+       <div class="imgBox" >
+			<div class="divleftImg">
+				<canvas id="drawCanvas"></canvas>
+			</div>
+			<div class="divRightImg">
+				<img id="celeImg" src="" alt="">
+			</div>
+		</div>
 
-	<button id='insertPcolorBtn'>colorBox에 진단결과 추가</button>
-	<hr>
-	
-	<div id="resultDiv"></div>
-	<div>
-		<canvas id="drawCanvas"></canvas>
-		<img id="celeImg" src="" alt="">
-	</div>
+        <div class="mb-3 mt-3">
+          <label for="file" class="form-label" style="font-size: small; color: gray;">이미지를 업로드 하세요</label>
+          <input class="form-control form-control-sm" style="width: 350px;" id="file" type="file">
+        </div>
+        <div class="d-grid col-6 mt-5">
+
+
+
+          <button id="getPcolorBtn" class="btn" type="button" style="background-color: rgb(142, 68, 173); font-weight: bold; color: white;">퍼스널컬러 진단하기</button>
+        </div>
+        <div class="d-grid col-6 mt-3">
+          <button id="celebrityDetection" class="btn" type="button" style="background-color: white; font-weight: bold; color: rgb(142, 68, 173); font-size: smaller;">나와 닮은 연예인은?</button>
+        </div>
+
+        <div class="d-grid col-6 mt-3">
+          <button id="ItemBtn" class="btn" type="button"  style="background-color: white; font-weight: bold; color: rgb(142, 68, 173); font-size: smaller;" onclick='window.open("item.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=800,height=800");'>컬러에 맞는 패션아이템은?</button>
+        </div>
+
+        </center>
+
+
+    </div>
+  </div>
+  
+
+  
+
 </body>
 </html>

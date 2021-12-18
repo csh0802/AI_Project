@@ -41,24 +41,25 @@ public class ItemController {
 		//설정한 경로와 db경로가 같은지 확인하고 맞으면 js로 넘기기 
 		
 		
-		pColor = (String)session.getAttribute("pColor"); //세션에 등록된 pColor를 받아오기
+		
 		System.out.println(pColor);
 		
 				try {
 					if(pColor!=null) {//pColor가 있다면 db에서 데이터 가져오기
-						
+						System.out.println("dsdsd");
 						itemList=itemService.selectItem(pColor);
 						System.out.println(itemList);
 						JSONArray ja =new JSONArray(itemList);
 						System.out.println(ja);
+						
 						return ja.toString();
 					}else {
-						
+						System.out.println("pColor==null");
 					}
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					//e.printStackTrace();
+					e.printStackTrace();
 					
 				}
 				return "error!"; 
