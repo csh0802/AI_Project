@@ -22,7 +22,7 @@
       update comment set content=#{content} where cno=#{cno}
     </update>
     
-    <delete id="commentDelete" parameterType="int">
+    <delete id="commentDelete" parameterType="int" >
       delete from comment where cno=#{cno}
     </delete>
 

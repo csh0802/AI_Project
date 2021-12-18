@@ -11,8 +11,7 @@
 		<mapper resource="mybatis/mappers/colorTest.xml"/>
 
 		<mapper resource="mybatis/mappers/comment.xml"/>
-
-		<mapper resource="mybatis/mappers/item.xml"/>
+		<mapper resource="mybatis/mappers/scrapBox.xml"/>
 
 	</mappers>
 </configuration>  

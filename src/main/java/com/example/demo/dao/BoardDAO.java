@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import com.example.demo.vo.BoardVO;
+import com.example.demo.vo.ScrapVO;
 
 @Mapper
 @Repository
@@ -19,7 +20,15 @@ public interface BoardDAO {
 
 	public void replyWrite(BoardVO boardVO) throws DataAccessException;
 
-	public void searchWord(String searchData) throws DataAccessException;
+	public void delete(int no) throws DataAccessException;
+	
+	public void update(BoardVO boardVO) throws DataAccessException;
+	
+	public List<BoardVO> search(BoardVO boardVO) throws DataAccessException;
+	
+	public List<BoardVO> selectScrap(BoardVO boardVO) throws DataAccessException;
+	
+	
 
 }
 

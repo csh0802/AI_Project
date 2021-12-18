@@ -3,25 +3,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
+ <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
- 
- 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 <script type="text/javascript">
+//메인화면 id 가져오기
+function getCookie(cname) {
+		    let name = cname + "=";
+		    let decodedCookie = decodeURIComponent(window.opener.document.cookie);
+		    let ca = decodedCookie.split(';');
+		    for(let i = 0; i <ca.length; i++) {
+		      let c = ca[i];
+		      while (c.charAt(0) == ' ') {
+		        c = c.substring(1);
+		      }
+		      if (c.indexOf(name) == 0) {
+		        return c.substring(name.length, c.length);
+		      }
+		    }
+		    return "";
+  }
+
+
 var bno =${article.no}; //게시글 번호
 
-
-$("#commentInsertBtn").click(function(){ //댓글 등록 버튼 클릭시 
-   const insertData = $("#content").val();
-
-   //var insertData = $("#commentInsertForm").serialize();//commentInsertForm의 내용을 가져옴
-	//alert(insertData);
+//댓글 등록 버튼 클릭시 
+$("#commentInsertBtn").click(function(){ 
+   
+	const insertData = $("#content").val();
     commentInsert(insertData); //Insert 함수호출
 });
  
@@ -41,17 +58,17 @@ function commentList(){
         	
  			  var a =''; 
  
-           // console.log(data);
+          //console.log(data);
             data.commentList.forEach(function(item,index){
             	  a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-
-                  a += '<div class="commentInfo'+item.cno+'">'+'Date : '+item.reg_date+' / ID : '+item.writer;               
-                  a += '<div class="commentContent'+item.cno+'"> <p>  : '+item.content +'</p>';
+            	  a += '<br>';
+                 /*  a += '<div class="commentInfo'+item.cno+'">'+'Date : '+item.reg_date+' ';   */  
+                  a += '<div><i class="far fa-grin-wink fa-2x"></i> :'+item.writer+'님의 댓글</div>';
+                  a += '<br>';
+                  a += '<div class="commentContent'+item.cno+'"> <p> : '+item.content +'</p>';
                   a += '<span style="display: inline-block; width: 1000px; background-color: burlywood;"></span>'
                   a += '<a  class="btn btn-outline-dark" onclick="commentUpdate('+item.cno+',\''+item.content+'\');"> 수정 </a>';
-                  a += '<a class="btn btn-outline-dark" onclick="commentDelete('+item.cno+');"> 삭제 </a> </div>';
-                  
-
+                  a += '<a class="btn btn-outline-dark" onclick="commentDelete('+item.cno+',\''+item.writer+'\');"> 삭제 </a> </div>';
                   a += '</div></div>';
                 //console.log(item.content);
             });
@@ -64,72 +81,71 @@ function commentList(){
 
 //댓글 등록
 function commentInsert(insertData){
-/*     $.ajax({
-        url : 'commentInsert',
-        type : 'post',
-        data : insertData,
-        success : function(data){
-        	console.log(data);
-            if(data == 1) {
-                commentList(); //댓글 작성 후 댓글 목록 reload
-                $("#content").val('');
-            } 
-        }
-    }); */
-    $.post('commentInsert',{insertData},function(data){
-    	if(data!=null){
-    		commentList();
-    		$("#content").val('');
-    	}
-    	
-    });
+
+    const id=getCookie("id");
     
-    
-    
-    
-    
+		    $.post('commentInsert',{insertData,id},function(){		 	
+		    
+		    	    alert("댓글이 등록되었습니다.");
+		    		commentList();
+		    		$("#content").val('');
+		 
+		    });  
 }
 
 //댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
 function commentUpdate(cno, content){
-    var a ='';
-    
+<%-- var coID='<%=(String)session.getAttribute("coID")%>'; --%>
+  	var id=getCookie("id");
+  	//console.log(coID);
+	//alert(coID+":"+id);
+ /*  	if(coID==id){
+ 		alert("같음");
+  */
+  	var a ='';
+   
     a += '<div class="input-group">';
     a += '<input type="text" class="form-control" id="updateContent" name="content_'+cno+'" value="'+content+'"/>';
     a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+cno+');">수정</button> </span>';
     a += '</div>';
     
     $('.commentContent'+cno).html(a);
-    
+ /* 	}else{
+ 		alert("작성자 본인만 수정이 가능합니다.");
+ 	} */
+	
 }
 
 //댓글 수정
 function commentUpdateProc(cno){
-    //var updateContent = $('[name=content_'+cno+']').val();
+  
     var updateContent=$("#updateContent").val();
-   // console.log(updateContent);
-
     
-    $.post('commentUpdate',{updateContent,'cno':cno},function(data){
-    	if(data!=null){
-    		commentList(bno);
-    	}
-    	
-    })
+		    $.post('commentUpdate',{updateContent,'cno':cno},function(){
+		    		alert("댓글이 수정되었습니다.");
+		    		commentList(bno);
+		  
+		    })
   
 }
  
 //댓글 삭제 
-function commentDelete(cno){
-	alert('삭제');
-  
-$.post('commentDelete',{cno},function(data){
-	if(data!=null){
-		commentList(bno);
-	}
-});
+function commentDelete(cno,writer){
+	
+	 const id=getCookie("id");
+	 
+		if(writer==id){
+			//alert(writer+":"+id);
+				 $.post('commentDelete',{cno},function(){
+					alert("댓글이 삭제되었습니다.");
+					 commentList(bno);
+				 }); 
+			}else{
+				
+			alert("작성자 본인만 삭제가 가능합니다.");
+		}
+} 
 
-}
  
 
  $(document).ready(function(){
@@ -138,9 +154,6 @@ $.post('commentDelete',{cno},function(data){
 
  
 </script>
-
-
-
 </head>
 <body>
 <div>

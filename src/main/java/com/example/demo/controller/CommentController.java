@@ -28,27 +28,25 @@ public class CommentController {
 	public String commentList(@RequestParam int bno) {
 		//System.out.println("commentList()호출");
 		List<CommentVO> commentList=commentService.commentList(bno);
-		//System.out.println(commentList);		
-	
-		
+		//System.out.println(commentList);			
 		JSONObject jo=new JSONObject();
-		jo.put("commentList", commentList);
+		jo.put("commentList", commentList);		
 		return jo.toString();
 	
-		}
+	}
 	
 	@PostMapping("commentInsert")
 	@ResponseBody
-	public void commentInsert(@RequestParam String insertData, HttpSession session) {
+	public void commentInsert(@RequestParam String insertData,@RequestParam String id, HttpSession session) {
 		//System.out.println("commentInsert()호출");
 		CommentVO comment = new CommentVO();
 		comment.setContent(insertData);
 		BoardVO parentVO=(BoardVO) session.getAttribute("article");
-		comment.setWriter(parentVO.getId());
-		
+		session.setAttribute("coID", id);
+		//System.out.println(session.getAttribute("coID"));
+		comment.setWriter(id);
 		comment.setBno(parentVO.getNo());
-		//System.out.println(comment);
-
+	
 	  commentService.commentInsert(comment);
 
 	}
@@ -69,8 +67,6 @@ public class CommentController {
 		commentVO.setCno(cno);
 		commentService.commentUpdate(commentVO);
 	}
-	
-	
-	
+
 	
 }

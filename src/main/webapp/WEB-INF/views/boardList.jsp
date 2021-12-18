@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+ <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <style type="text/css">
-/* 03_community.css */
-/* 아래에 코드를 작성해 주세요. */
-
 
 .main {
   margin-top: 120px;
@@ -22,17 +22,13 @@ h1 {
   text-align: center;
 }
 
-aside {
+/* aside {
   float: left;
-}
+} */
 
 section {
-  float: right;
+ text-align:center;
   width: 900px;
-  
- 
-/* 01_nav_footer.css */
-/* 아래에 코드를 작성해 주세요. */
 
 
 .nav_factor {
@@ -52,14 +48,14 @@ text-align: right;
 
 </style>
 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"  import="com.example.demo.vo.BoardVO, java.util.List" %>
-    
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
- 
- 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page session="true" %> <!-- 현재 페이지를 세션에 추가해줌 -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -74,7 +70,7 @@ text-align: right;
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
 	<script type="text/javascript">
-
+	
 
 function a(url){
 	const id=getCookie("id");
@@ -89,33 +85,56 @@ function a(url){
 }
 
 function getCookie(cname) {
-     let name = cname + "=";
-     let decodedCookie = decodeURIComponent(window.opener.document.cookie);
-     let ca = decodedCookie.split(';');
-     for(let i = 0; i <ca.length; i++) {
-       let c = ca[i];
-       while (c.charAt(0) == ' ') {
-         c = c.substring(1);
-       }
-       if (c.indexOf(name) == 0) {
-         return c.substring(name.length, c.length);
-       }
-     }
-     return "";
-   }
+	  let name = cname + "=";
+	  let decodedCookie = decodeURIComponent(window.opener.document.cookie);
+	  let ca = decodedCookie.split(';');
+	  for(let i = 0; i <ca.length; i++) {
+	    let c = ca[i];
+	    while (c.charAt(0) == ' ') {
+	      c = c.substring(1);
+	    }
+	    if (c.indexOf(name) == 0) {
+	      return c.substring(name.length, c.length);
+	    }
+	  }
+	  return "";
+	}
+
+
 
 $(document).ready(function(){
+	
+	<% String ids = (String) session.getAttribute("id"); %> 
+	
+	
 	$("#searchBtn").click(function(){
-		var keyWord=$("#keyWordInput").val();
-		$.post('search',{keyWord},function(data){
-			console.log(data);
-		})
+		const searchType=$("#searchType").val();
+		const keyword=$("#keyword").val();
+		//alert(searchType+":"+keyword);
+		$.post('search',{searchType,keyword},function(data){
+			$('#boardTable > tbody').empty();
+			console.log(data[0].no);
+			if(data.length>=1){
+				data.forEach(function(item){
+					str='<tr>'
+					str +="<td>"+item.no+"</td>";
+					str+="<td><a href = 'viewArticle?no=" + item.no + "'>" + item.title + "</a></td>";
+					str+="<td>" + item.id + "</td>";
+					str+="<td >"+item.writeDate+"</td>";
+					str+="</tr>"
+					$('#boardTable').append(str);
+        		})				 
+			}
+			
+			
 		
+			});
+		});
 		
-		
-		//alert(search);
-	});
-});
+
+	
+	});	
+	
 
 
 </script>
@@ -125,8 +144,6 @@ $(document).ready(function(){
 </head>
 <body>
 
-  <!-- 01_nav_footer.html -->
-  <!-- 01_nav_footer 에서 완성한 Navigation bar 코드를 붙여넣어 주세요. -->
   <nav class="d-flex fixed-top align-items-center justify-content-between navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
     <a href="02_home.html"><img  src="./images/logo.png"   height="50px" alt=""></img></a>
     <div class="me-2">
@@ -134,16 +151,17 @@ $(document).ready(function(){
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+      <ul class="navbar-nav">
+
           <li class="nav-item">
-            <a class="nav-link" id='exit' href="#">Home</a>
+            <div class="nav-link text-white" id='loginOK'>  <%=ids %>님~ 자유롭게 글을 작성해보세요!</div>
           </li>
-          <li class="nav-item">
+          <!--   <li class="nav-item">
             <a class="nav-link text-white" href="boardList">Community</a>
 		<li class="nav-item">
             <a class="nav-link text-white" href="basketList">ColorBox</a>
       
-      
+       -->
           <!-- </li>
           <li class="nav-item">
             <a class="nav-link" href="exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
@@ -153,26 +171,26 @@ $(document).ready(function(){
     </div>
   </nav>
 
-  
-
   <!-- 03_community.html -->
   <div class="main">
-    <h1>Community</h1>
-      
+  
+    <h1>Community <i class="fas fa-bullhorn fa-x"></i></h1>
+
     <!-- Sidebar -->   
     <aside class="row row-cols-lg-1 mt-5">
       <ul class="list-group">
         <li class="list-group-item text-primary col-lg-12">
 
-             <a href="javascript:a('boardWriteForm')" class="a_style btn btn-light">글쓰기</a>
+             <a href="#" class="a_style btn btn-light">ColorBox</a>
         </li>
-        <li class="list-group-item text-primary col-lg-12">
-          <a href="#" class="a_style btn btn-light">Q&A</a>
+         <li class="list-group-item text-primary col-lg-12">
 
+             <a href="scrapList" class="a_style btn btn-light">ScrapBox</a>
         </li>
+    
        
       </ul>
-    </aside>
+    </aside> 
     <!-- Board -->
    <!--  <form action="getBoardList.jsp" method="get">
 			<table border="1" cellpadding="0" cellspacing="0" width="700">
@@ -188,46 +206,53 @@ $(document).ready(function(){
 				</tr>		
 			</table>
 		</form> -->
- <div class="searchDiv" >
- <input type="text" id="keyWordInput" placeholder="검색어를 입력해주세요"><button id="searchBtn">검색</button>
- </div>
+		<br>
+		<br>
+		 <div class="searchDiv" >
+			 <select id="searchType">	 	
+			 	<option value="title">마이컬러</option>
+			 	<option value="id">아이디</option>
+			 </select>
+		<input type="text" id="keyword" name="keyword" style="width: 230px" placeholder="마이컬러 or 아이디로 찾기 !"/>
+		 	<button type="button" id="searchBtn" class="btn btn-outline-dark">검색</button>
+		
+		 </div>
     <section>
    
       <div class="row row-cols-lg-10 mt-5">
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover" id="boardTable">
           <thead class="table-dark">
-      <tr><th>글번호</th><th>제목</th><th>작성자</th><th>작성일</th><tr>
+      <tr><th>번호</th><th>마이컬러<i class="fas fa-palette"></i></th><th>아이디</th><th>작성일</th><tr>
           </thead>
           <tbody>
             <tr>
               <c:forEach items="${boardList}" var="article">
 
-	<tr>
-		<td>${article.no }</td><td><a href="viewArticle?no=${article.no }">
-		<c:choose>
-
-               <c:when test='${article.lvl > 0 }'>  
-                  <c:forEach begin="1" end="${article.lvl }" step="1">
-         <!--   <span style="padding-left:20px"></span> -->   ↪  
-                  </c:forEach>
-              </c:when>
-             </c:choose>
-
-		${article.title }</a></td>
-		<td>${article.id }</td><td><fmt:formatDate pattern="yyyy/MM/dd" value="${article.writeDate }"/></td>
-	</tr>
+		<tr>
+			<td>${article.no }</td>
+			<td><a href="viewArticle?no=${article.no }">${article.title }</a></td>
+			<td>${article.id }</td>
+			<td><fmt:formatDate pattern="yyyy/MM/dd" value="${article.writeDate }"/></td>
+		</tr>
 	</c:forEach>
 
             </tr>
           </tbody>
         </table>
-        
- 
-    
+  
       </div>
-
-
-      <footer>
+   
+<footer>
+		 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
+  		 	 <ul class="pagination">
+			
+<li><a href="javascript:a('boardWriteForm')" class="btn btn-secondary btn-lg">글 작성하러 가기</a></li>
+			
+			</ui>			
+		</nav>
+</footer>
+   </section>   
+    <!--   <footer>
 
       <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 ">
     <ul class="pagination">
@@ -243,7 +268,7 @@ $(document).ready(function(){
     </section>
   </div>
   </footer>
-
+ -->
   
   
   <!-- Bootstrap JS -->
