@@ -46,117 +46,7 @@ $(document).ready(function() {
 			alert("컬러입력하세요");
 		}
 	});
-
-	$("#getPcolorBtn").click(function() {
-		var fileCheck = document.getElementById("file").value;
-		if (!fileCheck) {
-			alert("파일을 첨부해주세요");
-			return false;
-		} else {
-			let formData = new FormData();
-			formData.append('image', $("#file")[0].files[0]);
-
-			$.ajax({
-				type: 'post',
-				url: '../getPcolor',
-				cache: false,
-				data: formData,
-				processData: false,
-				contentType: false,
-				success: function(data) {
-					//console.log(data);
-					if (data == "null1") {
-						alert("사진에 사람이 탐지되지 않았습니다.")
-					} else if (data == "null2") {
-						alert("사진에 사람이 여러명 탐지됩니다.한명의 사람이 나오는 사진을 넣어주세요");
-					} else {
-						data = JSON.parse(data);
-						console.log(data);
-						$("#drawCanvas").attr('width', data[1].result2.info.size.width + 'px');
-						$("#drawCanvas").attr('height', data[1].result2.info.size.height + 'px');
-						$("#drawCanvas").attr('style', "border: 1px solid #993300");
-						const canvas = document.getElementById("drawCanvas");
-						const context = canvas.getContext("2d");
-						const image= new Image();
-						
-						/*var fileList = file.files ;
-						
-						// 읽기
-						var reader = new FileReader();
-						reader.readAsDataURL(fileList [0]);
-			  
-						//로드 한 후
-						reader.onload = function  () {
-							//로컬 이미지를 보여주기
-							//document.querySelector('#divleftImg').src = reader.result;
-			  
-							//썸네일 이미지 생성
-							 //drawImage 메서드에 넣기 위해 이미지 객체화
-							image.src = reader.result; //data-uri를 이미지 객체에 주입
-							image.onload = function () {
-								//리사이즈를 위해 캔버스 객체 생성
-								
-			  
-								//캔버스 크기 설정
-								canvas.width = 200; //가로 100px
-								canvas.height = 260; //세로 100px
-			  
-								//이미지를 캔버스에 그리기
-								context.drawImage(this, 0, 0, 300, 400);
-			  
-								//캔버스에 그린 이미지를 다시 data-uri 형태로 변환
-								var dataURI = canvas.toDataURL("image/jpeg");
-			  
-								//썸네일 이미지 보여주기
-								document.querySelector('#divleftImg').src = dataURI;
-*/
-
-						canvas.width = 200; //가로 100px
-						canvas.height = 260; //세로 100px
-						
-						const path = "getImg/test.png";
-						image.src = path;
-						image.onload = function() {
-							context.drawImage(image, 0, 0);
-							context.strokeStyle = 'yellow';
-							context.lineWidth = 3;
-
-
-							const x = (data[1].result2.faces[0].roi.x)
-							const y = (data[1].result2.faces[0].roi.y)
-
-
-							const width = (data[1].result2.faces[0].roi.width)
-							const height = (data[1].result2.faces[0].roi.height)
-
-
-							console.log(x, y, width, height);
-
-							context.strokeRect(x, y, width, height);
-
-							if (data[2].pColor) {
-								alert(data[2].pColor);
-								
-							} else if (data[2].msg) {
-								alert(data[2].msg);
-							} else {
-								alert("data없음")
-							}
-						}
-
-					}
-
-
-				
-
-
-			}
-		
-		
-
-	});
-
-	$("#celebrityDetection").click(function() {
+$("#celebrityDetection").click(function() {
 		$("#resultDiv").text("");
 
 		var fileCheck = document.getElementById("file").value;
@@ -216,6 +106,90 @@ $(document).ready(function() {
 
 		}
 	});
+	$("#getPcolorBtn").click(function() {
+		var fileCheck = document.getElementById("file").value;
+		if (!fileCheck) {
+			alert("파일을 첨부해주세요");
+			return false;
+		} else {
+			let formData = new FormData();
+			formData.append('image', $("#file")[0].files[0]);
+
+			$.ajax({
+				type: 'post',
+				url: '../getPcolor',
+				cache: false,
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function(data) {
+					//console.log(data);
+					if (data == "null1") {
+						alert("사진에 사람이 탐지되지 않았습니다.")
+					} else if (data == "null2") {
+						alert("사진에 사람이 여러명 탐지됩니다.한명의 사람이 나오는 사진을 넣어주세요");
+					} else {
+						data = JSON.parse(data);
+						localStorage.setItem('pColorResult', JSON.stringify(data));
+						console.log(data);
+						$("#drawCanvas").attr('width', data[1].result2.info.size.width + 'px');
+						$("#drawCanvas").attr('height', data[1].result2.info.size.height + 'px');
+						$("#drawCanvas").attr('style', "border: 1px solid #993300");
+						const canvas = document.getElementById("drawCanvas");
+						const context = canvas.getContext("2d");
+						const image= new Image();
+						
+						
+
+						canvas.width = 200; //가로 100px
+						canvas.height = 260; //세로 100px
+						
+						const path = "getImg/test.png";
+						image.src = path;
+						image.onload = function() {
+							context.drawImage(image, 0, 0);
+							context.strokeStyle = 'yellow';
+							context.lineWidth = 3;
+
+
+							
+
+							if (data[2].pColor) {
+								alert(data[2].pColor);
+								
+								
+							} else if (data[2].msg) {
+								alert(data[2].msg);
+							} else {
+								alert("data없음")
+							}
+						}
+						$.cookie("pColor",data[2].pColor);
+						console.log(data[2].pColor);
+						const pColor = data[2].pColor;
+						if(pColor=="봄 웜톤"){
+							window.location="springwarm.html";
+						}else if(pColor=="여름 쿨톤"){
+							window.location="summercool.html";
+						}else if(pColor=="가을 웜톤"){
+							window.location="autumnwarm.html";
+						}else if(pColor=="겨울 쿨톤"){
+							window.location="wintercool.html";
+						}
+						
+					}
+
+
+				
+
+
+			}
+		
+		
+
+	});
+
+	
 
 	
 	$("#basketBtn").click(function() {
