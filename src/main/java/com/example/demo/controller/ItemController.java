@@ -70,7 +70,7 @@ public class ItemController {
 	public ModelAndView showItem(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		pColor = (String)session.getAttribute("pColor");
-
+		
 		return mav;
 	}
 			

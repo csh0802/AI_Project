@@ -49,7 +49,7 @@ public class MemberController {
 	@RequestMapping("login")
 	@ResponseBody
 	public String login(HttpSession session,MemberVO memberVO) {
-		System.out.println(memberVO);	
+			
 		JSONObject jo=new JSONObject();
 		
 		if(memberVO.getId() ==null || memberVO.getId().equals("") || 
@@ -60,13 +60,17 @@ public class MemberController {
 		
 		
 		try {
-			MemberVO vo=memberService.login(memberVO);
-			if(vo!=null) {
-				session.setAttribute("memberVO", memberVO);	
-				session.setAttribute("id", vo.getId());
-				jo.put("id", vo.getId());
-			}else {
+			String id =memberService.login(memberVO);
+			System.out.println(id);
+			if(id==null || id.equals("")) {
 				jo.put("msg", "id와 pw를 확인하세요");
+				
+				
+			}else {
+				session.setAttribute("id", id);	
+				
+				jo.put("id", id);
+				
 			}
 		}catch(DataAccessException e) {
 			jo.put("msg", e.getMessage());
