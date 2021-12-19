@@ -9,8 +9,8 @@
 		values(#{id},#{pw},#{phone},#{email},#{age},#{gender}) 
 	</insert>
 	
-	<select id="login" parameterType="memberVO" resultType="memberVO">
-		select * from member where id=#{id} and pw=#{pw}
+	<select id="login" parameterType="memberVO" resultType="String">
+		select id from member where id=#{id} and pw=#{pw}
 	</select>
 	
 	<select id="idCheck" parameterType="String" resultType="int">

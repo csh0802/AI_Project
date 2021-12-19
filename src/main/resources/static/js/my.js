@@ -194,11 +194,14 @@ $("#celebrityDetection").click(function() {
 	
 	$("#basketBtn").click(function() {
 		const id = $.cookie("id");
+		alert(id);
 		if (id) {
 			$.post("../basketList", { id }, function() {
 				window.open("basketList");
 			});
+			
 		} else {
+			
 			alert("로그인 해야 이용 가능합니다.");
 		}
 	});
@@ -229,12 +232,13 @@ $("#celebrityDetection").click(function() {
 			
 	$("#ItemBtn").click(function(){
 		const id = $.cookie("id");
-		if(id){
+		if(!id){
+			alert("로그인 해야 이용 가능합니다.");
+			
+		}else{
 			$.post("../item",{id},function(){
 				window.open("item");
 			});
-		}else{
-			alert("로그인 해야 이용 가능합니다.");
 		}
 	});
 	

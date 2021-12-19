@@ -71,18 +71,16 @@ footer {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
    <script type="text/javascript">
 
+$(document).ready(function(){
+	
+	const id = $.cookie("id");
+	if(!id){
+		 alert("로그인 후 이용 가능합니다.")
+		    window.close();
+	}
 
-function a(url){
-   const id=getCookie("id");
-   if(id){
-      location.href=url;
-   }else{
-       alert("로그인 후 글쓰기가 가능합니다.")
-       window.close();
-
-   }
    
-}
+
 
 function getCookie(cname) {
      let name = cname + "=";
@@ -99,7 +97,7 @@ function getCookie(cname) {
      }
      return "";
    }
-
+});
 
 </script>
   
