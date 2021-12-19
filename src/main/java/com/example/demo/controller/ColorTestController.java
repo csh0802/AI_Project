@@ -24,6 +24,7 @@ import com.example.demo.service.ColorBoxService;
 import com.example.demo.service.ColorTestService;
 import com.example.demo.service.ObjectDetectionService;
 import com.example.demo.service.PColorDetectionService;
+import com.example.demo.service.PathVar;
 import com.example.demo.service.PersonDetectionService;
 import com.example.demo.vo.ColorBoxVO;
 import com.example.demo.vo.ColorTestVO;
@@ -31,9 +32,11 @@ import com.example.demo.vo.MemberVO;
 
 import java.awt.image.BufferedImage;
 
+
 @Controller
 public class ColorTestController {
 
+	
 	@Autowired
 	PColorDetectionService getColorService;
 
@@ -72,7 +75,7 @@ public class ColorTestController {
 		/// home/ubuntu/0csh/git_registry/test-1/media
 
 		try {
-			File uploadFile = new File("/upload//" + image.getOriginalFilename());
+			File uploadFile = new File(PathVar.LOCAL_DRIVE + image.getOriginalFilename());
 
 			testList = colorTestService.selectAllType();
 			image.transferTo(uploadFile);

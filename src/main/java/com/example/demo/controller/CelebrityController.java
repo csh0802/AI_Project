@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.service.CelebrityDetectionService;
+import com.example.demo.service.PathVar;
  
 @Controller
 public class CelebrityController {
@@ -34,7 +35,7 @@ public class CelebrityController {
 
 			System.out.println(image.getOriginalFilename());
 			try {
-				File uploadFile = new File("/upload/" + image.getOriginalFilename());
+				File uploadFile = new File(PathVar.LOCAL_DRIVE + image.getOriginalFilename());
 				image.transferTo(uploadFile);
 				System.out.println(uploadFile.getAbsolutePath());
 				System.out.println(clerbrityDetection.celebrityDetect(uploadFile).toString());

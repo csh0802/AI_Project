@@ -22,7 +22,7 @@ public class imageController {
 			HttpServletRequest request)
 			throws IOException {
 		
-		File imageFile = new File("/upload/" + imageName);
+		File imageFile = new File(PathVar.FIND_DRIVE + imageName);
 		InputStream imageStream = new FileInputStream(imageFile);
 		byte[] imageByteArray = IOUtils.toByteArray(imageStream);
 		imageStream.close();

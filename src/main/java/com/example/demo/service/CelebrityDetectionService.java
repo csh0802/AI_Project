@@ -23,8 +23,7 @@ public class CelebrityDetectionService {
         String clientId = "c4gwa4h9p0";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "JXTKc5OX3vBneS31NxblU5amf3RlYcOSVXcIxZBM";//애플리케이션 클라이언트 시크릿값";
         
-        String imgOriginalPath= "upload/upload.png";           // 원본 이미지 파일명
-        String imgTargetPath= "/upload/test.png";    // 새 이미지 파일명
+        
         String imgFormat = "png";                             // 새 이미지 포맷. jpg, gif 등
         int newWidth = 200;                                  // 변경 할 넓이
         int newHeight = 260;                                 // 변경 할 높이
@@ -37,10 +36,10 @@ public class CelebrityDetectionService {
         int w;
         int h;
         try {
-        	Files.copy(uploadFile.toPath(), new File("upload/upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
+        	Files.copy(uploadFile.toPath(), new File(PathVar.imgOriginalPath).toPath(),StandardCopyOption.REPLACE_EXISTING );
         	
         	 // 원본 이미지 가져오기
-            image = ImageIO.read(new File(imgOriginalPath));
+            image = ImageIO.read(new File(PathVar.imgOriginalPath));
  
             // 원본 이미지 사이즈 가져오기
             imageWidth = image.getWidth(null);
@@ -78,8 +77,8 @@ public class CelebrityDetectionService {
             Graphics g = newImage.getGraphics();
             g.drawImage(resizeImage, 0, 0, null);
             g.dispose();
-            ImageIO.write(newImage, imgFormat, new File(imgTargetPath));
-            File newFile = new File(imgTargetPath);
+            ImageIO.write(newImage, imgFormat, new File(PathVar.imgResizePath));
+            File newFile = new File(PathVar.imgResizePath);
  
         	
             String paramName = "image"; // 파라미터명은 image로 지정
@@ -144,7 +143,7 @@ public class CelebrityDetectionService {
     public void getCeleImg(String getURL) {
 		URL url;
 		         // 원본 이미지 파일명
-        String imgTargetPath= "upload/newCele.png";    // 새 이미지 파일명
+            // 새 이미지 파일명
         String imgFormat = "png";                             // 새 이미지 포맷
         int newWidth = 300;                                  // 변경 할 넓이
         int newHeight = 400;                                 // 변경 할 높이
@@ -160,7 +159,7 @@ public class CelebrityDetectionService {
 			url = new URL(getURL);
 			System.out.println(url);
 			BufferedImage image = ImageIO.read(url);
-			File imgFile = new File("upload/cele.png");
+			File imgFile = new File(PathVar.imgOriginalCelePath);
 			System.out.println(imgFile.exists());
 			ImageIO.write(image,"png",imgFile);
 			
@@ -200,7 +199,7 @@ public class CelebrityDetectionService {
             Graphics g = newImage.getGraphics();
             g.drawImage(resizeImage, 0, 0, null);
             g.dispose();
-            ImageIO.write(newImage, imgFormat, new File(imgTargetPath));
+            ImageIO.write(newImage, imgFormat, new File(PathVar.imgResieCelePath));
 			
 		} catch (Exception e) {
 			e.printStackTrace();

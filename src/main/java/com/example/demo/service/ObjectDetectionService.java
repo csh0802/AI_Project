@@ -23,8 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ObjectDetectionService {
 	
-	 String imgOriginalPath= "upload/upload.png";           // 원본 이미지 파일명
-     String imgTargetPath= "/upload/test.png";    // 새 이미지 파일명
+	
      String imgFormat = "png";                             
 	 int newWidth = 200;                                  // 변경 할 넓이
      int newHeight = 260;                                 // 변경 할 높이
@@ -38,12 +37,12 @@ public class ObjectDetectionService {
      int h;
     public  JSONObject objectDetect(File uploadFile) {
     	try {
-        Files.copy(uploadFile.toPath(), new File("upload/upload.png").toPath(),StandardCopyOption.REPLACE_EXISTING );
+        Files.copy(uploadFile.toPath(), new File(PathVar.imgOriginalPath).toPath(),StandardCopyOption.REPLACE_EXISTING );
 
     	JSONObject jo1 = new JSONObject();
     	int[] a = new int[3];
     	
-    	image = ImageIO.read(new File(imgOriginalPath));
+    	image = ImageIO.read(new File(PathVar.imgOriginalPath));
     	 
         // 원본 이미지 사이즈 가져오기
         imageWidth = image.getWidth(null);
@@ -81,8 +80,8 @@ public class ObjectDetectionService {
         Graphics g = newImage.getGraphics();
         g.drawImage(resizeImage, 0, 0, null);
         g.dispose();
-        ImageIO.write(newImage, imgFormat, new File(imgTargetPath));
-        File newFile = new File(imgTargetPath);
+        ImageIO.write(newImage, imgFormat, new File(PathVar.imgResizePath));
+        File newFile = new File(PathVar.imgResizePath);
         
         StringBuffer reqStr = new StringBuffer();
         String clientId = "s9vnr4drhx";//애플리케이션 클라이언트 아이디값";
