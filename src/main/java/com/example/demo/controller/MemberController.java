@@ -23,12 +23,12 @@ public class MemberController {
 	@PostMapping("idCheck")
 	@ResponseBody
 	public int idCheck(@RequestParam("id") String id) {
-		System.out.println(id);
+
 		return memberService.idCheck(id);
 	}
 	@RequestMapping("memberInsert")
 	public String memberInsert(MemberVO memberVO) {
-		System.out.println(memberVO);
+
 		
 		try {
 			if(memberVO.toString().contains("error")) {
@@ -36,12 +36,9 @@ public class MemberController {
 				return "error";
 			}else {
 				memberService.memberInsert(memberVO);
-				System.out.println("memberInsert");
 				return "memberInsertOk";
 			}
-			
 		}catch(DataAccessException e) {
-			System.out.println(e);
 			return "error";
 		}
 	}
@@ -57,25 +54,18 @@ public class MemberController {
 			jo.put("msg", "id와 pw는 필수입니다");
 			return jo.toJSONString();
 		}
-		
-		
 		try {
 			String id =memberService.login(memberVO);
 			System.out.println(id);
 			if(id==null || id.equals("")) {
-				jo.put("msg", "id와 pw를 확인하세요");
-				
-				
+				jo.put("msg", "id와 pw를 확인하세요");	
 			}else {
-				session.setAttribute("id", id);	
-				
-				jo.put("id", id);
-				
+				session.setAttribute("id", id);				
+				jo.put("id", id);			
 			}
 		}catch(DataAccessException e) {
 			jo.put("msg", e.getMessage());
 		}		
-		
 		return jo.toJSONString();
 	}
 	
@@ -95,6 +85,24 @@ public class MemberController {
 		return jo.toJSONString();
 	}
 	
+	@PostMapping("userInfoSelect")
+	@ResponseBody
+	public MemberVO userInfoSelect(String id) {
+		//System.out.println(memberService.selectAllInfo(id));
+		return memberService.selectAllInfo(id);
+	}
+	@PostMapping("checkPw")
+	@ResponseBody
+	public boolean checkPw(String id, String originalPw) {
+		//System.out.println(memberService.selectAllInfo(id));
+		return memberService.selectPw(id, originalPw);
+	}
 	
+	@PostMapping("changeInfo")
+	@ResponseBody
+	public void changeInfo(String id, String cpw, String phone, String email) {
+		memberService.changeInfo(id, cpw, phone, email);
+	}
+
 
 }

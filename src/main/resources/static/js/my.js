@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	const id = $.cookie("id");
 	if (id) {
-		$("#loginSpan").html("<div class='nav-link text-white' >"+id + "님 환영합니다.  <button class='btn btn-outline-light btn-sm' id='logoutBtn'>Logout</button> </div>");
+		$("#loginSpan").html("<div class='nav-link text-white' >"+id + "님 환영합니다.  <button class='btn btn-outline-light btn-sm' id='logoutBtn'>Logout</button> <button class='btn btn-outline-light btn-sm' id='userInfo'>회원정보</button></div>");
 	}
 
 	$("#loginBtn").click(function() {
@@ -15,15 +15,22 @@ $(document).ready(function() {
 			data = JSON.parse(data);
 			if (data.id) {
 				$.cookie("id", data.id);
-				$("#loginSpan").html("<div class='nav-link text-white' >"+data.id + "님 환영합니다.  <button class='btn btn-outline-light btn-sm' id='logoutBtn'>Logout</button> </div>");
+				$("#loginSpan").html("<div class='nav-link text-white' >"+data.id + "님 환영합니다.  <button class='btn btn-outline-light btn-sm' id='logoutBtn'>Logout</button> <button class='btn btn-outline-light btn-sm' id='userInfo'>회원정보</button></div>");
+				location.reload();
 			} else {
 				alert(data.msg);
 			}
 
 		});
 	});
-
+	
+	$(document).on("click",'#userInfo',function(){
+		window.open('memberUpdate.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=500,height=750');
+	}); 
+	
+	
 	$(document).on("click", "#logoutBtn", function() {
+		
 		$.post('../logout', {}, function(data) {
 			data = JSON.parse(data);
 			if (data.msg == "ok") {
@@ -47,65 +54,52 @@ $(document).ready(function() {
 		}
 	});
 $("#celebrityDetection").click(function() {
-		$("#resultDiv").text("");
+      $("#resultDiv").text("");
 
-		var fileCheck = document.getElementById("file").value;
-		if (!fileCheck) {
-			alert("파일을 첨부해 주세요");
-			return false;
-		} else {
-			let formData = new FormData();
-			formData.append('image', $("#file")[0].files[0]);
+      var fileCheck = document.getElementById("file").value;
+      if (!fileCheck) {
+         alert("파일을 첨부해 주세요");
+         return false;
+      } else {
+         let formData = new FormData();
+         formData.append('image', $("#file")[0].files[0]);
 
-			$.ajax({
-				type: 'post',
-				url: '../celebrityDetect',
-				cache: false,
-				data: formData,
-				processData: false,
-				contentType: false,
-				success: function(data) {
+         $.ajax({
+            type: 'post',
+            url: '../celebrityDetect',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(data) {
+               console.log(data);
+               if (data != null) {
+                  data = JSON.parse(data);
 
-					if (data != null) {
-						data = JSON.parse(data);
-
-						console.log(data);
-						var faceCount = data.info.faceCount;
-						console.log(faceCount);
-						if (faceCount > 1) {
-							alert("한명의 얼굴만 분석 가능합니다!!");
-						} else {
-							var result = data;
-							localStorage.setItem('result', JSON.stringify(result));
-							window.location = "celebrity.html";
-						}
-					} else {
-						alert("페이지 오류");
-					}
-
-					/*if (data == null) {
-						alert("사진첨부 필요");
-					} else if(data!=null){
-						data = JSON.parse(data);
-						console.log(data.info.faceCount);
-						
-						alert("한명의 얼굴만 분석 가능합니다!!");
-					}else{
-						
-						var result = data;
-						localStorage.setItem('result', JSON.stringify(result));
-						window.location = "celebrity.html";
-					}*/
+                  console.log(data);
+                  var faceCount = data.info.faceCount;
+                  console.log(faceCount);
+                  if (faceCount ==1) {
+                     var result = data;
+                     localStorage.setItem('result', JSON.stringify(result));
+                     window.location = "celebrity.html";
+                  } else {
+                     alert("한명의 얼굴만 분석 가능합니다!!");
+                     
+                  }
+               } else {
+                  alert("페이지 오류");
+               }
 
 
-				},
-				error: function(e) {
-					console.log("ERROR : ", e);
-				}
-			});
+            },
+            error: function(e) {
+               console.log("ERROR : ", e);
+            }
+         });
 
-		}
-	});
+      }
+   });
 	$("#getPcolorBtn").click(function() {
 		var fileCheck = document.getElementById("file").value;
 		if (!fileCheck) {
@@ -123,11 +117,12 @@ $("#celebrityDetection").click(function() {
 				processData: false,
 				contentType: false,
 				success: function(data) {
-					//console.log(data);
-					if (data == "null1") {
-						alert("사진에 사람이 탐지되지 않았습니다.")
-					} else if (data == "null2") {
-						alert("사진에 사람이 여러명 탐지됩니다.한명의 사람이 나오는 사진을 넣어주세요");
+					console.log(data);
+					if (data == "manyFaces") {
+						alert("사진에 사람이 여러명 탐지됩니다.한명의 사람이 나오는 사진을 넣어주세요.")
+						
+					} else if (data == "nullPerson") {
+						alert("사진에 사람이 탐지되지 않았습니다.");
 					} else {
 						data = JSON.parse(data);
 						localStorage.setItem('pColorResult', JSON.stringify(data));
@@ -155,9 +150,6 @@ $("#celebrityDetection").click(function() {
 							
 
 							if (data[2].pColor) {
-								alert(data[2].pColor);
-								
-								
 							} else if (data[2].msg) {
 								alert(data[2].msg);
 							} else {
@@ -167,6 +159,7 @@ $("#celebrityDetection").click(function() {
 						$.cookie("pColor",data[2].pColor);
 						console.log(data[2].pColor);
 						const pColor = data[2].pColor;
+						localStorage.setItem('pColor', pColor);
 						if(pColor=="봄 웜톤"){
 							window.location="springwarm.html";
 						}else if(pColor=="여름 쿨톤"){
@@ -232,11 +225,12 @@ $("#celebrityDetection").click(function() {
 			
 	$("#ItemBtn").click(function(){
 		const id = $.cookie("id");
+		const pColor = localStorage.getItem('pColor');
 		if(!id){
 			alert("로그인 해야 이용 가능합니다.");
 			
 		}else{
-			$.post("../item",{id},function(){
+			$.post("../item",{id,pColor},function(){
 				window.open("item");
 			});
 		}

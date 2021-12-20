@@ -11,4 +11,6 @@ public class PathVar {
 //    static String imgResizePath= "/upload/test.png"; 
 //    static String imgResieCelePath= "/upload/newCele.png"; 
 //    static String imgOriginalCelePath= "/upload/cele.png";
+    
+    
 }

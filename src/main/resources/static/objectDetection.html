@@ -53,6 +53,7 @@
   <script type="text/javascript">
   $(document).ready(function(){
 	  //const file = $("#file").var;
+	  console.log(localStorage.getItem('pColor'));
 	  const canvas = document.getElementById("drawCanvas");
 	  const context = canvas.getContext("2d");
 	  const image= new Image();
@@ -127,9 +128,7 @@
           <button id="celebrityDetection" class="btn" type="button" style="background-color: white; font-weight: bold; color: rgb(142, 68, 173); font-size: smaller;">나와 닮은 연예인은?</button>
         </div>
 
-        <div class="d-grid col-6 mt-3">
-          <button id="ItemBtn" class="btn"  style="background-color: white; font-weight: bold; color: rgb(142, 68, 173); font-size: smaller;" onclick='window.open("item.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=800,height=800");'>컬러에 맞는 패션아이템은?</button>
-        </div>
+      
 
         </center>
 

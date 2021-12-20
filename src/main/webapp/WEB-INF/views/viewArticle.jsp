@@ -222,8 +222,8 @@ $(document).ready(function(){
 
 					style="text-align: center; border: 1px solid #dddddd">
 	<tr><td>아이디</td><td><input value="${article.id }"  readonly style="background:lightgray"></td></tr>
-	<tr><td>마이컬러</td><td><input  value="${article.title }" readonly style="background:lightgray"></td></tr>
-	<tr><td>추천아이템</td><td><textarea rows ="8" cols="10" readonly style="background:lightgray" >${article.content}</textarea></td></tr>
+	<tr><td>제목</td><td><input  value="${article.title }" readonly style="background:lightgray"></td></tr>
+	<tr><td>내용</td><td><textarea rows ="8" cols="10" readonly style="background:lightgray" >${article.content}</textarea></td></tr>
 	<tr><td>첨부파일</td><td><div id="div1" class="div"><a href="getImg/${article.fileName }"><img src="getImg/${article.fileName }" height="50"></a></div></td><tr>
 
 

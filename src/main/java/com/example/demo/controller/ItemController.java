@@ -32,11 +32,11 @@ public class ItemController {
 	ItemService itemService;
 	
 	List<ItemVO> itemList;
-	String pColor;
+	//String pColor;
 	
 	@RequestMapping("selectItem")
 	@ResponseBody
-	public String selectItem(MultipartFile image, HttpSession session, ItemVO itemVO) {
+	public String selectItem(MultipartFile image, HttpSession session, ItemVO itemVO, String pColor) {
 		//경로설정하고, db 이미지경로 받아오고, 세션에서 pColor값 받아오고
 		//설정한 경로와 db경로가 같은지 확인하고 맞으면 js로 넘기기 
 		
@@ -67,7 +67,7 @@ public class ItemController {
 	
 	@RequestMapping("item")
 	@ResponseBody
-	public ModelAndView showItem(HttpSession session) {
+	public ModelAndView showItem(HttpSession session,String pColor) {
 		ModelAndView mav = new ModelAndView();
 		pColor = (String)session.getAttribute("pColor");
 		

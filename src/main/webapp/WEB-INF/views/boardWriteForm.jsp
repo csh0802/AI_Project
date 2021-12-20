@@ -131,7 +131,7 @@ $(document).ready(function(){
 <table class="table table-striped"
 					style="text-align: center; border: 1px solid #dddddd">
 	<tr><td>아이디</td><td><input name="id"id="id" readonly style="background:lightgray"></td></tr>
-	<tr><td>마이컬러</td><td> 
+	<tr><td>제목</td><td> 
 	<input list="browsers" name="title" id="title">
 		  <datalist id="browsers">
 		    <option value="봄웜톤">
@@ -140,7 +140,7 @@ $(document).ready(function(){
 		    <option value="겨울쿨톤">
 		  </datalist>
 	</td></tr>
-	<tr><td>추천아이템</td><td><textarea rows ="8" cols="20" name="content" id="content"></textarea></td></tr>
+	<tr><td>내용</td><td><textarea rows ="8" cols="20" name="content" id="content"></textarea></td></tr>
 	<tr><td>파일첨부</td><td><input type="file" name="file"></td><tr>
 
 

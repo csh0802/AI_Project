@@ -47,16 +47,16 @@
   </style>
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	console.log(localStorage.getItem('pColor'));
 	const id = $.cookie("id");
 	if(!id){
 		 alert("로그인 후 이용 가능합니다.")
 		    window.close();
 	}
-
+	const pColor = localStorage.getItem('pColor');
 $("#getItemBtn").click(function(){
 	
-	$.post('../selectItem',{},function(data){
+	$.post('../selectItem',{pColor},function(data){
 		console.log(data);
 		data=JSON.parse(data)
 		console.log(data);

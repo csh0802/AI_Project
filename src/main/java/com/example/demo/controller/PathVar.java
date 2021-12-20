@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 public class PathVar {
 	public static String LOCAL_DRIVE = "C://Temp//";
-	public static String FIND_DRIVE = "C://Temp//";//src/main/webapp/media/
+	public static String FIND_DRIVE = "src/main/webapp/media/";
 	static String imgOriginalPath= "src/main/webapp/media/upload.png";           // 원본 이미지 파일명
     static String imgResizePath= "src/main/webapp/medial/test.png"; 
 //	public static String LOCAL_DRIVE = "/upload/";

@@ -79,7 +79,6 @@ public class ColorTestController {
 
 			testList = colorTestService.selectAllType();
 			image.transferTo(uploadFile);
-			System.out.println("uploadFile:"+uploadFile.getAbsolutePath());
 			String result1 = personDetectionService.detectPerson(uploadFile);
 			jo1.put("result1", result1);
 			ja.put(jo1);
@@ -87,12 +86,9 @@ public class ColorTestController {
 				JSONObject result2 = objectDetectionService.objectDetect(uploadFile);
 				jo2.put("result2", result2);
 				ja.put(jo2);
-				// System.out.println(jo2.toString());
 				JSONObject test = (JSONObject) jo2.get("result2");
 				test = (JSONObject) test.get("info");
-				// System.out.println(test.toString());
 				int faceCount = test.getInt("faceCount");
-				// System.out.println(faceCount);
 				if (faceCount == 1) {
 					a = getColorService.getColor(uploadFile);
 					if (testList != null) {
@@ -101,12 +97,9 @@ public class ColorTestController {
 							sum += Math.abs(testList.get(i).getBlue() - a[2]);
 							sum += Math.abs(testList.get(i).getGreen() - a[1]);
 
-//							System.out.println(sum);
 							if (sum < temp) {
 								temp = sum;
 								no = i + 1;
-//								System.out.println("no"+no);
-//								System.out.println("sum"+sum);
 							}
 							sum = 0;
 						}
@@ -114,34 +107,35 @@ public class ColorTestController {
 						System.out.println("colorTestVO is null");
 						jo3.put("msg", "퍼스널컬러 기준 테이블 없음");
 					}
-//					System.out.println(colorTestService.selectPeronalType(no));
+
 					pColor = colorTestService.selectPeronalType(no);
 					jo3.put("pColor", pColor);
 					if (session.getAttribute("memberVO") != null) {
 						session.setAttribute("pColor", pColor);
-						System.out.println("세션에 pcolor값 추가");
+
 					}
 					ja.put(jo3);
 					return ja.toString();
 				}else {
-					return "null2";
+					return "manyFaces";
 				}
 
+			}else {
+				return "nullPerson";
 			}
 
 		} catch (IllegalStateException e1) {
-			// TODO Auto-generated catch block
 		
 			e1.printStackTrace();
 			jo3.put("msg", "ISEerror");
 			ja.put(jo3);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+
 			e1.printStackTrace();
 			jo3.put("msg", "IOEerror");
 			ja.put(jo3);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 			jo3.put("msg", "error");
 		}
@@ -154,7 +148,6 @@ public class ColorTestController {
 	@ResponseBody
 	public String insertColorBox(ColorBoxVO colorBoxVO, HttpSession session) {
 		JSONObject jo = new JSONObject();
-//		System.out.println(colorBoxVO);
 
 		try {
 			MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");

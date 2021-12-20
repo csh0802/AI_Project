@@ -16,4 +16,13 @@
 	<select id="idCheck" parameterType="String" resultType="int">
 		select count(*) from member where id=#{id}
 	</select>
+	<select id="selectAllInfo" parameterType="com.example.demo.vo.MemberVO" resultType="com.example.demo.vo.MemberVO">
+		select * from member where id = #{id}
+	</select>
+	<select id= "selectPw" parameterType="String" resultType="String">
+		select pw from member where id = #{id} 
+	</select>
+	<update id ="changeInfo" parameterType="com.example.demo.vo.MemberVO">
+		update member set pw=#{cpw},phone=#{phone},email=#{email} where id=#{id}
+	</update>
 </mapper>  
