@@ -3,10 +3,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <style type="text/css">
-/* 03_community.css */
-/* 아래에 코드를 작성해 주세요. */
+body {
+      margin:10px;
+      background-image: url('../img/gradient-bg.jpg');
+      background-size: cover;
 
+      justify-content: center;
+      align-items: center;
+    }
 
 .main {
   margin-top: 120px;
@@ -47,6 +55,9 @@ footer {
   height: 60px;
 }  
 }
+.mytable{
+background-color: #EBD4D4;
+}
 </style>
 
 <meta charset="UTF-8">
@@ -84,7 +95,7 @@ footer {
   
 	<div  class="container">
 	
-<h3 style="text-align:center">${article.no }번 게시글 수정</h3>
+<h3 style="text-align:center">${article.id }님 게시글 수정 <i style="color:salmon" class="far fa-edit  fa-2x"></i></h3>
 
 <form action="updateArticle" method="post" enctype="multipart/form-data">
 		
@@ -92,7 +103,7 @@ footer {
 		<input type="hidden" name="no" value="${article.no }">
 
 		
-			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+			<table class="table table-striped mytable" style="text-align: center; border: 1px solid #dddddd">
 					<tr><td>아이디</td><td><input name="id" id="id" value="${article.id }" readonly style="background:lightgray"></td></tr>
 					<tr><td>마이컬러</td><td>
 					<input list="browsers" name="title" id="title" value="${article.title }">
@@ -113,8 +124,8 @@ footer {
 		 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
   		 	 <ul class="pagination">
 			
-					<li><input class="btn btn-dark page-item" type="submit" value="수정" ></li>
-					<li><button onclick="history.back();" class="btn btn-dark ">취소</button></li>
+					<li><input style="background-color:#8E44AD" class="btn btn-secondary btn-lg" type="submit" value="수정" ></li>
+					<li><button onclick="history.back();" style="background-color:#8E44AD" class="btn btn-secondary btn-lg">취소</button></li>
 				
 			</ui>			
 		</nav>

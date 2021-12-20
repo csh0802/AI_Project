@@ -5,7 +5,14 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <style type="text/css">
+body {
+      margin:10px;
+      background-image: url('../img/gradient-bg.jpg');
+      background-size: cover;
 
+      justify-content: center;
+      align-items: center;
+    }
 .main {
   margin-top: 120px;
   margin-right: 70px;
@@ -146,26 +153,12 @@ $(document).ready(function(){
 
   <nav class="d-flex fixed-top align-items-center justify-content-between navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
     <a href="02_home.html"><img  src="./images/logo.png"   height="50px" alt=""></img></a>
-    <div class="me-2">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+   <div class="me-2">
+    <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-
           <li class="nav-item">
             <div class="nav-link text-white" id='loginOK'>  <%=ids %>님의 ScrapBox</div>
           </li>
-          <!--   <li class="nav-item">
-            <a class="nav-link text-white" href="boardList">Community</a>
-		<li class="nav-item">
-            <a class="nav-link text-white" href="basketList">ColorBox</a>
-      
-       -->
-          <!-- </li>
-          <li class="nav-item">
-            <a class="nav-link" href="exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
-          </li> -->
         </ul>
       </div>
     </div>
@@ -174,41 +167,11 @@ $(document).ready(function(){
   <!-- 03_community.html -->
   <div class="main">
   
-    <h1>ScrapBox <i class="fas fa-bullhorn fa-x"></i></h1>
+    <h1>ScrapBox <i class="fas fa-thumbtack"></i></i></h1>
 
-    <!-- Sidebar -->   
-   <!--  <aside class="row row-cols-lg-1 mt-5">
-      <ul class="list-group">
-        <li class="list-group-item text-primary col-lg-12">
-
-             <a href="#" class="a_style btn btn-light">ColorBox</a>
-        </li>
-         <li class="list-group-item text-primary col-lg-12">
-
-             <a href="#" class="a_style btn btn-light">ScrapBox</a>
-        </li>
-    
-       
-      </ul>
-    </aside>  -->
     <!-- Board -->
-   <!--  <form action="getBoardList.jsp" method="get">
-			<table border="1" cellpadding="0" cellspacing="0" width="700">
-				<tr>
-					<td align="right">
-						<select id="searchCondition" name="searchCondition">
-							<option value="TITLE">제목</option>
-							<option value="CONTENT">내용</option>
-						</select>
-						<input id="searchKeyword" name="searchKeyword" type="text">
-						<input type="submit" value="검색 ">
-					</td>
-				</tr>		
-			</table>
-		</form> -->
-		
-    <section>
-   
+	<center>
+    <section>  
       <div class="row row-cols-lg-10 mt-5">
         <table class="table table-striped table-hover" id="boardTable">
           <thead class="table-dark">
@@ -231,26 +194,10 @@ $(document).ready(function(){
         </table>
   
       </div>
-    <button type="button" class="btn btn-secondary btn-lg" onclick="history.back()">뒤로 가기</button>
+    <button type="button" style="background-color:#8E44AD" class="btn btn-secondary btn-lg" onclick="history.back()">뒤로 가기</button>
 
    </section>   
-    <!--   <footer>
-
-      <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 ">
-    <ul class="pagination">
-
-
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul> 
-      </nav>
-    </section>
-  </div>
-  </footer>
- -->
+   </center>
 
  
 

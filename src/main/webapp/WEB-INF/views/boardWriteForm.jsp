@@ -8,10 +8,14 @@
  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
 <style type="text/css">
-/* 03_community.css */
-/* 아래에 코드를 작성해 주세요. */
-
-
+body {
+      margin:10px;
+      background-image: url('../img/gradient-bg.jpg');
+      background-size: cover;
+    
+      justify-content: center;
+      align-items: center;
+    }
 .main {
   margin-top: 120px;
   margin-right: 70px;
@@ -36,10 +40,6 @@ section {
   float: right;
   width: 900px;
   
- 
-/* 01_nav_footer.css */
-/* 아래에 코드를 작성해 주세요. */
-
 
 .nav_factor {
   text-decoration: none;
@@ -50,6 +50,10 @@ section {
 footer {
   height: 60px;
 }  
+}
+
+.mytable{
+background-color: #EBD4D4;
 }
 </style>
 
@@ -97,39 +101,17 @@ $(document).ready(function(){
 </head>
 <body>
 
-  <!-- 01_nav_footer.html -->
-  <!-- 01_nav_footer 에서 완성한 Navigation bar 코드를 붙여넣어 주세요. -->
   <nav class="d-flex fixed-top align-items-center justify-content-between navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
     <a href="02_home.html"><img  src="./images/logo.png"   height="50px" alt=""></img></a>
-    <div class="me-2">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-  <!--       <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" id='exit' href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" href="03_community.html">Community</a>
-
-      
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="exampleModal" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
-          </li>
-        </ul> -->
-      </div>
-    </div>
   </nav>
 
   
 	<div  class="container">
-<h2 style="text-align:center"><i class="fas fa-bullhorn"></i></h2>
+<h2 style="text-align:center"><i class="fas fa-user-edit"></i></h2>
 <form action="boardWrite" method="post" enctype="multipart/form-data">
-
-<table class="table table-striped"
-					style="text-align: center; border: 1px solid #dddddd">
+<div class="row row-cols-lg-10 mt-5">
+<table class="table table-striped mytable" 
+					style="text-align: center;  border: 1px solid #dddddd">
 	<tr><td>아이디</td><td><input name="id"id="id" readonly style="background:lightgray"></td></tr>
 	<tr><td>마이컬러</td><td> 
 	<input list="browsers" name="title" id="title">
@@ -145,13 +127,13 @@ $(document).ready(function(){
 
 
 </table>
-
+</div>
 		<footer>
 		 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
   		 	 <ul class="pagination">
 			
-					<li><input type="submit" value="작성" id="writeBtn" class="btn btn-dark"></li>
-					<li> <p onclick="location='boardList'" class="btn btn-dark ">목록</p></li>
+					<li><input type="submit" value="작성" id="writeBtn" style="background-color:#8E44AD"  class="btn btn-secondary"></li>
+					<li> <p onclick="location='boardList'"style="background-color:#8E44AD"  class="btn btn-secondary">목록</p></li>
 				
 			</ui>			
 		</nav>

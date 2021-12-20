@@ -6,6 +6,16 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <style type="text/css">
+body {
+      margin:10px;
+      background-image: url('../img/gradient-bg.jpg');
+      background-size: cover;
+ 
+      justify-content: center;
+      align-items: center;
+    }
+
+
 .feeling_div {
   display: flex;
   justify-content: center;
@@ -72,6 +82,10 @@ text-align: right;
 .active {
   background-color: #F08080;
   color: #fff;
+}
+
+.mytable{
+background-color: #EBD4D4;
 }
 
 </style>
@@ -148,13 +162,13 @@ $(document).ready(function(){
   <!-- 03_community.html -->
   <div class="main">
 	<div  class="container">
-	<h2>${scrapArticle.bid } 님 게시글<!--  <i style="color:salmon" class="far fa-comment  fa-2x"></i> --></h2>
+	<h2>${scrapArticle.bid } 님의 &nbsp; <i style="color:salmon" class="far fa-paper-plane  fa-2x"></i></h2>
 
-	<table class="table table-striped"
+	<table class="table table-striped mytable"
 					style="text-align: center; border: 1px solid #dddddd">
 	<tr><td>아이디</td><td><input value="${scrapArticle.bid }"  readonly style="background:lightgray"></td></tr>
 	<tr><td>마이컬러</td><td><input  value="${scrapArticle.title }" readonly style="background:lightgray"></td></tr>
-	<tr><td>추천아이템</td><td><textarea rows ="8" cols="10" readonly style="background:lightgray" >${scrapArticle.content}</textarea></td></tr>
+	<tr><td>내용</td><td><textarea rows ="8" cols="10" readonly style="background:lightgray" >${scrapArticle.content}</textarea></td></tr>
 	<tr><td>첨부파일</td><td><div id="div1" class="div"><a href="uploadImg/${scrapArticle.fileName }"><img src="uploadImg/${scrapArticle.fileName }" height="50"></a></div></td><tr>
 
 	</table>
@@ -165,8 +179,8 @@ $(document).ready(function(){
 	<footer>
 		 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
   		 	 <ul class="pagination">
-			<li><button  type="button" class="btn btn-secondary btn-lg" id="deleteScrap">스크랩 취소</button></li>
-<li><button type="button" class="btn btn-secondary btn-lg" onclick="history.back()">뒤로 가기</button></li>
+			<li><button  type="button" style="background-color:#8E44AD" class="btn btn-secondary btn-lg" id="deleteScrap">스크랩 취소</button></li>
+<li><button type="button" style="background-color:#8E44AD" class="btn btn-secondary btn-lg" onclick="history.back()">뒤로 가기</button></li>
 			
 			</ui>			
 		</nav>
