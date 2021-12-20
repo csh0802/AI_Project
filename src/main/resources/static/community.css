@@ -17,11 +17,12 @@ h1 {
   text-align: center;
 }
 
-aside {
-  float: left;
-}
+ aside {
+float:left;
+} 
 
 section {
-  float: right;
+float:none;
+  text-align:center;
   width: 900px;
 }
