@@ -17,10 +17,10 @@ body {
       align-items: center;
     }
 .main {
-  margin-top: 120px;
-  margin-right: 70px;
-  margin-bottom: 120px;
-  margin-left: 70px;
+  width: 90%;
+  height: 90%;
+  background-color: rgba(255,255,255,0.45);
+  padding: 20px;
 }
 
 .a_style {
@@ -52,9 +52,7 @@ footer {
 }  
 }
 
-.mytable{
-background-color: #EBD4D4;
-}
+
 </style>
 
 <meta charset="UTF-8">
@@ -106,14 +104,14 @@ $(document).ready(function(){
   </nav>
 
   
-	<div  class="container">
+	<div  class="main">
 <h2 style="text-align:center"><i class="fas fa-user-edit"></i></h2>
 <form action="boardWrite" method="post" enctype="multipart/form-data">
 <div class="row row-cols-lg-10 mt-5">
 <table class="table table-striped mytable" 
 					style="text-align: center;  border: 1px solid #dddddd">
 	<tr><td>아이디</td><td><input name="id"id="id" readonly style="background:lightgray"></td></tr>
-	<tr><td>마이컬러</td><td> 
+	<tr><td>제목</td><td> 
 	<input list="browsers" name="title" id="title">
 		  <datalist id="browsers">
 		    <option value="봄웜톤">
@@ -122,7 +120,7 @@ $(document).ready(function(){
 		    <option value="겨울쿨톤">
 		  </datalist>
 	</td></tr>
-	<tr><td>추천아이템</td><td><textarea rows ="8" cols="20" name="content" id="content"></textarea></td></tr>
+	<tr><td>내용</td><td><textarea rows ="8" cols="20" name="content" id="content"></textarea></td></tr>
 	<tr><td>파일첨부</td><td><input type="file" name="file"></td><tr>
 
 

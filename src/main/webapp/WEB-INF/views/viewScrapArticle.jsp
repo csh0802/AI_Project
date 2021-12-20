@@ -40,10 +40,10 @@ body {
   color: #F08080;
 }     
 .main {
-  margin-top: 120px;
-  margin-right: 70px;
-  margin-bottom: 120px;
-  margin-left: 70px;
+  width: 90%;
+  height: 90%;
+  background-color: rgba(255,255,255,0.45);
+  padding: 20px;
 }
 
 .a_style {
@@ -84,9 +84,6 @@ text-align: right;
   color: #fff;
 }
 
-.mytable{
-background-color: #EBD4D4;
-}
 
 </style>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -162,13 +159,13 @@ $(document).ready(function(){
   <!-- 03_community.html -->
   <div class="main">
 	<div  class="container">
-	<h2>${scrapArticle.bid } 님의 &nbsp; <i style="color:salmon" class="far fa-paper-plane  fa-2x"></i></h2>
+	<h2>${scrapArticle.bid } 님의 게시글</h2>
 
 	<table class="table table-striped mytable"
 					style="text-align: center; border: 1px solid #dddddd">
 	<tr><td>아이디</td><td><input value="${scrapArticle.bid }"  readonly style="background:lightgray"></td></tr>
-	<tr><td>마이컬러</td><td><input  value="${scrapArticle.title }" readonly style="background:lightgray"></td></tr>
-	<tr><td>내용</td><td><textarea rows ="8" cols="10" readonly style="background:lightgray" >${scrapArticle.content}</textarea></td></tr>
+	<tr><td>제목</td><td><input  value="${scrapArticle.title }" readonly style="background:lightgray"></td></tr>
+	<tr><td>내용</td><td><textarea rows ="8" cols="20" readonly style="background:lightgray" >${scrapArticle.content}</textarea></td></tr>
 	<tr><td>첨부파일</td><td><div id="div1" class="div"><a href="uploadImg/${scrapArticle.fileName }"><img src="uploadImg/${scrapArticle.fileName }" height="50"></a></div></td><tr>
 
 	</table>
@@ -186,6 +183,7 @@ $(document).ready(function(){
 		</nav>
 	</footer>
 
+</div>
 </div>
 
 <script type="text/javascript" src="js/jquery.1.2.3.js"></script>

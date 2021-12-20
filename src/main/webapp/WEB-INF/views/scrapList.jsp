@@ -14,10 +14,10 @@ body {
       align-items: center;
     }
 .main {
-  margin-top: 120px;
-  margin-right: 70px;
-  margin-bottom: 120px;
-  margin-left: 70px;
+  width: 90%;
+  height: 90%;
+  background-color: rgba(255,255,255,0.45);
+  padding: 20px;
 }
 
 .a_style {
@@ -175,7 +175,7 @@ $(document).ready(function(){
       <div class="row row-cols-lg-10 mt-5">
         <table class="table table-striped table-hover" id="boardTable">
           <thead class="table-dark">
-      <tr><th>번호</th><th>마이컬러<i class="fas fa-palette"></i></th><th>아이디</th><th>작성일</th><tr>
+      <tr><th>번호</th><th>제목</th><th>아이디</th><th>작성일</th><tr>
           </thead>
           <tbody>
             <tr>
@@ -199,7 +199,7 @@ $(document).ready(function(){
    </section>   
    </center>
 
- 
+ </div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>  

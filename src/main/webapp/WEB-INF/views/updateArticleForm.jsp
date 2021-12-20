@@ -17,10 +17,10 @@ body {
     }
 
 .main {
-  margin-top: 120px;
-  margin-right: 70px;
-  margin-bottom: 120px;
-  margin-left: 70px;
+  width: 90%;
+  height: 90%;
+  background-color: rgba(255,255,255,0.45);
+  padding: 20px;
 }
 
 .a_style {
@@ -55,9 +55,7 @@ footer {
   height: 60px;
 }  
 }
-.mytable{
-background-color: #EBD4D4;
-}
+
 </style>
 
 <meta charset="UTF-8">
@@ -92,9 +90,8 @@ background-color: #EBD4D4;
     </div>
   </nav>
 
-  
+  <div class="main">
 	<div  class="container">
-	
 <h3 style="text-align:center">${article.id }님 게시글 수정 <i style="color:salmon" class="far fa-edit  fa-2x"></i></h3>
 
 <form action="updateArticle" method="post" enctype="multipart/form-data">
@@ -105,7 +102,7 @@ background-color: #EBD4D4;
 		
 			<table class="table table-striped mytable" style="text-align: center; border: 1px solid #dddddd">
 					<tr><td>아이디</td><td><input name="id" id="id" value="${article.id }" readonly style="background:lightgray"></td></tr>
-					<tr><td>마이컬러</td><td>
+					<tr><td>제목</td><td>
 					<input list="browsers" name="title" id="title" value="${article.title }">
 					  <datalist id="browsers">
 					    <option value="봄웜톤">
@@ -113,7 +110,7 @@ background-color: #EBD4D4;
 					    <option value="가을웜톤">
 					    <option value="겨울쿨톤">
 					  </datalist></td></tr>
-					<tr><td>추천아이템</td><td><input name="content" value="${article.content }"  style="width:200px; height:200px; "></td></tr>
+					<tr><td>내용</td><td><input name="content" value="${article.content }"  style="width:200px; height:200px; "></td></tr>
 					<tr><td>파일첨부</td><td><input type="file" name="file" ></td></tr>
 				
 				
@@ -133,6 +130,7 @@ background-color: #EBD4D4;
 			
 </form>
 
+</div>
 </div>
 </body>
 </html>

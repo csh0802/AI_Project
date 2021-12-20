@@ -19,6 +19,13 @@ body {
 text-align: right;
 }
 
+.main {
+  width: 90%;
+  height: 90%;
+  background-color: rgba(255,255,255,0.45);
+  padding: 20px;
+}
+
 </style>
 
 
@@ -41,71 +48,71 @@ text-align: right;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script type="text/javascript">
-	
+   
 
 function a(url){
-	const id=getCookie("id");
-	if(id){
-		location.href=url;
-	}else{
-	    alert("로그인 후 글쓰기가 가능합니다.")
-	    window.close();
+   const id=getCookie("id");
+   if(id){
+      location.href=url;
+   }else{
+       alert("로그인 후 글쓰기가 가능합니다.")
+       window.close();
 
    }
    
 }
 
 function getCookie(cname) {
-	  let name = cname + "=";
-	  let decodedCookie = decodeURIComponent(window.opener.document.cookie);
-	  let ca = decodedCookie.split(';');
-	  for(let i = 0; i <ca.length; i++) {
-	    let c = ca[i];
-	    while (c.charAt(0) == ' ') {
-	      c = c.substring(1);
-	    }
-	    if (c.indexOf(name) == 0) {
-	      return c.substring(name.length, c.length);
-	    }
-	  }
-	  return "";
-	}
+     let name = cname + "=";
+     let decodedCookie = decodeURIComponent(window.opener.document.cookie);
+     let ca = decodedCookie.split(';');
+     for(let i = 0; i <ca.length; i++) {
+       let c = ca[i];
+       while (c.charAt(0) == ' ') {
+         c = c.substring(1);
+       }
+       if (c.indexOf(name) == 0) {
+         return c.substring(name.length, c.length);
+       }
+     }
+     return "";
+   }
 
 
 
 $(document).ready(function(){
-	
-	<% String ids = (String) session.getAttribute("id"); %> 
-	
-	
-	$("#searchBtn").click(function(){
-		const searchType=$("#searchType").val();
-		const keyword=$("#keyword").val();
-		//alert(searchType+":"+keyword);
-		$.post('search',{searchType,keyword},function(data){
-			$('#boardTable > tbody').empty();
-			console.log(data[0].no);
-			if(data.length>=1){
-				data.forEach(function(item){
-					str='<tr>'
-					str +="<td>"+item.no+"</td>";
-					str+="<td><a href = 'viewArticle?no=" + item.no + "'>" + item.title + "</a></td>";
-					str+="<td>" + item.id + "</td>";
-					str+="<td >"+item.writeDate+"</td>";
-					str+="</tr>"
-					$('#boardTable').append(str);
-        		})				 
-			}
-			
-			
-		
-			});
-		});
-		
+   
+   <% String ids = (String) session.getAttribute("id"); %> 
+   
+   
+   $("#searchBtn").click(function(){
+      const searchType=$("#searchType").val();
+      const keyword=$("#keyword").val();
+      //alert(searchType+":"+keyword);
+      $.post('search',{searchType,keyword},function(data){
+         $('#boardTable > tbody').empty();
+         console.log(data[0].no);
+         if(data.length>=1){
+            data.forEach(function(item){
+               str='<tr>'
+               str +="<td>"+item.no+"</td>";
+               str+="<td><a href = 'viewArticle?no=" + item.no + "'>" + item.title + "</a></td>";
+               str+="<td>" + item.id + "</td>";
+               str+="<td >"+item.writeDate+"</td>";
+               str+="</tr>"
+               $('#boardTable').append(str);
+              })             
+         }
+         
+         
+      
+         });
+      });
+      
 
-	
-	});	
-	
+   
+   });   
+   
 
 
 </script>
@@ -117,7 +124,7 @@ $(document).ready(function(){
     <a href="02_home.html"><img  src="./images/logo.png"   height="50px" alt=""></img></a>
     <div class="me-2">
       <div class="collapse navbar-collapse" id="navbarNav">
-     	 <ul class="navbar-nav">
+         <ul class="navbar-nav">
           <li class="nav-item">
             <div class="nav-link text-white"  id='loginOK'>   <a href="scrapList" style="background-color:lightgrey" class="a_style btn btn-light"> <%=ids %>님의 ScrapBox</a></div>
           </li>
@@ -126,6 +133,7 @@ $(document).ready(function(){
     </div>
   </nav>
 
+  
   <!-- 03_community.html -->
   <div class="main">
   
@@ -134,49 +142,51 @@ $(document).ready(function(){
   
     <!-- Board -->
 <br><br>
-											<center>
-	 <div class="searchDiv" >
-			 <select id="searchType">	 	
-			 	<option value="title">마이컬러</option>
-			 	<option value="id">아이디</option>
-			 </select>
-		<input type="text" id="keyword" name="keyword" style="width: 230px" placeholder="마이컬러 or 아이디로 찾기 !"/>
-		 	<button type="button" id="searchBtn"  style="background-color:#8E44AD" >검색</button>
-		
-	 </div>
+                                 <center>
+    <div class="searchDiv" >
+          <select id="searchType">       
+             <option value="title">제목</option>
+             <option value="id">아이디</option>
+          </select>
+      <input type="text" id="keyword" name="keyword" style="width: 230px" placeholder="제목/아이디를 입력해주세요."/>
+          <button type="button" id="searchBtn"  style="background-color:#8E44AD" >검색</button>
+      
+    </div>
    <section>
       <div class="row row-cols-lg-10 mt-5">
         <table class="table table-striped table-hover" id="boardTable">
           <thead class="table-dark" >
-     		 <tr><th>번호</th><th>마이컬러<i class="fas fa-palette"></i></th><th>아이디</th><th>작성일</th><tr>
+            <tr><th>번호</th><th>제목</th><th>아이디</th><th>작성일</th><tr>
           </thead>
-         	 <tbody>
-          		 <tr>
-            		 <c:forEach items="${boardList}" var="article">
-				 <tr>
-			<td>${article.no }</td>
-			<td><a href="viewArticle?no=${article.no }">${article.title }</a></td>
-			<td>${article.id }</td>
-			<td><fmt:formatDate pattern="yyyy/MM/dd" value="${article.writeDate }"/></td>
-				</tr>
-					</c:forEach>
+             <tbody>
+                 <tr>
+                   <c:forEach items="${boardList}" var="article">
+             <tr>
+         <td>${article.no }</td>
+         <td><a href="viewArticle?no=${article.no }">${article.title }</a></td>
+         <td>${article.id }</td>
+         <td><fmt:formatDate pattern="yyyy/MM/dd" value="${article.writeDate }"/></td>
+            </tr>
+               </c:forEach>
 
-            	</tr>
+               </tr>
           </tbody>
         </table> 
       </div>
+    
   
 <footer>
-	 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
-		 <ul class="pagination" >
-			
-			<li><a href="javascript:a('boardWriteForm')" style="background-color:#8E44AD" class="btn btn-secondary btn-lg">글 작성하러 가기</a></li>
-			
-		</ui>			
-	</nav>
-</footer>
+    <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 ">           
+       <ul class="pagination" >
+         
+         <li><a href="javascript:a('boardWriteForm')" style="background-color:#8E44AD" class="btn btn-secondary btn-lg">글 작성하러 가기</a></li>
+         
+      </ui>         
+   </nav>
+  </footer>
 </section>   
- 										   </center>
+                                  </center>
+                                </div>
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>  
 </body>

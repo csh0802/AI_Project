@@ -39,10 +39,10 @@ body {
   color: #F08080;
 }     
 .main {
-  margin-top: 120px;
-  margin-right: 70px;
-  margin-bottom: 120px;
-  margin-left: 70px;
+  width: 90%;
+  height: 90%;
+  background-color: rgba(255,255,255,0.45);
+  padding: 20px;
 }
 
 .a_style {
@@ -83,9 +83,7 @@ text-align: right;
   color: #fff;
 }
 
-.mytable{
-background-color: #EBD4D4;
-}
+
 
 </style>
 
@@ -177,9 +175,15 @@ $(document).ready(function(){
 		var id='${article.id}';
 		var no = '${article.no}';
 		//alert(id+":"+no);
-		$.post('scrapArticle',{no,id,cookieId},function(data){
-			alert("스크랩 되었습니다.");
-		})
+		if(window.confirm("스크랩 하시겠습니까?")){
+			$.post('scrapArticle',{no,id,cookieId},function(data){
+				alert("스크랩 되었습니다.");
+				
+			})
+			
+		}else{
+			alert("스크랩처리가 취소 되었습니다.")
+		}
 		
 		
 	});
@@ -203,14 +207,14 @@ $(document).ready(function(){
   <!-- 03_community.html -->
   <div class="main">
 	<div  class="container">
-	<h2>${article.id }님의 <i style="color:salmon" class="far fa-paper-plane  fa-2x"></i> </h2>
+	<h2>${article.id }님의 게시글</h2>
 <br>	
 <br>
 
 <table class="table table-striped mytable" style="text-align: center; border: 1px solid #dddddd">
 	<tr><td>아이디</td><td><input value="${article.id }"  readonly style="background:lightgray"></td></tr>
-	<tr><td>마이컬러</td><td><input  value="${article.title }" readonly style="background:lightgray"></td></tr>
-	<tr><td>내용</td><td><textarea rows ="8" cols="10" readonly style="background:lightgray" >${article.content}</textarea></td></tr>
+	<tr><td>제목</td><td><input  value="${article.title }" readonly style="background:lightgray"></td></tr>
+	<tr><td>내용</td><td><textarea rows ="8" cols="20" readonly style="background:lightgray" >${article.content}</textarea></td></tr>
 	<tr><td>첨부파일</td><td><div id="div1" class="div"><a href="uploadImg/${article.fileName }"><img src="uploadImg/${article.fileName }" height="50"></a></div></td><tr>
 </table>
 		<div class="articleDiv">
@@ -219,7 +223,8 @@ $(document).ready(function(){
 		  <button style="background-color:#8E44AD"   class="btn btn-secondary"id="deleteBtn">삭제</button>
 	   </div>
 <br><br>
-
+</div>
+</div>
 	 	<div class="feeling_div">
 			<div class="button-container like-container">
 			    <button class="feeling_a">
@@ -243,6 +248,7 @@ $(document).ready(function(){
 	<h3 style="text-align:center"><i style="color:salmon" class="far fa-comments  fa-4x"></i></h3>
 
 
+
   <!--  댓글  -->
     <div class="container">
         <label for="content">comment</label>
@@ -258,7 +264,7 @@ $(document).ready(function(){
 		     <div class="container">
 		        <div class="commentList" id="commentList"></div>
 		    </div>
-</div>
+
 
 
 <%@ include file="comment.jsp" %>
@@ -288,5 +294,6 @@ $(function() {
 });
 
 </script>
+
 </body>
 </html>
