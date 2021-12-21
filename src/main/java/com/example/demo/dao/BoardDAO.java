@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import com.example.demo.vo.BoardVO;
-import com.example.demo.vo.ScrapVO;
 
 @Mapper
 @Repository

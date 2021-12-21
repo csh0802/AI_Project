@@ -52,6 +52,7 @@ text-align: right;
 
   <title>Community</title>
 
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
@@ -69,6 +70,7 @@ text-align: right;
 			location.href=url;
 
 	}
+
 function getCookie(cname) {
      let name = cname + "=";
      let decodedCookie = decodeURIComponent(window.opener.document.cookie);
@@ -114,6 +116,7 @@ $(document).ready(function(){
          
       
          });
+
       });
       
 
@@ -123,12 +126,12 @@ $(document).ready(function(){
 	
 	});
 
+
 </script>
 
 </head>
 <body>
-<div class="container">
-	
+
   <nav class="d-flex fixed-top align-items-center justify-content-between navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
     <a href="02_home.html"><img  src="./images/logo.png"   height="50px" alt=""></img></a>
     <div class="me-2">
@@ -140,9 +143,7 @@ $(document).ready(function(){
         </ul>
       </div>
     </div>
-  </nav>
-
-  
+  </nav> 
   <!-- 03_community.html -->
   <div class="main">
   <div class="main-container">
@@ -207,15 +208,15 @@ $(document).ready(function(){
     <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 ">           
        <ul class="pagination" >
          
-         <li><a href="javascript:a('boardWriteForm')" style="background-color:#8E44AD" class="btn btn-secondary btn-lg">글 작성하러 가기</a></li>
+         <li><a href="boardWriteForm" style="background-color:#8E44AD" class="btn btn-secondary btn-lg">글 작성하러 가기</a></li>
          
       </ui>         
    </nav>
 
   </footer>
 </section>   
-                                  </center>
-                                </div>
+</center>
+ </div>
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>  
 		</div>
