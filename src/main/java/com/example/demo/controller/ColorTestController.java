@@ -58,6 +58,8 @@ public class ColorTestController {
 	String pColor;
 
 
+
+	
 	@PostMapping("getPcolor")
 	@ResponseBody
 	public String getPcolor(MultipartFile image, HttpSession session) {
@@ -144,35 +146,6 @@ public class ColorTestController {
 		return ja.toString();
 	}
 
-	@PostMapping("insertPcolorInColorBox")
-	@ResponseBody
-	public String insertColorBox(ColorBoxVO colorBoxVO, HttpSession session) {
-		JSONObject jo = new JSONObject();
-
-		try {
-			MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-			System.out.println(memberVO);
-			pColor = (String) session.getAttribute("pColor");
-			if (memberVO != null && pColor != null) {
-
-				colorBoxVO.setId(memberVO.getId());
-				colorBoxVO.setPColor(pColor);
-				if (colorBoxVO.toString().contains("error")) {
-					System.out.println("colorBoxVO NullPointException");
-					jo.put("msg", "NullPointError");
-				} else {
-					colorBoxService.insertColorBox(colorBoxVO);
-					System.out.println("colorInsert");
-					jo.put("success", pColor + "colorInsert");
-				}
-
-			} else {
-				jo.put("msg", "로그인 하세요");
-			}
-		} catch (Exception e) {
-			jo.put("msg", "error");
-		}
-		return jo.toString();
-	}
+	
 
 }

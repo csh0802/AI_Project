@@ -9,15 +9,15 @@ body {
       margin:10px;
       background-image: url('../img/gradient-bg.jpg');
       background-size: cover;
-
+		display: flex;
       justify-content: center;
       align-items: center;
     }
 .main {
   width: 90%;
-  height: 90%;
+  height: 100%;
   background-color: rgba(255,255,255,0.45);
-  padding: 20px;
+  padding: 100px;
 }
 
 .a_style {
@@ -166,7 +166,7 @@ $(document).ready(function(){
 
   <!-- 03_community.html -->
   <div class="main">
-  
+   
     <h1>ScrapBox <i class="fas fa-thumbtack"></i></i></h1>
 
     <!-- Board -->

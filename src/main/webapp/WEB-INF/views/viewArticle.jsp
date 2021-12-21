@@ -39,8 +39,8 @@ body {
   color: #F08080;
 }     
 .main {
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   background-color: rgba(255,255,255,0.45);
   padding: 20px;
 }

@@ -55,6 +55,19 @@
 
 			context.strokeRect(x, y, width, height);
 		}
+$("#insertPcolorBtn").click(function() {
+			
+			const pColor = "겨울 쿨톤";
+			$.post('insertPcolorInColorBox', { pColor}, function(data) {
+				data = JSON.parse(data);
+				if (data.success) {
+					alert(data.success);
+				} else {
+					alert(data.msg);
+				}
+
+			});
+		});
     });
     
   </script>
@@ -85,7 +98,7 @@
       padding: 5px;
       border-color: white;
       width: 210px;
-      height: 270px;
+      height: 220px;
       margin-top: 30px;
     }
 
@@ -114,13 +127,16 @@
             황금색 계열의 색 등은 피하는 것이 좋습니다.</p>
           </div>
 
-          <div class="mt-4">
+           <div class="mt-4">
             <a id="kakao-link-btn" href="javascript:kakaoShare()">
               <button class="btn btn-sm" style="font-size: small; background-color: rgb(142, 68, 173); color: white; font-weight: bold;">카카오톡으로 공유하기</button>
             </a>
           </div>
             <div class="d-grid col-6 mt-3">
-          <button id="ItemBtn" class="btn"  style="background-color: white; font-weight: bold; color: rgb(142, 68, 173); font-size: smaller;" onclick='window.open("item.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=800,height=800");'>겨울 쿨톤에 추천하는 패션아이템</button>
+          <button id="ItemBtn" class="btn"  style="background-color: white; font-weight: bold; color: rgb(142, 68, 173); font-size: smaller;" onclick='window.open("item.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=800,height=800");'>여름 쿨톤에 추천하는 패션아이템</button>
+        </div>
+        <div class="d-grid col-6 mt-3">
+          <button id="insertPcolorBtn" class="btn"  style="background-color: white; font-weight: bold; color: rgb(142, 68, 173); font-size: smaller;">myColorBox에 결과값 추가</button>
         </div>
           <!--카카오톡 API 연동-->
           <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>

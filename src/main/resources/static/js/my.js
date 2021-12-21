@@ -41,18 +41,7 @@ $(document).ready(function() {
 			}
 		});
 	});
-	$(document).on('click', "#colorInsertBtn", function() {
-		const pColor = $("#colorText").val();
-		if (pColor) {
-			$.post('../insertColorBox', { id, pColor }, function(data) {
-				if (data.msg) {
-					alert(data.msg);
-				}
-			});
-		} else {
-			alert("컬러입력하세요");
-		}
-	});
+
 $("#celebrityDetection").click(function() {
       $("#resultDiv").text("");
 
@@ -200,17 +189,7 @@ $("#celebrityDetection").click(function() {
 	});
 
 
-	$("#insertPcolorBtn").click(function() {
-		$.post('insertPcolorInColorBox', { id }, function(data) {
-			data = JSON.parse(data);
-			if (data.success) {
-				alert(data.success);
-			} else {
-				alert(data.msg);
-			}
 
-		});
-	});
 	$("#updateColorBoxBtn").click(function(data) {
 		alert(data);
 	});

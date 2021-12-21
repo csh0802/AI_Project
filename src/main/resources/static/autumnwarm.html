@@ -53,8 +53,21 @@
 
 			context.strokeRect(x, y, width, height);
 		}
+		$("#insertPcolorBtn").click(function() {
+			
+			const pColor = "가을 웜톤";
+			$.post('insertPcolorInColorBox', { pColor}, function(data) {
+				data = JSON.parse(data);
+				if (data.success) {
+					alert(data.success);
+				} else {
+					alert(data.msg);
+				}
+
+			});
+		});
     });
-    
+	
     
   </script>
   <style>
@@ -120,6 +133,9 @@
           </div>
             <div class="d-grid col-6 mt-3">
           <button id="ItemBtn" class="btn"  style="background-color: white; font-weight: bold; color: rgb(142, 68, 173); font-size: smaller;" onclick='window.open("item.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=800,height=800");'>가을 웜톤에 추천하는 패션아이템</button>
+        </div>
+        <div class="d-grid col-6 mt-3">
+          <button id="insertPcolorBtn" class="btn"  style="background-color: white; font-weight: bold; color: rgb(142, 68, 173); font-size: smaller;">myColorBox에 결과값 추가</button>
         </div>
           <!--카카오톡 API 연동-->
           <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>

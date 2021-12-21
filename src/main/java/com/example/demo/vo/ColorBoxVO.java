@@ -1,7 +1,15 @@
 package com.example.demo.vo;
 
 public class ColorBoxVO {
-	private String id,pColor,top,bottom;
+	private String id,pColor,top,bottom,shoes;
+
+	public String getShoes() {
+		return shoes;
+	}
+
+	public void setShoes(String shoes) {
+		this.shoes = shoes;
+	}
 
 	public String getId() {
 		return id;
