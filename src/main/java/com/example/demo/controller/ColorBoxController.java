@@ -49,9 +49,17 @@ public class ColorBoxController {
 
 				colorBoxVO.setId(id);
 				colorBoxVO.setPColor(pColor);
-			
-				colorBoxService.insertColorBox(colorBoxVO);
-				jo.put("success","저장되었습니다");
+				System.out.println(colorBoxService.selectAllBasketList(colorBoxVO));
+				if(colorBoxService.selectAllBasketList(colorBoxVO)!=null) {
+					colorBoxService.deleteAllColorBoxList(colorBoxVO);
+					colorBoxService.insertColorBox(colorBoxVO);
+					jo.put("success","기존 정보 삭제 후 저장되었습니다");
+					
+				}else {
+					colorBoxService.insertColorBox(colorBoxVO);
+					jo.put("success","저장되었습니다");
+				}
+				
 				
 
 			} else {
@@ -67,7 +75,12 @@ public class ColorBoxController {
 	public ModelAndView showBasket(HttpSession session, ColorBoxVO colorBoxVO) {
 		String id = (String)session.getAttribute("id");
 		ModelAndView mav = new ModelAndView();
-		session.setAttribute("pColor", "겨울 쿨톤");
+		colorBoxVO.setId(id);
+		
+		List<ColorBoxVO> list = colorBoxService.selectAllBasketList(colorBoxVO);
+		System.out.println(list);
+		mav.addObject("pColor", list.get(0).getPColor());
+		session.setAttribute("pColor", list.get(0).getPColor());
 		if(id!=null) {
 			colorBoxVO.setId(id);
 		}else {
@@ -110,13 +123,13 @@ public class ColorBoxController {
 		List<String> winter = new ArrayList<String>(Arrays.asList("#DB2F42","#D486A7","#812C53","#2D0E4E","#582D98","#28130E","#897A75","#0E3AB3","#0A172B","#316C9F","#B7BABF","#194F6E","#0E2933"));
 
 		System.out.println(pColor);
-		if(pColor=="봄 웜톤") {
+		if(pColor.equals("봄 웜톤")) {
 			mav.addObject("color",spring);
-		}else if(pColor=="여름 쿨톤") {
+		}else if(pColor.equals("여름 쿨톤")) {
 			mav.addObject("color",summer);
-		}else if(pColor=="가을 웜톤") {
+		}else if(pColor.equals("가을 웜톤")) {
 			mav.addObject("color",autumn);
-		}else if(pColor=="겨울 쿨톤") {
+		}else if(pColor.equals("겨울 쿨톤")) {
 			mav.addObject("color",winter);
 		}else {
 			System.out.println("pColor값 오류");

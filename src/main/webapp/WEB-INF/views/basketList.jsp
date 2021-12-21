@@ -168,7 +168,7 @@
         <div class="colorBox mt-4" id="colorBox">
           <div id="pcolor1">
                       <button  onclick='window.open("test", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=800,height=800");'>test</button>
-            
+            ${id }님의 퍼스널컬러는 ${pColor }
           </div>
           <div id="bestColor"> 
 

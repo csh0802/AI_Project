@@ -14,5 +14,5 @@ public interface ColorBoxDAO {
 
 	public void insertColorBox(ColorBoxVO colorBoxVO) throws Exception;
 	public List<ColorBoxVO> selectAllColorBoxList(ColorBoxVO colorBoxVO)throws DataAccessException;
-
+	public void deleteAllColorBoxList(ColorBoxVO colorBoxVO) throws DataAccessException;
 }

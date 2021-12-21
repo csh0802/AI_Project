@@ -1,15 +1,9 @@
 package com.example.demo.vo;
 
 public class ColorBoxVO {
-	private String id,pColor,top,bottom,shoes;
+	private String id,pColor;
 
-	public String getShoes() {
-		return shoes;
-	}
-
-	public void setShoes(String shoes) {
-		this.shoes = shoes;
-	}
+	
 
 	public String getId() {
 		return id;
@@ -38,37 +32,11 @@ public class ColorBoxVO {
 		}
 	}
 
-	public String getTop() {
-		return top;
-	}
 
-	public void setTop(String top) {
-		if(top ==null || top.equals("")) {
-//			System.out.println("top 값 없음");
-			this.top = "error";
-		}else {
-			
-			this.top = top;
-		}
-	}
-
-	public String getBottom() {
-		return bottom;
-	}
-
-	public void setBottom(String bottom) {
-		if(bottom ==null || bottom.equals("")) {
-//			System.out.println("bottom 값 없음");
-			this.bottom = "error";
-		}else {
-			
-			this.bottom = bottom;
-		}
-	}
-
+	
 	@Override
 	public String toString() {
-		return "ColorBoxVO [id=" + id + ", pColor=" + pColor + ", top="+top+", bottom="+bottom+"]";
+		return "ColorBoxVO [id=" + id + ", pColor=" + pColor + "]";
 	}
 	
 

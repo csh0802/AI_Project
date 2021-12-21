@@ -11,5 +11,8 @@
   	<select id="selectAllColorBoxList" parameterType="colorBoxVO" resultType="colorBoxVO" >
 		select * from colorbox where id=#{id}
 	</select>
-  	
+	
+  	<delete id="deleteAllColorBoxList" parameterType="colorBoxVO" >
+  		delete from colorbox where id=#{id}
+  	</delete>
   </mapper>

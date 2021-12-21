@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.example.demo.dao.ColorCombDAO">
+  
+  	<insert id="insertColorComb" parameterType="colorCombVO">
+  		insert into colorcomb(top,bottom,shoes) values(#{top},#{bottom},#{shoes})
+  	</insert>
+  	<select id="selectAllColorCombList" parameterType="colorCombVO" resultType="colorCombVO" >
+		select * from colorcomb where id=#{id}
+	</select>
+  	
+  </mapper>

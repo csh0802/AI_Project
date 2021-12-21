@@ -22,4 +22,7 @@ public class ColorBoxService {
 		return colorBoxDAO.selectAllColorBoxList(colorBoxVO);
 		
 	}
+	public void deleteAllColorBoxList(ColorBoxVO colorBoxVO) {
+		colorBoxDAO.deleteAllColorBoxList(colorBoxVO);
+	}
 }
