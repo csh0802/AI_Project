@@ -39,11 +39,6 @@ aside {
 section {
   float: right;
   width: 900px;
-  
- 
-/* 01_nav_footer.css */
-/* 아래에 코드를 작성해 주세요. */
-
 
 .nav_factor {
   text-decoration: none;
@@ -66,9 +61,6 @@ footer {
   <link rel="stylesheet" href="01_nav_footer.css">
   <link rel="stylesheet" href="03_community.css">
 
-
-<title>Insert title here</title>
-
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -80,55 +72,37 @@ footer {
 
   <nav class="d-flex fixed-top align-items-center justify-content-between navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
     <a href="02_home.html"><img  src="./images/logo.png"   height="50px" alt=""></img></a>
-    <div class="me-2">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-
-      </div>
-    </div>
   </nav>
-
-  <div class="main">
+<div class="main">
 	<div  class="container">
-<h3 style="text-align:center">${article.id }님 게시글 수정 <i style="color:salmon" class="far fa-edit  fa-2x"></i></h3>
-
-<form action="updateArticle" method="post" enctype="multipart/form-data">
-		
-		
-		<input type="hidden" name="no" value="${article.no }">
-
-		
-			<table class="table table-striped mytable" style="text-align: center; border: 1px solid #dddddd">
+		<h3 style="text-align:center">${article.id }님 게시글 수정 <i style="color:salmon" class="far fa-edit  fa-2x"></i></h3>
+			<form action="updateArticle" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="no" value="${article.no }">
+	
+				<table class="table table-striped mytable" style="text-align: center; border: 1px solid #dddddd">
 					<tr><td>아이디</td><td><input name="id" id="id" value="${article.id }" readonly style="background:lightgray"></td></tr>
 					<tr><td>제목</td><td>
-					<input list="browsers" name="title" id="title" value="${article.title }">
-					  <datalist id="browsers">
-					    <option value="봄웜톤">
-					    <option value="여름쿨톤">
-					    <option value="가을웜톤">
-					    <option value="겨울쿨톤">
-					  </datalist></td></tr>
+						<input list="browsers" name="title" id="title" value="${article.title }">
+						  <datalist id="browsers">
+						 	   <option value="봄웜톤">
+						  	  <option value="여름쿨톤">
+						  	  <option value="가을웜톤">
+						  	  <option value="겨울쿨톤">
+					 	 </datalist></td></tr>
 					<tr><td>내용</td><td><input name="content" value="${article.content }"  style="width:200px; height:200px; "></td></tr>
-					<tr><td>파일첨부</td><td><input type="file" name="file" ></td></tr>
-				
-				
-			
-			</table>
-
-	<footer>
-		 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
-  		 	 <ul class="pagination">
-			
-					<li><input style="background-color:#8E44AD" class="btn btn-secondary btn-lg" type="submit" value="수정" ></li>
-					<li><button onclick="history.back();" style="background-color:#8E44AD" class="btn btn-secondary btn-lg">취소</button></li>
-				
-			</ui>			
-		</nav>
-	</footer>
-			
-</form>
+					<tr><td>파일첨부</td><td><input type="file" name="file" ></td></tr>	
+				</table>
+			<footer>
+					 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
+			  		 	 <ul class="pagination">
+						
+								<li><input style="background-color:#8E44AD" class="btn btn-secondary btn-lg" type="submit" value="수정" ></li>
+								<li><button onclick="history.back();" style="background-color:#8E44AD" class="btn btn-secondary btn-lg">취소</button></li>
+							
+						</ui>			
+					</nav>
+			</footer>			
+		</form>
 
 </div>
 </div>
