@@ -53,7 +53,7 @@ public class BoardController {
 			boardVO.setFileName(fileName);
 			try {
 
-				file.transferTo(new File("C:\\0AI\\5_backend\\springBoot_workspace\\AI_FinalProject_4\\src\\main\\webapp\\uploadImg\\"+fileName));
+				file.transferTo(new File(PathVar.LOCAL_DRIVE+fileName));
 
 			} catch (IllegalStateException | IOException e) {
 				
@@ -111,7 +111,7 @@ public class BoardController {
 				updateVO.setFileName(fileName);
 				try {
 	
-					file.transferTo(new File("C:\\0AI\\5_backend\\springBoot_workspace\\AI_FinalProject_4\\src\\main\\webapp\\uploadImg\\"+fileName));
+					file.transferTo(new File(PathVar.LOCAL_DRIVE+fileName));
 	
 				} catch (IllegalStateException | IOException e) {
 					

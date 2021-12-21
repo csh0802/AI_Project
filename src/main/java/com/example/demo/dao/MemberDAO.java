@@ -11,6 +11,9 @@ import com.example.demo.vo.MemberVO;
 public interface MemberDAO {
 	
 	public void insertMember(MemberVO memberVO) throws DataAccessException;
-	public MemberVO login(MemberVO memberVO) throws DataAccessException;
+	public String login(MemberVO memberVO) throws DataAccessException;
 	public int idCheck(String id) throws DataAccessException;
+	public MemberVO selectAllInfo(String id) throws DataAccessException;
+	public String selectPw(String id)throws DataAccessException;
+	public void changeInfo(String id, String cpw, String phone, String email);
 }

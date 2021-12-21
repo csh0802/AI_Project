@@ -1,101 +1,184 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script type="text/javascript" src="../js/my.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>닮은꼴 연예인 찾기 결과</title>
+  <!--jquery lib-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!--bootstrap css-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
  
-<style type="text/css">
-.wrap {
-	width: 800px;
-	height: 420px;
-	border: 1px solid #000;
-}
 
-.divleftImg {
-	width: 50%;
-	float: left;
-	box-sizing: border-box;
-	
-}
+  <!--javascript 영역-->
+  <!--<script src="../js/my.js"></script>-->
+  <script>
+    $(document).ready(function(){
+    	const id = $.cookie("id");
+    	if(!id){
+    		 alert("로그인 후 이용 가능합니다.")
+    		    window.close();
+    	}
+      $("#main").fadeIn(2000);
+      console.log(localStorage.getItem('result')); 
+      var resultData=JSON.parse(localStorage.getItem('result'));
+      console.log(resultData);
+      //console.log(data.info.size.width)
+      if (resultData.info.faceCount == 1) {
+       
+        $("#drawCanvas2").attr('style', "border: 1px solid #993300");
+        const canvas = document.getElementById("drawCanvas2");
+        const context = canvas.getContext("2d");
+        const image = new Image();
 
-.divRightImg {
-	width: 50%;
-	float: right;
-	box-sizing: border-box;
-	
-}
-</style>
-<script type="text/javascript">
-$(document).ready(function(){
-	console.log(localStorage.getItem('result')); 
-	var resultData=JSON.parse(localStorage.getItem('result'));
-	resultData = JSON.parse(resultData);
-	console.log(resultData);
-	//console.log(data.info.size.width)
-	if (resultData.info.faceCount == 1) {
-		$("#drawCanvas2").attr('width', resultData.info.size.width + 'px');
-		$("#drawCanvas2").attr('height', resultData.info.size.height + 'px');
-		$("#drawCanvas2").attr('style', "border: 1px solid #993300");
-		const canvas = document.getElementById("drawCanvas2");
-		const context = canvas.getContext("2d");
-		const image = new Image();
+        image.src = 'getImg/test.png';
+        canvas.width = 200; //가로 100px
+		canvas.height = 250; //세로 100px
+        image.onload = function() {
+          context.drawImage(image, 0, 0);
+        }
 
-		image.src = '../media/test.png';
+        var jsonArray = new Array();
+        if (resultData.info.faceCount > 0) {
+          let faces = resultData.info.faceCount;
+          for (let i = 0; i < faces; i++) {
+            var jsonObj = new Object();
+            jsonObj.celebrity = resultData.faces[i].celebrity.value;
+            jsonObj.confidence = (resultData.faces[i].celebrity.confidence) * 100 + "%";
 
-		image.onload = function() {
-			context.drawImage(image, 0, 0);
-		}
+            jsonObj = JSON.stringify(jsonObj);
+            //String 형태로 파싱한 객체를 다시 json으로 변환
+            jsonArray.push(JSON.parse(jsonObj));
+          }
+          console.log(jsonArray);
+          for (let i = 0; i < jsonArray.length; i++) {
+            var result = jsonArray[i].celebrity + "을(를) " + jsonArray[i].confidence + "정도 닮았습니다.<br>";
+            console.log(result);
+            $("#celeResult").append(result);
+          }
+          var celebrity = resultData.faces[0].celebrity.value;
+          //console.log(celebrity);
+          $.post('../celeImg', { celebrity }, function() {
+            $("#celeImg1").attr("src","getImg/newCele.png");
+          });
+          
 
-		var jsonArray = new Array();
-		if (resultData.info.faceCount > 0) {
-			let faces = resultData.info.faceCount;
-			for (let i = 0; i < faces; i++) {
-				var jsonObj = new Object();
-				jsonObj.celebrity = resultData.faces[i].celebrity.value;
-				jsonObj.confidence = (resultData.faces[i].celebrity.confidence) * 100 + "%";
+        } else {
+          $("#resultDiv1").text("닮은꼴 연예인이 없네요 ㅠㅠ");
+        }
+      }else if(resultData.info.faceCount>1){
+        alert("얼굴이 2개이상 검출되었습니다 한개의 얼굴만 들어간 사진을 넣어주세요~");
+        
+      }else{
+        alert("얼굴이 검출되지 않았습니다 사진을 다시한번 확인해 주세요");
+        
+      }
+      //localStorage.removeItem('result');
+    });
+    
+  </script>
+  <style>
+    body {
+      margin:10px;
+      background-image: url('../img/gradient-bg.jpg');
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-				jsonObj = JSON.stringify(jsonObj);
-				//String ���·� �Ľ��� ��ü�� �ٽ� json���� ��ȯ
-				jsonArray.push(JSON.parse(jsonObj));
-			}
-			console.log(jsonArray);
-			for (let i = 0; i < jsonArray.length; i++) {
-				var result = jsonArray[i].celebrity + "��(��) " + jsonArray[i].confidence + "���� ��ҽ��ϴ�.<br>";
-				console.log(result);
-				$("#resultDiv1").append(result);
-			}
-			var celebrity = resultData.faces[0].celebrity.value;
-			//console.log(celebrity);
-			$.post('../celeImg', { celebrity }, function() {
-				$("#celeImg1").attr("src","../media/newCele.png");
-			});
+    .main-container {
+      width: 590px;
+      height: 580px;
+      background-color: white;
+      background-size: cover;
+      padding: 20px; 
+    }
 
-		} else {
-			$("#resultDiv1").text("������ �������� ���׿� �Ф�");
-		}
-	}else if(resultData.info.faceCount>1){
-		alert("���� 2���̻� ����Ǿ����ϴ� �Ѱ��� �󱼸� �� ������ �־��ּ���~");
-	}else{
-		alert("���� ������� �ʾҽ��ϴ� ������ �ٽ��ѹ� Ȯ���� �ּ���");
-	}
-});
-</script>
+    #main {
+      display: none;
+    }
+
+    .imgBox {
+      border: 1px solid;
+      padding: 5px;
+      border-color: lightgrey;
+      width: 210px;
+      height: 270px;
+      margin-top: 30px;
+    }
+
+  </style>
 </head>
 <body>
-	<div id="resultDiv1"></div>
-	<div class="wrap">
-		<div class="divleftImg">
-			<canvas id="drawCanvas2"></canvas>
-		</div>
-		<div class="divRightImg">
-			<img id="celeImg1" src="" alt="">
-		</div>
+   
+  <div id="resultDiv1"></div>
+	<div class="main-container">
+  <center>
+    <div class="mt-4">
+      <h2 style="font-weight: bold; color: rgb(51, 51, 51);">나와 닮은 연예인은?</h2>
+    </div>
+    <div class="d-flex justify-content-evenly">
+		  <canvas id="drawCanvas2" class="imgBox"></canvas>
+		  <img id="celeImg1" src="" alt="" class="imgBox">
+    </div>
+
+    <!--결과 div-->
+    <div class="mt-5" style="font-weight: bold; font-size: larger;" id="celeResult">
+
+    </div>
+
+    <!--카카오톡 공유하기-->
+    <div class="mt-4">
+      <a id="kakao-link-btn" href="javascript:kakaoShare()">
+        <button class="btn btn-sm" style="font-size: small; background-color: rgb(142, 68, 173); color: white; font-weight: bold;">카카오톡으로 공유하기</button>
+      </a>
+    </div>
+    <!--카카오톡 API 연동-->
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script type="text/javascript">
+      // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+      Kakao.init('83f91ef025c32675809ac9317be4d49e');
+    
+      // SDK 초기화 여부를 판단합니다.
+      console.log(Kakao.isInitialized());
+    
+      function kakaoShare() {
+        Kakao.Link.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: '닮은꼴 연예인 찾기 결과',
+            description: '링크를 눌러 방문해 보세요',
+            imageUrl: "../media/newCele.png",
+            link: {
+              mobileWebUrl: 'http://15.165.160.136:8080/#',
+              webUrl: 'http://15.165.160.136:8080/#',
+            },
+          },
+          buttons: [
+            {
+              title: '웹으로 보기',
+              link: {
+                mobileWebUrl: 'http://15.165.160.136:8080/#',
+                webUrl: 'http://15.165.160.136:8080/#',
+              },
+            },
+          ],
+          // 카카오톡 미설치 시 카카오톡 설치 경로이동
+          installTalk: true,
+        })
+      }
+    </script>
+  </center>
+		
 	</div>
+  
+  
 </body>
 </html>

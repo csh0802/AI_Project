@@ -103,7 +103,12 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.11.2</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/com.antkorwin/ioutils -->
+		<dependency>
+		    <groupId>com.antkorwin</groupId>
+		    <artifactId>ioutils</artifactId>
+		    <version>0.7</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -6,8 +6,8 @@
   <mapper namespace="com.example.demo.dao.ItemDAO">
   
   	
-	<select id="selectItem" resultType="map">
-		select imgUrl,itemName,siteLink from item where pColor=#{pColor} 
+	<select id="selectItem" parameterType = "String" resultType="itemVO">
+		select * from item where pColor=#{pColor} 
 	</select>
 
   </mapper>
