@@ -71,7 +71,6 @@ function commentList(){
       
           $(".commentList").html(a);
       },
-
    
     });
 }  
@@ -96,11 +95,9 @@ function commentInsert(insertData){
 }
 
 //댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
-function commentUpdate(cno, content){
-<%-- var coID='<%=(String)session.getAttribute("coID")%>'; --%>
-	
-  	var id=getCookie("id");
+function commentUpdate(cno,content){
 
+  	var id=getCookie("id");
   	var a ='';
    
     a += '<div class="input-group">';
@@ -112,21 +109,21 @@ function commentUpdate(cno, content){
 
 }
 
-//댓글 수정
+ //댓글 수정
  function commentUpdateProc(cno){
   
     var updateContent=$("#updateContent").val();
 		if(window.confirm("댓글을 수정하시겠습니까?")){
-			    $.post('commentUpdate',{updateContent,'cno':cno},function(){
-					alert("댓글이 수정되었습니다.");
-					commentList(bno);			
+			    $.post('commentUpdate',{updateContent,'cno':cno},function(data){
+					alert(data);
+					commentList(bno);						
 				})
 		}else{
 			alert("수정이 취소되었습니다.");
 			$("#updateContent").val(updateContent);
 			commentList(bno);
 		}
-}
+} 
  
 //댓글 삭제 
 function commentDelete(cno,writer){

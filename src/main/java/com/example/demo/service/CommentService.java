@@ -36,5 +36,9 @@ public class CommentService {
 		commentDAO.commentUpdate(commentVO);
 		
 	}
+	
+	public String selectWriter(int cno) {
+		return commentDAO.selectWriter(cno);
+	}
 
 }
