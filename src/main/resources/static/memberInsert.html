@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+ .container {
+      width: 380px;
+      height: 700px;
+
+      background-image: url('../img/gradient-bg.jpg');
+
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 main_container {
 	border: 0px solid;
 }
@@ -60,12 +71,13 @@ main_container {
 .form_submit_button {
 	width: 100%;
 	height: 44px;
-	background-color: rgb(83, 154, 236);
+	background-color: rgb(142, 68, 173);
 	border: 1px;
 	border-radius: 3px;
 	color: white;
 	font-size: 17px;
-	font-weight: 500;
+	font-weight: bold;
+	
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -265,10 +277,11 @@ main_container {
 </script>
 </head>
 <body>
+<div class="container">
 	<div class="main_container login_container">
 
 		<div class="form_title_div">
-			<p class="form_title_p">Register With Us</p>
+			<p class="form_title_p">옛다 컬너 입국신청서</p>
 		</div>
 
 		<div class="form_container" >
@@ -312,10 +325,10 @@ main_container {
 					<option value="여">여</option>
 				</select>
 			</div>
-			<input type="submit" value="회원가입" id="memberInsert_btn" class="form_submit_button">
+			<input type="submit" value="회원가입" id="memberInsert_btn" class="form_submit_button" >
 		</div>
 
 	</div>
-
+</div>
 </body>
 </html>

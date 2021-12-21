@@ -5,6 +5,8 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
+
+
 <style type="text/css">
 body {
       margin:10px;
@@ -17,6 +19,10 @@ body {
 
 .searchDiv{
 text-align: right;
+}
+.colorset{
+      background-color: rgba(255, 255, 255, 0.36);
+
 }
 
 .main {
@@ -41,14 +47,29 @@ text-align: right;
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="01_nav_footer.css">
-  <link rel="stylesheet" href="03_community.css">
+  <link rel="stylesheet" href="nav_footer.css">
+  <link rel="stylesheet" href="community.css">
 
   <title>Community</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script type="text/javascript">
-   
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+	<script type="text/javascript">
+	
+	$(document).ready(function(){
+		
+		const id = $.cookie("id");
+		if(!id){
+			 alert("로그인 후 글쓰기가 가능합니다.")
+			    window.close();
+		}
+		function a(url){
+
+			location.href=url;
+
+	}
 
 function getCookie(cname) {
      let name = cname + "=";
@@ -95,12 +116,22 @@ $(document).ready(function(){
          
       
          });
-      });  
-   });   
+
+      });
+      
+
+
+	
+	});	
+	
+	});
+
+
 </script>
 
 </head>
 <body>
+
   <nav class="d-flex fixed-top align-items-center justify-content-between navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
     <a href="02_home.html"><img  src="./images/logo.png"   height="50px" alt=""></img></a>
     <div class="me-2">
@@ -115,10 +146,26 @@ $(document).ready(function(){
   </nav> 
   <!-- 03_community.html -->
   <div class="main">
-  
+  <div class="main-container">
     <h1>Community <i class="fas fa-bullhorn fa-x"></i></h1>
 
-  
+
+    <!-- Sidebar -->   
+    <aside class="row row-cols-lg-1 mt-5 colorset"  >
+      <ul class="list-group">
+        <li class="list-group-item text-primary col-lg-12">
+
+             <a href="#" class="a_style btn btn-light">ColorBox</a>
+        </li>
+         <li class="list-group-item text-primary col-lg-12">
+
+             <a href="scrapList" class="a_style btn btn-light">ScrapBox</a>
+        </li>
+    
+       
+      </ul>
+    </aside> 
+
     <!-- Board -->
 <br><br>
                                  <center>
@@ -134,8 +181,10 @@ $(document).ready(function(){
    <section>
       <div class="row row-cols-lg-10 mt-5">
         <table class="table table-striped table-hover" id="boardTable">
+
           <thead class="table-dark" >
             <tr><th>번호</th><th>제목</th><th>아이디</th><th>작성일</th><tr>
+
           </thead>
              <tbody>
                  <tr>
@@ -155,6 +204,7 @@ $(document).ready(function(){
     
   
 <footer>
+
     <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 ">           
        <ul class="pagination" >
          
@@ -162,11 +212,14 @@ $(document).ready(function(){
          
       </ui>         
    </nav>
+
   </footer>
 </section>   
 </center>
  </div>
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>  
+		</div>
+		</div>
 </body>
 </html>

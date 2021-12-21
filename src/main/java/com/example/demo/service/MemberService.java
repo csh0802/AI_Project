@@ -17,7 +17,7 @@ public class MemberService {
 		memberDAO.insertMember(memberVO);
 	}
 	
-	public MemberVO login(MemberVO memberVO)  throws DataAccessException{
+	public String login(MemberVO memberVO)  throws DataAccessException{
 		return memberDAO.login(memberVO);
 	}
 	public int idCheck(String id) {
@@ -25,4 +25,24 @@ public class MemberService {
 		return memberDAO.idCheck(id);
 	}
 
+	public MemberVO selectAllInfo(String id) throws DataAccessException{
+		
+		return memberDAO.selectAllInfo(id);
+	}
+
+	public boolean selectPw(String id, String originalPw) throws DataAccessException{
+		
+		String pw = (String)memberDAO.selectPw(id);
+		if(pw.equals(originalPw)) {
+			return true;
+		}else {
+			return false;
+		}
+		 
+	}
+
+	public void changeInfo(String id, String cpw, String phone, String email) throws DataAccessException{
+		memberDAO.changeInfo(id, cpw, phone, email);
+		
+	}
 }
