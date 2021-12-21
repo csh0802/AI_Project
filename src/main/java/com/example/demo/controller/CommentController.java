@@ -40,7 +40,6 @@ public class CommentController {
 		CommentVO comment = new CommentVO();
 		comment.setContent(insertData);
 		BoardVO parentVO=(BoardVO) session.getAttribute("article");
-		//session.setAttribute("coID", id);
 		comment.setWriter(id);
 		comment.setBno(parentVO.getNo());	
 	  commentService.commentInsert(comment);
@@ -57,11 +56,19 @@ public class CommentController {
 	//댓글 수정
 	@PostMapping("commentUpdate")
 	@ResponseBody
-	public void commentUpdate(@RequestParam String updateContent ,@RequestParam int cno ) {
+	public String commentUpdate(@RequestParam String updateContent ,@RequestParam int cno,HttpSession session) {
+		
 		CommentVO commentVO=new CommentVO();
-		commentVO.setContent(updateContent);
-		commentVO.setCno(cno);
-		commentService.commentUpdate(commentVO);
+		String writer=commentService.selectWriter(cno);
+		String id=(String) session.getAttribute("id");
+			if(writer.equals(id)) {
+				commentVO.setContent(updateContent);
+				commentVO.setCno(cno);
+				commentService.commentUpdate(commentVO);			
+			}else {
+				return "작성자 본인만 수정이 가능합니다.";
+			}
+		return "수정 되었습니다.";
 	}
 
 	
