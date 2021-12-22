@@ -6,10 +6,17 @@
   <mapper namespace="com.example.demo.dao.ColorCombDAO">
   
   	<insert id="insertColorComb" parameterType="colorCombVO">
-  		insert into colorcomb(top,bottom,shoes) values(#{top},#{bottom},#{shoes})
+  		 <![CDATA[
+      insert into colorcomb (id,top,bottom, shoes) 
+      values( #{id}, #{top}, #{bottom}, #{shoes})
+   ]]>
+
   	</insert>
-  	<select id="selectAllColorCombList" parameterType="colorCombVO" resultType="colorCombVO" >
+  	<select id="selectAllColorCombList" parameterType="String" resultType="colorCombVO" >
 		select * from colorcomb where id=#{id}
 	</select>
+  	   <delete id="deleteRow" parameterType="int">
+      delete from colorcomb where no=#{no}
+   </delete >
   	
   </mapper>

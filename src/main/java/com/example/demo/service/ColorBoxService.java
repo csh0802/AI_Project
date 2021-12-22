@@ -25,4 +25,5 @@ public class ColorBoxService {
 	public void deleteAllColorBoxList(ColorBoxVO colorBoxVO) {
 		colorBoxDAO.deleteAllColorBoxList(colorBoxVO);
 	}
+	
 }

@@ -4,74 +4,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>옛다 컬너 - My Color Box</title>
-  <style>
-    .navbar-custom {	
-      height: 50px;
-    }
-    
-    header {
-      height: 50px;
-    }
-
-    section {
-      height: 400px;
-      width: 100%;
-      background-image: url('../img/gradient-bg.jpg');
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      
-    }
-
-    .container {
-      height: 400px;
-      width: 100%;
-    }
-
-    .colorBox {
-      width: 80%;
-      height: 250px;
-      background-color: rgb(248, 248, 248);
-      box-shadow: 20px 20px 50px grey
-    }
-
-    #sectionline {
-      padding-left: 30px;
-      padding-right: 30px;
-    }
-
-    #simulatorDiv {
-      width: 100%;
-      text-align: center;
-    }
-
-    .simul-container {
-      align-self: center;
-      padding-top: 50px;
-      padding-left: 200px;
-      padding-right: 200px;
-      height: 600px;
-      
-    }
-
-    .box {
-      width: 300px;
-      height: 50px;
-      outline: 1px;
-      outline-style: solid;
-      outline-color: gray;
-    }
-    
-  </style>
-  <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"  import="com.example.demo.vo.BoardVO, java.util.List" %>
-    
-
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
- 
- 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <!--jquery lib-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -82,57 +14,90 @@
 
   <!--javascript 영역-->
   <script src="../js/my.js"></script>
+  <script>
+    $(document).ready(function() {
+    	const id = $.cookie("id");
+    	  $("#id").val(id);
+          
+      $("#topsaveBtn").on('click',function(){
+        var tcode = $("#topSelect > option:selected").text();
+        
+        document.querySelector("#topcolorDiv").style.backgroundColor = tcode;
+      });
+
+      $("#btmsaveBtn").on('click',function(){
+        var bcode = $("#btmSelect> option:selected").text();
+       
+        document.querySelector("#btmcolorDiv").style.backgroundColor = bcode;
+      });
+
+      $("#shsaveBtn").on('click',function(){
+        var scode = $("#shSelect> option:selected").text();
+        
+        document.querySelector("#shcolorDiv").style.backgroundColor = scode;
+      });
+      
+      
+    
+    })
+  </script>
+  <style>
+    body {
+      background-image: url('../img/gradient-bg.jpg');
+      background-size: cover;
+      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #simulatorDiv {
+      background-color: white;
+      width: 90%;
+      height: 95%;
+      text-align: center;
+    }
+
+    .simul-container {
+      align-self: center;
+      padding-left: 50px;
+      padding-right: 50px;
+      height: 500px;
+      
+    }
+
+    .box {
+      width: 50px;
+      height: 50px;
+      outline: 1px;
+      outline-style: solid;
+      outline-color: gray;
+    }
+  </style>
+  
+  <title>컬러 시뮬레이터</title>
 </head>
 <body>
- <!--Navigation-->
- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-custom">
-    <div class="container-fluid align-items-center">
-      <a class="navbar-brand" href="#">
-        <img src="../img/logo.png" alt="" width="30" height="24">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="colorBox.html">MyColorBox</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" onclick='window.open("boardList", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=800,height=500");'>Community</a>
-          </li>
-        </ul>
-        <form>
-        <span class="d-flex align-items-center" id="loginSpan">
-          
-            <input class="form-control me-2 form-control-sm " style="background-color: lightgrey;" placeholder="ID" aria-label="ID" id="id">
-            <input class="form-control me-2 form-control-sm " style="background-color: lightgrey;" placeholder="PW" aria-label="PW" id="pw" type="password">
-            <button class="btn btn-outline-light btn-sm" id="loginBtn">Login</button>        
-        </span>
-      </form>
-      </div>
-    </div>
-  </nav> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
   <!--색조합 시뮬레이터-->
-	
-	
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"  import="com.example.demo.vo.BoardVO, java.util.List" %>
   <div id="simulatorDiv" class="mt-5">
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-4">
       <h4 style="font-weight: bold; color: rgb(51, 51, 51);" > 색 조합 시뮬레이터 </h4>
     </div>
 
     <div id="simulContainer" class="simul-container mt-4">
       <!--얼굴 색 선택-->
-      <div class="d-flex align-items-center justify-content-around">
+      <div class="d-flex align-items-center justify-content-evenly">
         <div id="faceLabel" style="text-align: center;">
           <h5>얼굴</h5>
+          
           <div class="dropdown">
             <button class="btn btn-sm dropdown-toggle" type="button" id="pcolorSelect" data-bs-toggle="dropdown" aria-expanded="false">
               퍼스널컬러
-           
             </button>
             <ul class="dropdown-menu" aria-labelledby="pcolorSelect">
               <li><button class="dropdown-item" type="button" id="spring">봄 웜</button></li>
@@ -142,7 +107,7 @@
             </ul>
           </div>
         </div>
-        <div id="fcolorDiv" class="box">
+        <div id="fcolorDiv" class="box" style="background-color: rgb(251, 211, 168);">
         </div>        
       </div>
 
@@ -151,71 +116,66 @@
       </div>
 
       <!--상의 색상 선택-->
-      <div class="d-flex align-items-center justify-content-around mb-4">
+      <form action="insertColorComb" method="post">
+          <input name="id" id="id"  type="hidden"><br>
+      <div class="d-flex align-items-center justify-content-evenly mb-4">
         <div id="topLabel" style="text-align: center;">
           <h5>상의</h5>
-          <div class="dropdown">
-            <button class="btn btn-sm dropdown-toggle" type="button" id="topcolorSelect" data-bs-toggle="dropdown" aria-expanded="false">
-              색상선택
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="topcolorSelect">
-            
-            <c:forEach var="name" items='${color }' varStatus="status">
-            <li><button class="dropdown-item" type="button" style="background-color:${name}">${status.count } : <c:out value="${name}" /></button></li>
-    		</c:forEach>
-           
-            </ul>
-            
-          </div>
+          
+           <select id="topSelect" name="top" class="form-select form-select-sm" aria-label="Default select example">
+           	<option selected>상의 색상 선택</option>
+           <c:forEach  items='${color }' var="name" >
+  				<option style="background-color:${name}">${name }</option>
+  				
+ 			 </c:forEach>
+			</select>
+          <button id="topsaveBtn" class="btn btn-sm btn-dark mt-2">저장</button>
         </div>
+        
         <div id="topcolorDiv" class="box">
         </div>        
       </div>
 
       <!--하의 색상 선택-->
-      <div class="d-flex align-items-center justify-content-around mb-4">
+      <div class="d-flex align-items-center justify-content-evenly mb-4">
         <div id="btmLabel" style="text-align: center;">
           <h5>하의</h5>
-          <div class="dropdown">
-            <button class="btn btn-sm dropdown-toggle" type="button" id="btmcolorSelect" data-bs-toggle="dropdown" aria-expanded="false">
-              색상선택
-            </button>
-             <ul class="dropdown-menu" aria-labelledby="topcolorSelect">
-            
-            <c:forEach var="name" items='${color }' varStatus="status">
-            <li><button class="dropdown-item" type="button" style="background-color:${name}">${status.count } : <c:out value="${name}" /></button></li>
-    		</c:forEach>
-           
-            </ul>
-          </div>
+          <select id="btmSelect" name="bottom" class="form-select form-select-sm" aria-label="Default select example">
+           	<option selected>하의 색상 선택</option>
+           <c:forEach items='${color }' var="name" >
+  				<option style="background-color:${name}">${name }</option>
+  				
+ 			 </c:forEach>
+			</select>
+          <button id="btmsaveBtn" class="btn btn-sm btn-dark mt-2">저장</button>
         </div>
         <div id="btmcolorDiv" class="box">
         </div>        
       </div>
 
       <!--신발 색상 선택-->
-      <div class="d-flex align-items-center justify-content-around mb-4">
+      <div class="d-flex align-items-center justify-content-evenly mb-4">
         <div id="shoeLabel" style="text-align: center;">
           <h5>신발</h5>
-          <div class="dropdown">
-            <button class="btn btn-sm dropdown-toggle" type="button" id="shcolorSelect" data-bs-toggle="dropdown" aria-expanded="false">
-              색상선택
-            </button>
-             <ul class="dropdown-menu" aria-labelledby="topcolorSelect">
-            
-            <c:forEach var="name" items='${color }' varStatus="status">
-            <li><button class="dropdown-item" type="button" style="background-color:${name}">${status.count } : <c:out value="${name}" /></button></li>
-    		</c:forEach>
-           
-            </ul>
-          </div>
+          <select id="shSelect" name="shoes" class="form-select form-select-sm" aria-label="Default select example">
+           	<option selected>신발 색상 선택</option>
+           <c:forEach items='${color }' var="name" >
+  				<option style="background-color:${name}">${name }</option>
+  				
+ 			 </c:forEach>
+			</select>
+          
+          <button id="shsaveBtn" class="btn btn-sm btn-dark mt-2">저장</button>
         </div>
         <div id="shcolorDiv" class="box">
         </div>        
       </div>
+      <input type="submit" value="색조합 등록">
+      
+ </form>
 
     </div>
   </div>
-       
+  
 </body>
 </html>

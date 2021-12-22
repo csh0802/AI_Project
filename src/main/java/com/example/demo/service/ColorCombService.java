@@ -16,11 +16,19 @@ public class ColorCombService {
 	@Autowired
 	ColorCombDAO colorCombDAO;
 	
-	public void insertColorBox(ColorCombVO colorCombVO) throws Exception {
+	public void insertColorComb(ColorCombVO colorCombVO) throws Exception {
 		colorCombDAO.insertColorComb(colorCombVO);
 	}
-	public List<ColorCombVO> selectAllBasketList(ColorCombVO colorCombVO){
-		return colorCombDAO.selectAllColorCombList(colorCombVO);
+	public List<ColorCombVO> selectAllCombList(String id){
+		return colorCombDAO.selectAllColorCombList(id);
 		
 	}
+	public void deleteRow(int no) {
+	      colorCombDAO.deleteRow(no);
+	      
+	   }
+
+
+
+
 }

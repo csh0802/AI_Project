@@ -15,7 +15,7 @@ import com.example.demo.vo.ColorCombVO;
 	public interface ColorCombDAO {
 
 		public void insertColorComb(ColorCombVO colorCombVO) throws Exception;
-		public List<ColorCombVO> selectAllColorCombList(ColorCombVO colorCombVO)throws DataAccessException;
-
+		public List<ColorCombVO> selectAllColorCombList(String id)throws DataAccessException;
+		public void deleteRow(int no) throws DataAccessException;
 	}
 

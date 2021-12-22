@@ -14,64 +14,61 @@
       height: 50px;
     }
 
-    section {
-      height: 400px;
-      width: 100%;
+    body {
       background-image: url('../img/gradient-bg.jpg');
       background-size: cover;
+    }
+
+    section {
+      height: 300px;
+      width: 100%;
+      
       display: flex;
       justify-content: center;
       
     }
 
     .container {
-      height: 400px;
+      height: 300px;
       width: 100%;
     }
 
     .colorBox {
       width: 80%;
-      height: 250px;
-      background-color: rgb(248, 248, 248);
-      box-shadow: 20px 20px 50px grey
+      height: 200px;
+      background-color: rgba(255,255,255,0.8);
+      box-shadow: 20px 20px 50px grey;
+      margin-bottom: 20px;
     }
 
     #sectionline {
       padding-left: 30px;
       padding-right: 30px;
+      margin-top: 40px;
     }
 
-    #simulatorDiv {
-      width: 100%;
-      text-align: center;
+    #colorBasket {
+      padding: 30px;
+      height: 400px;
+      justify-content: center;
+      display: flex;
     }
 
-    .simul-container {
-      align-self: center;
-      padding-top: 50px;
-      padding-left: 200px;
-      padding-right: 200px;
-      height: 600px;
-      
-    }
+    #basketDiv {
+      outline: 1px solid gray;
+      padding: 20px;
+      width: 80%;
+      background-color: rgba(255, 255, 255, 0.8);
 
-    .box {
-      width: 300px;
-      height: 50px;
-      outline: 1px;
-      outline-style: solid;
-      outline-color: gray;
     }
-    
-  </style>
-  <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"  import="com.example.demo.vo.BoardVO, java.util.List" %>
-    
-
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
  
  
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"  import="com.example.demo.vo.BoardVO, java.util.List" %>
+    
+  </style>
   <!--jquery lib-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -95,32 +92,14 @@
 
 	   
 
-
-	function getCookie(cname) {
-	     let name = cname + "=";
-	     let decodedCookie = decodeURIComponent(window.opener.document.cookie);
-	     let ca = decodedCookie.split(';');
-	     for(let i = 0; i <ca.length; i++) {
-	       let c = ca[i];
-	       while (c.charAt(0) == ' ') {
-	         c = c.substring(1);
-	       }
-	       if (c.indexOf(name) == 0) {
-	         return c.substring(name.length, c.length);
-	       }
-	     }
-	     return "";
-	   }
-	
-
-  
-
-	});
-
+      
+    
+  });
     
   </script>
 </head>
 <body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <!--Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top navbar-custom">
     <div class="container-fluid align-items-center">
@@ -167,7 +146,7 @@
         </div> 
         <div class="colorBox mt-4" id="colorBox">
           <div id="pcolor1">
-                      <button  onclick='window.open("test", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=800,height=800");'>test</button>
+          
             ${id }님의 퍼스널컬러는 ${pColor }
           </div>
           <div id="bestColor"> 
@@ -177,8 +156,6 @@
 
           </div>
           
-  
-      </div>
         </div>
         </center>
     </div>
@@ -187,104 +164,51 @@
     <hr>
   </div>
 
-  <!--색조합 시뮬레이터-->
-	
-	
-  <div id="simulatorDiv" class="mt-5">
-    <div class="d-flex justify-content-center">
-      <h4 style="font-weight: bold; color: rgb(51, 51, 51);" > 색 조합 시뮬레이터 </h4>
-    </div>
-
-    <div id="simulContainer" class="simul-container mt-4">
-      <!--얼굴 색 선택-->
-      <div class="d-flex align-items-center justify-content-around">
-        <div id="faceLabel" style="text-align: center;">
-          <h5>얼굴</h5>
-          <div class="dropdown">
-            <button class="btn btn-sm dropdown-toggle" type="button" id="pcolorSelect" data-bs-toggle="dropdown" aria-expanded="false">
-              퍼스널컬러
+  <!--내조합 저장소-->
+  <div id="colorBasket" class="mt-4">
+     
+    <div id="basketDiv" style="text-align: center;">
+        <table class="table table-hover" id ="table">
+        <thead>
+          <tr>
+             <th scope="col" class="hidden">no</th>
+            <th scope="col">ID</th>
            
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="pcolorSelect">
-              <li><button class="dropdown-item" type="button" id="spring">봄 웜</button></li>
-              <li><button class="dropdown-item" type="button" id="summer">여름 쿨</button></li>
-              <li><button class="dropdown-item" type="button" id="autumn">가을 웜</button></li>
-              <li><button class="dropdown-item" type="button" id="winter">겨울 쿨</button></li>
-            </ul>
-          </div>
-        </div>
-        <div id="fcolorDiv" class="box">
-        </div>        
-      </div>
+            <th scope="col">상의</th>
+            <th scope="col">하의</th>
+            <th scope="col">신발</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+             <c:forEach items="${combList }" var="article">
+                            
+                        <tr>
+                           <td class="hidden">${article.no }</td>
+                           <td>${article.id }</td>
+                           <td>${article.top }</td>
+                           <td>${article.bottom }</td>
+                           <td>${article.shoes }</td>
+                           <td><input type="submit" value="Delete" id="deleteBtn"/></td>
+                        </tr>
+                     </c:forEach>
+          </tr>
+          
+        </tbody>
+      </table>
 
-      <div class="mt-3 mb-3">
-        <hr>
-      </div>
 
-      <!--상의 색상 선택-->
-      <div class="d-flex align-items-center justify-content-around mb-4">
-        <div id="topLabel" style="text-align: center;">
-          <h5>상의</h5>
-          <div class="dropdown">
-            <button class="btn btn-sm dropdown-toggle" type="button" id="topcolorSelect" data-bs-toggle="dropdown" aria-expanded="false">
-              색상선택
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="topcolorSelect">
-            
-            <c:forEach var="name" items='${spring }' varStatus="status">
-            <li><button class="dropdown-item" type="button">${status.count } : <c:out value="${name}" /></button></li>
-    		</c:forEach>
-           
-            </ul>
-            
-          </div>
-        </div>
-        <div id="topcolorDiv" class="box">
-        </div>        
-      </div>
-
-      <!--하의 색상 선택-->
-      <div class="d-flex align-items-center justify-content-around mb-4">
-        <div id="btmLabel" style="text-align: center;">
-          <h5>하의</h5>
-          <div class="dropdown">
-            <button class="btn btn-sm dropdown-toggle" type="button" id="btmcolorSelect" data-bs-toggle="dropdown" aria-expanded="false">
-              색상선택
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="btmcolorSelect">
-              <li><button class="dropdown-item" type="button">색상1</button></li>
-              <li><button class="dropdown-item" type="button">색상2</button></li>
-              <li><button class="dropdown-item" type="button">색상3</button></li>
-              <li><button class="dropdown-item" type="button">색상4</button></li>
-            </ul>
-          </div>
-        </div>
-        <div id="btmcolorDiv" class="box">
-        </div>        
-      </div>
-
-      <!--신발 색상 선택-->
-      <div class="d-flex align-items-center justify-content-around mb-4">
-        <div id="shoeLabel" style="text-align: center;">
-          <h5>신발</h5>
-          <div class="dropdown">
-            <button class="btn btn-sm dropdown-toggle" type="button" id="shcolorSelect" data-bs-toggle="dropdown" aria-expanded="false">
-              색상선택
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="shcolorSelect">
-              <li><button class="dropdown-item" type="button">색상1</button></li>
-              <li><button class="dropdown-item" type="button">색상2</button></li>
-              <li><button class="dropdown-item" type="button">색상3</button></li>
-              <li><button class="dropdown-item" type="button">색상4</button></li>
-            </ul>
-          </div>
-        </div>
-        <div id="shcolorDiv" class="box">
-        </div>        
+      <div id="simulBtnDiv" class="mt- d-flex justify-content-center ">
+        <button class="btn" onclick='window.open("test", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=600,height=700");' style="background-color: rgb(142, 68, 173); color: white; font-weight: bold;">색조합 시뮬레이터</button>
       </div>
 
     </div>
+
+
   </div>
+
+  
   
 </body>
 </html>

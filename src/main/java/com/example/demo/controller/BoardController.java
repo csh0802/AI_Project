@@ -64,7 +64,7 @@ public class BoardController {
 			boardVO.setFileName(fileName);
 			try {
 
-				file.transferTo(new File(PathVar.LOCAL_DRIVE+fileName));
+				file.transferTo(new File(PathVar.FIND_DRIVE+fileName));
 
 			} catch (IllegalStateException | IOException e) {
 				

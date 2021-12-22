@@ -2,7 +2,24 @@ package com.example.demo.vo;
 
 public class ColorCombVO {
 
-	String top,bottom,shoes;
+	private String id,top,bottom,shoes;
+	private Integer no;
+	
+	public Integer getNo() {
+		return no;
+	}
+
+	public void setNo(Integer no) {
+		this.no = no;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getTop() {
 		return top;
@@ -30,11 +47,13 @@ public class ColorCombVO {
 
 	@Override
 	public String toString() {
-		return "ColorCombVO [top=" + top + ", bottom=" + bottom + ", shoes=" + shoes + "]";
+		return "ColorCombVO [no="+no+"id="+id+"top=" + top + ", bottom=" + bottom + ", shoes=" + shoes + "]";
 	}
 
-	public ColorCombVO(String top, String bottom, String shoes) {
+	public ColorCombVO(Integer no,String id,String top, String bottom, String shoes) {
 		super();
+		setNo(no);
+		setId(id);
 		setTop(top);
 		setBottom(bottom);
 		setShoes(shoes);

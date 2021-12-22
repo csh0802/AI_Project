@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.demo.service.ColorBoxService;
+import com.example.demo.service.ColorCombService;
 import com.example.demo.service.PersonDetectionService;
 import com.example.demo.service.ObjectDetectionService;
 import com.example.demo.vo.ColorBoxVO;
+import com.example.demo.vo.ColorCombVO;
 import com.example.demo.vo.MemberVO;
 
 @Controller
@@ -30,7 +33,10 @@ public class ColorBoxController {
 	@Autowired
 	ColorBoxService colorBoxService;
 	
-	List<ColorBoxVO> blist;
+	List<ColorCombVO> blist;
+	
+	@Autowired
+	ColorCombService colorCombService;
 	
 	
 	
@@ -88,18 +94,18 @@ public class ColorBoxController {
 		}
 		try {
 		
-			blist = colorBoxService.selectAllBasketList(colorBoxVO);
+			blist = colorCombService.selectAllCombList(id);
 			System.out.println(blist);
 			if(blist.size()==0) {
 				session.setAttribute("msg", "no");
 			}else {
-				session.setAttribute("blist", blist);
+				session.setAttribute("comblist", blist);
 				
 				
 				session.setAttribute("id",id);
 				mav.addObject("blist",blist);
 				mav.addObject("id",id);
-				System.out.println(blist);
+				System.out.println("blist:"+blist);
 			}
 			
 		}catch(Exception e) {
@@ -117,6 +123,7 @@ public class ColorBoxController {
 		String id = (String)session.getAttribute("id");
 		String pColor = (String)session.getAttribute("pColor");
 		System.out.println(id);
+		mav.addObject("id",id);
 		List<String> spring = new ArrayList<String>(Arrays.asList("#D82B20","#FC5A15","#EB8157","#F8D7C4","#F0F3AE","#A6D114","#A5D311","#96DC97","#5EB372","#2C8B2C","#BDECD6","#64BCCD","#2B6AA0"));
 		List<String> summer = new ArrayList<String>(Arrays.asList("#DD729E","#E79CBB","#EEC7DF","#A37BD2","#C6ACDB","#DDD6F6","#CFDFF6","#A5BEF6","#6A94E6","#4667B4","#C5E7F1","#B6ECD3","#EEF5B1"));
 		List<String> autumn = new ArrayList<String>(Arrays.asList("#922D23","#922C20","#E68452","#F8C5AA","#E2B502","#9F7020","#52731B","#97DA98","#867352","#342812","#688B8D","#7AC4CD","#145569"));
@@ -136,6 +143,32 @@ public class ColorBoxController {
 		}
 		return mav;
 	}
+	
+	@PostMapping("insertColorComb")
+	
+	public void insertColorComb(ColorCombVO colorCombVO) {
+		System.out.println(colorCombVO);
+		try {
+			colorCombService.insertColorComb(colorCombVO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	@PostMapping("deleteRow")
+	   @ResponseBody
+	   public RedirectView deleteRow(int no) {
+	      System.out.println(no);
+	      try {
+	         colorCombService.deleteRow(no);
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	      return new RedirectView("basketList");
+	   }
+
 	
 }
 
