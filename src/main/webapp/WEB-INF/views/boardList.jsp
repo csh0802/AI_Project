@@ -56,20 +56,20 @@ text-align: right;
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
-   <script type="text/javascript">
-   
-   $(document).ready(function(){
-      
-      const id = $.cookie("id");
-      if(!id){
-          alert("로그인 후 글쓰기가 가능합니다.")
-             window.close();
-      }
-      function a(url){
+	<script type="text/javascript">
+	
+	$(document).ready(function(){
+		
+		const id = $.cookie("id");
+		if(!id){
+			 alert("로그인 후 글쓰기가 가능합니다.")
+			    window.close();
+		}
+		function a(url){
 
-         location.href=url;
+			location.href=url;
 
-   }
+	}
 
 function getCookie(cname) {
      let name = cname + "=";
@@ -121,10 +121,10 @@ $(document).ready(function(){
       
 
 
-   
-   });   
-   
-   });
+	
+	});	
+	
+	});
 
 
 </script>
@@ -201,9 +201,9 @@ $(document).ready(function(){
 </center>
  </div>
 </div>
-   
+	
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>  
-   
+	
 </body>
 </html>

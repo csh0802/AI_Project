@@ -10,10 +10,62 @@ body {
       margin:10px;
       background-image: url('../img/gradient-bg.jpg');
       background-size: cover;
-    
-      justify-content: center;
-      align-items: center;
+      
     }
+
+.main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-container{
+  width: 90%;
+  height: 90%;
+  background-color: rgba(255,255,255,0.45);
+  padding: 10px;
+
+}
+
+.a_style {
+  text-decoration: none;
+}
+
+h1 {
+  font-weight: bold;
+  text-align: center;
+}
+
+aside {
+  float: left;
+}
+
+section {
+  float: right;
+  width: 900px;
+  
+}
+.nav_factor {
+  text-decoration: none;
+  color: white;
+  margin-right: 2rem;
+}
+
+footer {
+  height: 60px;
+}  
+
+
+.articleDiv{
+text-align: right;
+}
+
+.active {
+  background-color: #F08080;
+  color: #fff;
+}
+
 
 .feeling_div {
   display: flex;
@@ -38,50 +90,6 @@ body {
   border-radius: 2px;
   color: #F08080;
 }     
-.main {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255,255,255,0.45);
-  padding: 20px;
-}
-
-.a_style {
-  text-decoration: none;
-}
-
-h2 {
-  font-weight: bold;
-  text-align: center;
-}
-
-aside {
-  float: left;
-}
-
-section {
-  float: right;
-  width: 900px;
-  
-
-.nav_factor {
-  text-decoration: none;
-  color: white;
-  margin-right: 2rem;
-}
-
-footer {
-  height: 60px;
-}  
-}
-
-.articleDiv{
-text-align: right;
-}
-
-.active {
-  background-color: #F08080;
-  color: #fff;
-}
 
 
 
@@ -132,18 +140,21 @@ $(document).ready(function(){
 	
 	$("#deleteBtn").click(function(){
 	var id=getCookie("id");
+
+	if(window.confirm("해당 게시글을 삭제하시겠습니까?")){
 		$.post('delete',{id},function(data){
-				//alert(data);
-				if(data=="ok"){
-					alert("게시글이 삭제되었습니다.");
-					location.href="deleteOK.html";
-				}else{
-					alert("작성자 본인만 수정/삭제가 가능합니다.");
-				 location.href = "deleteFail.html";}
-				//location.reload();
-				//history.go(-1);
+			if(data=="ok"){
+				alert("게시글이 삭제되었습니다.");
+				location.href="deleteOK.html";
+			}else{
+				alert("작성자 본인만 수정/삭제가 가능합니다.");
+			 location.href = "deleteFail.html";}
 			
-		});
+	});
+	}else{
+		alert("취소 되었습니다.");
+	}
+
 	});
 	
 	
@@ -151,15 +162,18 @@ $(document).ready(function(){
 		var id = getCookie("id");
 		var title='${article.title}';
 		var content='${article.content}';
-		
-		if(id=='${article.id}'){
-			//alert(title+":"+content);
-			$.post('updateArticleForm',{id,title,content},function(){
-				location.href="updateArticleForm";
-			});
+		if(window.confirm("해당 게시글을 수정하시겠습니까?")){
+			if(id=='${article.id}'){
+				$.post('updateArticleForm',{id,title,content},function(){
+					location.href="updateArticleForm";
+				});
+			}else{
+				alert("작성자 본인만 수정/삭제가 가능합니다.");
+			}
 		}else{
-			alert("작성자 본인만 수정/삭제가 가능합니다.");
+			alert("취소 되었습니다.");
 		}
+
 	});
 	
 	$('.like-container > .feeling_a, .dislike-container  > .feeling_a').click(function(){
@@ -174,20 +188,15 @@ $(document).ready(function(){
 		var cookieId = getCookie("id");
 		var id='${article.id}';
 		var no = '${article.no}';
-		//alert(id+":"+no);
+		
 		if(window.confirm("스크랩 하시겠습니까?")){
 			$.post('scrapArticle',{no,id,cookieId},function(data){
-				alert("스크랩 되었습니다.");
-				
-			})
-			
+				alert("스크랩 되었습니다.");				
+			})			
 		}else{
 			alert("스크랩처리가 취소 되었습니다.")
-		}
-		
-		
+		}		
 	});
-
 	
 });
 
@@ -199,19 +208,17 @@ $(document).ready(function(){
 
 </head>
 <body>
-  <!-- 01_nav_footer.html -->
  <nav class="d-flex fixed-top align-items-center justify-content-between navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
-    <a href="02_home.html"><img  src="./images/logo.png"   height="50px" alt=""></img></a>
- 
+    <a href="02_home.html"><img  src="./images/logo.png"   height="50px" alt=""></img></a> 
   </nav>
   <!-- 03_community.html -->
-  <div class="main">
-	<div  class="container">
-	<h2>${article.id }님의 게시글</h2>
+<div class="main">
+  <div class="main-container">
+	<h2  style="text-align:center">${article.id }님의 게시글</h2>
 <br>	
 <br>
 
-<table class="table table-striped mytable" style="text-align: center; border: 1px solid #dddddd">
+<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 	<tr><td>아이디</td><td><input value="${article.id }"  readonly style="background:lightgray"></td></tr>
 	<tr><td>제목</td><td><input  value="${article.title }" readonly style="background:lightgray"></td></tr>
 
@@ -263,26 +270,19 @@ $(document).ready(function(){
                     <button class="btn btn-dark" style="background-color:#8E44AD"  type="button" id="commentInsertBtn">등록</button>
                </span>
               </div>
-    </div>
-
-		     <div class="container">
-		        <div class="commentList" id="commentList"></div>
-		    </div>
-
-
+			<div class="commentList" id="commentList"></div>
+		</div>
 
 <%@ include file="comment.jsp" %>
 
 
-	<footer>
-		 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
-  		 	 <ul class="pagination">
-			
-<li><button type="button" style="background-color:#8E44AD" class="btn btn-secondary btn-lg" onclick="history.back()">목록으로 가기</button></li>
-			
-			</ui>			
-		</nav>
-	</footer>
+<footer>
+	 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
+ 		  <ul class="pagination">		
+			<li><button type="button" style="background-color:#8E44AD" class="btn btn-secondary btn-lg" onclick="history.back()">목록으로 가기</button></li>		
+		</ui>			
+	</nav>
+</footer>
 
 </div>
 

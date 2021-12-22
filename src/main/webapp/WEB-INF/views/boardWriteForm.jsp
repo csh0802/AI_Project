@@ -12,15 +12,22 @@ body {
       margin:10px;
       background-image: url('../img/gradient-bg.jpg');
       background-size: cover;
-    
-      justify-content: center;
-      align-items: center;
+      
     }
+
 .main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-container{
   width: 90%;
   height: 90%;
   background-color: rgba(255,255,255,0.45);
   padding: 20px;
+
 }
 
 .a_style {
@@ -40,7 +47,7 @@ section {
   float: right;
   width: 900px;
   
-
+}
 .nav_factor {
   text-decoration: none;
   color: white;
@@ -50,7 +57,7 @@ section {
 footer {
   height: 60px;
 }  
-}
+
 
 
 </style>
@@ -74,71 +81,74 @@ footer {
 <script type="text/javascript">
 
 $(document).ready(function(){
-	const id=$.cookie("id");
-	
-	if(id){
-		$("#id").val(id);
-	}else{
-		alert("로그인후 글쓰기가 가능합니다.");
-	}
-	
-	
-	$("#writeBtn").click(function(){
-		const title = $("#title").val();
-		const content = $("#content").val();
-		if(!title || !content){
-			alert("제목과 본문 내용은 필수입니다.");			
-		}else{
-			alert("게시글이 등록 되었습니다.")
-		}
-	});
-	
+   
+   const id=$.cookie("id");   
+   $("#id").val(id);
+   
+   
+   $("#writeBtn").click(function(){
+      const title = $("#title").val();
+      const content = $("#content").val();
+      if(!title || !content){
+         alert("제목과 본문 내용은 필수입니다.");         
+      }else{
+      
+         if(window.confirm("작성한 글을 등록하시겠습니까?")){
+         alert("게시글이 등록 되었습니다.")
+            
+         }else{
+            alert("취소 되었습니다.")
+            
+         }
+         
+      }
+   });
+   
 });
 
 </script>
 </head>
 <body>
-
-  <nav class="d-flex fixed-top align-items-center justify-content-between navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
+<nav class="d-flex fixed-top align-items-center justify-content-between navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
     <a href="02_home.html"><img  src="./images/logo.png"   height="50px" alt=""></img></a>
-  </nav>
+</nav>
 
-  
-	<div  class="main">
+<div class="main">
+  <div class="main-container">
 <h2 style="text-align:center"><i class="fas fa-user-edit"></i></h2>
 <form action="boardWrite" method="post" enctype="multipart/form-data">
-<div class="row row-cols-lg-10 mt-5">
-<table class="table table-striped mytable" 
-					style="text-align: center;  border: 1px solid #dddddd">
-	<tr><td>아이디</td><td><input name="id"id="id" readonly style="background:lightgray"></td></tr>
-	<tr><td>제목</td><td> 
-	<input list="browsers" name="title" id="title">
-		  <datalist id="browsers">
-		    <option value="봄웜톤">
-		    <option value="여름쿨톤">
-		    <option value="가을웜톤">
-		    <option value="겨울쿨톤">
-		  </datalist>
-	</td></tr>
-	<tr><td>내용</td><td><textarea rows ="8" cols="20" name="content" id="content"></textarea></td></tr>
-	<tr><td>파일첨부</td><td><input type="file" name="file"></td><tr>
-
-
-</table>
-</div>
-		<footer>
-		 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
-  		 	 <ul class="pagination">
-			
-					<li><input type="submit" value="작성" id="writeBtn" style="background-color:#8E44AD"  class="btn btn-secondary"></li>
-					<li> <p onclick="location='boardList'"style="background-color:#8E44AD"  class="btn btn-secondary">목록</p></li>
-				
-			</ui>			
-		</nav>
-	</footer>
-
-
+   <div class="row row-cols-lg-10 mt-5">
+      <table class="table table-striped mytable" 
+                     style="text-align: center;  border: 1px solid #dddddd">
+         <tr><td>아이디</td><td><input name="id"id="id" readonly style="background:lightgray"></td></tr>
+         <tr><td>제목</td><td> 
+         <input list="br
+         owsers" name="title" id="title">
+              <datalist id="browsers">
+                <option value="봄웜톤">
+                <option value="여름쿨톤">
+                <option value="가을웜톤">
+                <option value="겨울쿨톤">
+              </datalist>
+         </td></tr>
+         <tr><td>내용</td><td><textarea rows ="8" cols="20" name="content" id="content"></textarea></td></tr>
+         <tr><td>파일첨부</td><td><input type="file" name="file"></td><tr>
+      
+      
+      </table>
+   </div>
+<footer>
+    <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 ">           
+       <ul class="pagination">
+      
+            <li><input type="submit" value="작성" id="writeBtn" style="background-color:#8E44AD"  class="btn btn-secondary"></li>
+            <li> <p onclick="location='boardList'"style="background-color:#8E44AD"  class="btn btn-secondary">목록</p></li>
+         
+      </ui>         
+   </nav>
+</footer>
 </form>
+</div>
 </div>
 </body>
 </html>

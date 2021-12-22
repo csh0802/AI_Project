@@ -41,11 +41,18 @@ body {
 }     
 .main {
   width: 100%;
-  height: 100%;
-  background-color: rgba(255,255,255,0.45);
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.main-container{
+  width: 90%;
+  height: 90%;
+  background-color: rgba(255,255,255,0.45);
+  padding: 10px;
+
+}
 .a_style {
   text-decoration: none;
 }
@@ -75,14 +82,6 @@ footer {
 }  
 }
 
-.articleDiv{
-text-align: right;
-}
-
-.active {
-  background-color: #F08080;
-  color: #fff;
-}
 
 
 </style>
@@ -129,61 +128,49 @@ $(document).ready(function(){
 
 	$("#deleteScrap").click(function(){
 		var no='${scrapArticle.no }'
-		$.post('deleteScrap',{no},function(data){
-			alert("스크랩이 취소되었습니다.");
-			location.href="boardList";
-		})
+		if(window.confirm("스크랩박스에서 해당 게시물을 삭제 하시겠습니까?")){
+			$.post('deleteScrap',{no},function(data){
+				alert("스크랩이 취소되었습니다.");
+				location.href="boardList";
+			})
+		}else{
+			alert("요청이 취소되었습니다.");
+		}
+	
 	});
 
 	
 });
 
 
-
-
 </script>
-
 
 </head>
 <body>
-  <!-- 01_nav_footer.html -->
+ 
   <nav class="d-flex fixed-top align-items-center justify-content-between navbar navbar-expand-md navbar-dark bg-dark fixed-top ">
     <a href="02_home.html"><img  src="./images/logo.png"   height="50px" alt=""></img></a>
-    <div class="me-2">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-    </div>
   </nav>
-  <!-- 03_community.html -->
+
   <div class="main">
-	<div  class="container">
-	<h2>${scrapArticle.bid } 님의 게시글</h2>
-
-	<table class="table table-striped mytable"
-					style="text-align: center; border: 1px solid #dddddd">
-	<tr><td>아이디</td><td><input value="${scrapArticle.bid }"  readonly style="background:lightgray"></td></tr>
-	<tr><td>제목</td><td><input  value="${scrapArticle.title }" readonly style="background:lightgray"></td></tr>
-	<tr><td>내용</td><td><textarea rows ="8" cols="20" readonly style="background:lightgray" >${scrapArticle.content}</textarea></td></tr>
-	<tr><td>첨부파일</td><td><div id="div1" class="div"><a href="uploadImg/${scrapArticle.fileName }"><img src="uploadImg/${scrapArticle.fileName }" height="50"></a></div></td><tr>
-
-	</table>
-
-</form>
-
-	
-	<footer>
-		 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
-  		 	 <ul class="pagination">
-			<li><button  type="button" style="background-color:#8E44AD" class="btn btn-secondary btn-lg" id="deleteScrap">스크랩 취소</button></li>
-<li><button type="button" style="background-color:#8E44AD" class="btn btn-secondary btn-lg" onclick="history.back()">뒤로 가기</button></li>
-			
-			</ui>			
-		</nav>
-	</footer>
-
-</div>
+	<div  class="main-container">
+		<h2>${scrapArticle.bid } 님의 게시글</h2>
+			<table class="table table-striped mytable"
+							style="text-align: center; border: 1px solid #dddddd">
+				<tr><td>아이디</td><td><input value="${scrapArticle.bid }"  readonly style="background:lightgray"></td></tr>
+				<tr><td>제목</td><td><input  value="${scrapArticle.title }" readonly style="background:lightgray"></td></tr>
+				<tr><td>내용</td><td><textarea rows ="8" cols="20" readonly style="background:lightgray" >${scrapArticle.content}</textarea></td></tr>
+				<tr><td>첨부파일</td><td><div id="div1" class="div"><a href="uploadImg/${scrapArticle.fileName }"><img src="uploadImg/${scrapArticle.fileName }" height="50"></a></div></td><tr>			
+			</table>
+		<footer>
+			 <nav aria-label="Page navigation example" class="d-flex justify-content-around mt-3 "> 		 	
+  		 		 <ul class="pagination">
+					<li><button  type="button" style="background-color:#8E44AD" class="btn btn-secondary btn-lg" id="deleteScrap">스크랩 취소</button></li>
+					<li><button type="button" style="background-color:#8E44AD" class="btn btn-secondary btn-lg" onclick="history.back()">뒤로 가기</button></li>			
+				</ui>			
+			</nav>
+		</footer>
+	</div>
 </div>
 
 <script type="text/javascript" src="js/jquery.1.2.3.js"></script>
