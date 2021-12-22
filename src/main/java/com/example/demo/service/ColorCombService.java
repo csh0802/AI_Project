@@ -19,7 +19,8 @@ public class ColorCombService {
 	public void insertColorComb(ColorCombVO colorCombVO) throws Exception {
 		colorCombDAO.insertColorComb(colorCombVO);
 	}
-	public List<ColorCombVO> selectAllCombList(String id){
+	public List<ColorCombVO> selectAllColorCombList(String id){
+		
 		return colorCombDAO.selectAllColorCombList(id);
 		
 	}

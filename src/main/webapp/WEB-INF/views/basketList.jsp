@@ -61,6 +61,14 @@
       background-color: rgba(255, 255, 255, 0.8);
 
     }
+    .box {
+   width: 20px;
+   height: 20px;
+   outline: 1px;
+   outline-style: solid;
+   outline-color: gray;
+   margin-rignt:10px;
+}
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
  
  
@@ -90,11 +98,29 @@
 			    window.close();
 		}
 
-	   
+		  $("#id").val(id);
+	         $(document).on("click","#deleteBtn",function(){
+	            var deleteBtn = $(this);
+	            var tr = deleteBtn.parent().parent();
+	            var td = tr.children();
+	            console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+	            var no =td.eq(0).text();
+	            console.log(no);
+	            
+	            $.post('deleteRow',{no},function(){
+	               
+	               location.reload();
+	               alert("정보 삭제 완료!!");
+	            });
+	         });
+	      });
+
+	      
+
 
       
     
-  });
+
     
   </script>
 </head>
@@ -182,14 +208,14 @@
         </thead>
         <tbody>
           <tr>
-             <c:forEach items="${combList }" var="article">
+             <c:forEach items="${comblist }" var="article">
                             
                         <tr>
                            <td class="hidden">${article.no }</td>
-                           <td>${article.id }</td>
-                           <td>${article.top }</td>
-                           <td>${article.bottom }</td>
-                           <td>${article.shoes }</td>
+                           <td>${article.id }&nbsp&nbsp&nbsp&nbsp</td>
+                           <td><div id="topDiv" class="box" style="background-color:${article.top }">&nbsp&nbsp&nbsp&nbsp${article.top }</div></td>
+                           <td><div id="bottomDiv" class="box" style="background-color:${article.bottom }">&nbsp&nbsp&nbsp&nbsp${article.bottom }</div></td>
+                           <td><div id="shoesDiv" class="box" style="background-color:${article.shoes }">&nbsp&nbsp&nbsp&nbsp${article.shoes }</div></td>
                            <td><input type="submit" value="Delete" id="deleteBtn"/></td>
                         </tr>
                      </c:forEach>
@@ -200,7 +226,7 @@
 
 
       <div id="simulBtnDiv" class="mt- d-flex justify-content-center ">
-        <button class="btn" onclick='window.open("test", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=600,height=700");' style="background-color: rgb(142, 68, 173); color: white; font-weight: bold;">색조합 시뮬레이터</button>
+        <button class="btn" onclick='window.open("simulator", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=300,width=600,height=700");' style="background-color: rgb(142, 68, 173); color: white; font-weight: bold;">색조합 시뮬레이터</button>
       </div>
 
     </div>

@@ -8,7 +8,7 @@
   	<insert id="insertColorBox" parameterType="colorBoxVO">
   		insert into colorbox(id,pColor) values(#{id},#{pColor})
   	</insert>
-  	<select id="selectAllColorBoxList" parameterType="colorBoxVO" resultType="colorBoxVO" >
+  	<select id="selectAllColorBoxList" parameterType="colorBoxVO" resultType="ColorBoxVO" >
 		select * from colorbox where id=#{id}
 	</select>
 	

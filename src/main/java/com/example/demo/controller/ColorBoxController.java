@@ -33,7 +33,7 @@ public class ColorBoxController {
 	@Autowired
 	ColorBoxService colorBoxService;
 	
-	List<ColorCombVO> blist;
+	
 	
 	@Autowired
 	ColorCombService colorCombService;
@@ -93,8 +93,8 @@ public class ColorBoxController {
 			System.out.println("로그인안됨");
 		}
 		try {
-		
-			blist = colorCombService.selectAllCombList(id);
+			System.out.println(id);
+			List<ColorCombVO> blist = colorCombService.selectAllColorCombList(id);
 			System.out.println(blist);
 			if(blist.size()==0) {
 				session.setAttribute("msg", "no");
@@ -116,7 +116,7 @@ public class ColorBoxController {
 		
 		return mav;
 	}
-	@RequestMapping("test")	
+	@RequestMapping("simulator")	
 	public ModelAndView goSimul(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 //		String pColor = (String)session.getAttribute("pColor");
@@ -146,7 +146,7 @@ public class ColorBoxController {
 	
 	@PostMapping("insertColorComb")
 	
-	public void insertColorComb(ColorCombVO colorCombVO) {
+	public RedirectView insertColorComb(ColorCombVO colorCombVO) {
 		System.out.println(colorCombVO);
 		try {
 			colorCombService.insertColorComb(colorCombVO);
@@ -155,7 +155,7 @@ public class ColorBoxController {
 			e.printStackTrace();
 		}
 		
-		
+		return new RedirectView("simulator");
 	}
 	@PostMapping("deleteRow")
 	   @ResponseBody

@@ -58,6 +58,12 @@ public class ColorCombVO {
 		setBottom(bottom);
 		setShoes(shoes);
 	}
+
+	public ColorCombVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 	
 }
