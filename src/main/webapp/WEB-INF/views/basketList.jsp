@@ -39,6 +39,9 @@
       background-color: rgba(255,255,255,0.8);
       box-shadow: 20px 20px 50px grey;
       margin-bottom: 20px;
+      padding-top : 20px;
+      padding-left : 50px;
+      padding-right : 50px;
     }
 
     #sectionline {
@@ -113,6 +116,21 @@
 	               alert("정보 삭제 완료!!");
 	            });
 	         });
+	       
+	      	const pcolor = $.cookie("pColor";)
+	         if(pcolor == '봄 웜톤') {
+	        	 $("#bestColor").attr('src','../getImg/spring_palette.png')
+	        	 $("#worstColor").attr('src','../getImg/winter_palette.png')
+	         }else if(pcolor == '여름 쿨톤') {
+	        	 $("#bestColor").attr('src','../getImg/summer_palette.png')
+	        	 $("#worstColor").attr('src','../getImg/autumn_palette.png')
+	         }else if(pcolor == '가을 웜톤') {
+	        	 $("#bestColor").attr('src','../getImg/autumn_palette.png')
+	        	 $("#worstColor").attr('src','../getImg/summer_palette.png')
+	         }else if (pcolor == '겨울 쿨톤') {
+	        	 $("#bestColor").attr('src','../getImg/winter_palette.png')
+	        	 $("#worstColor").attr('src','../getImg/spring_palette.png')
+	         }
 	      });
 
 	      
@@ -171,15 +189,15 @@
           <h2 style="font-weight: bold; color: rgb(51, 51, 51);"><img src="../img/model.png" width="50px">My Color Box</h2>
         </div> 
         <div class="colorBox mt-4" id="colorBox">
-          <div id="pcolor1">
+          <div id="pcolor1" class="mt-3">
           
-            ${id }님의 퍼스널컬러는 ${pColor }
+            <h4 style="font-weight: bold; color: rgb(51, 51, 51);">${id }님의 퍼스널컬러는 ${pColor }</h4>
           </div>
-          <div id="bestColor"> 
-
+          <div id="bestColorDiv" class="mt-4 d-flex justify-contents-center align-items-center" style="color: gray;"> 
+          	Best Color : <img id="bestColor" width="300px" src="" alt=""/> 
           </div>
-          <div id="worstColor">
-
+          <div id="worstColorDiv" class="mt-2 d-flex justify-contents-center align-items-center" style="color: gray;">
+          	Worst Color : <img id="worstColor" width="300px" src="" alt=""/>
           </div>
           
         </div>
