@@ -57,15 +57,6 @@ footer {
 }  
 
 
-.articleDiv{
-text-align: right;
-}
-
-.active {
-  background-color: #F08080;
-  color: #fff;
-}
-
 
 .feeling_div {
   display: flex;
@@ -91,6 +82,16 @@ text-align: right;
   color: #F08080;
 }     
 
+	
+.articleDiv{
+text-align: right;
+}
+
+
+.active {
+  background-color: #F08080;
+  color: #fff;
+}
 
 
 </style>
