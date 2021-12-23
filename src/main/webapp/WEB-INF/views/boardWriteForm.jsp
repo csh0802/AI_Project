@@ -122,8 +122,7 @@ $(document).ready(function(){
                      style="text-align: center;  border: 1px solid #dddddd">
          <tr><td>아이디</td><td><input name="id"id="id" readonly style="background:lightgray"></td></tr>
          <tr><td>제목</td><td> 
-         <input list="br
-         owsers" name="title" id="title">
+         <input list="browsers" name="title" id="title">
               <datalist id="browsers">
                 <option value="봄웜톤">
                 <option value="여름쿨톤">
