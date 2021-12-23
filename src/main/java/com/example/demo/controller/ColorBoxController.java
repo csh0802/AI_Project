@@ -96,6 +96,7 @@ public class ColorBoxController {
                session.setAttribute("pColor", list.get(0).getPColor());
                System.out.println(list);
                List<ColorCombVO> blist = colorCombService.selectAllColorCombList(id); 
+		session.setAttribute("id",id);
                mav.addObject("blist",blist);
                mav.addObject("id",id);
                System.out.println(mav);
