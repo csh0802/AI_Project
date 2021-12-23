@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dao.CommentDAO;
 import com.example.demo.vo.CommentVO;
@@ -36,6 +35,10 @@ public class CommentService {
 	public void commentUpdate(CommentVO commentVO) {
 		commentDAO.commentUpdate(commentVO);
 		
+	}
+	
+	public String selectWriter(int cno) {
+		return commentDAO.selectWriter(cno);
 	}
 
 }

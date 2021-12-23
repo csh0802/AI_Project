@@ -26,6 +26,8 @@ public interface CommentDAO {
  
     // 댓글 삭제
     public int commentDelete(int cno) throws DataAccessException;
+    
+    public String selectWriter(int cno) throws DataAccessException;
 
 	
 }

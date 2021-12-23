@@ -26,6 +26,9 @@
       delete from comment where cno=#{cno}
     </delete>
 
+	<select id="selectWriter" parameterType="int" resultType="String">
+	select writer from comment where cno=#{cno}
+	</select>
   
   
   </mapper>

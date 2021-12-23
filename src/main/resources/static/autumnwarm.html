@@ -147,30 +147,30 @@
             console.log(Kakao.isInitialized());
           
             function kakaoShare() {
-              Kakao.Link.sendDefault({
-                objectType: 'feed',
-                content: {
-                  title: '퍼스널컬러 진단결과 - 겨울 쿨톤',
-                  description: '링크를 눌러 퍼스털 컬러를 무료로 진단해 보세요',
-                  imageUrl: 'https://post-phinf.pstatic.net/MjAxOTEyMDVfMjMz/MDAxNTc1NTI2NjM0Mzg2.lTWH_DCm6Hha7yfDWk5HiIaa0HyD3aMZR2RBKxywghcg.IE2uD3f1aL_clK6nMpMcanKkHk2mQwSrxqQvl3Nzwcog.PNG/%EB%8B%A5%ED%84%B0%EC%9E%90%EB%A5%B4%ED%8A%B8_%EA%B2%A8%EC%9A%B8_%EC%BF%A8%ED%86%A4_%ED%8D%BC%EC%8A%A4%EB%84%90%EC%BB%AC%EB%9F%AC_%EB%B6%84%EC%84%9D_3.png?type=w1200',
-                  link: {
-                    mobileWebUrl: '카카오공유하기 시 클릭 후 이동 경로',
-                    webUrl: '카카오공유하기 시 클릭 후 이동 경로',
-                  },
-                },
-                buttons: [
-                  {
-                    title: '웹으로 보기',
+                Kakao.Link.sendDefault({
+                  objectType: 'feed',
+                  content: {
+                    title: '퍼스널컬러 진단결과 - 가을 웜톤',
+                    description: '링크를 눌러 퍼스널 컬러를 무료로 진단해 보세요',
+                    imageUrl: '../getImg/autumn_result.png',
                     link: {
-                      mobileWebUrl: 'http://15.165.160.136:8080/#',
-                      webUrl: 'http://15.165.160.136:8080/#',
+                      mobileWebUrl: '카카오공유하기 시 클릭 후 이동 경로',
+                      webUrl: '카카오공유하기 시 클릭 후 이동 경로',
                     },
                   },
-                ],
-                // 카카오톡 미설치 시 카카오톡 설치 경로이동
-                installTalk: true,
-              })
-            }
+                  buttons: [
+                    {
+                      title: '웹으로 보기',
+                      link: {
+                        mobileWebUrl: 'http://15.165.160.136:8080/objectDetection.html',
+                        webUrl: 'http://15.165.160.136:8080/objectDetection.html',
+                      },
+                    },
+                  ],
+                  // 카카오톡 미설치 시 카카오톡 설치 경로이동
+                  installTalk: true,
+                })
+              }
           </script>
         
         

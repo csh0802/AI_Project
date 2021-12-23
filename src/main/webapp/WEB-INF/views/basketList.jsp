@@ -62,12 +62,12 @@
 
     }
     .box {
-   width: 20px;
-   height: 20px;
+   width: 30px;
+   height: 30px;
    outline: 1px;
    outline-style: solid;
    outline-color: gray;
-   margin-rignt:10px;
+   margin-left:90px;
 }
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
  
@@ -212,10 +212,10 @@
                             
                         <tr>
                            <td class="hidden">${article.no }</td>
-                           <td>${article.id }&nbsp&nbsp&nbsp&nbsp</td>
-                           <td><div id="topDiv" class="box" style="background-color:${article.top }">&nbsp&nbsp&nbsp&nbsp${article.top }</div></td>
-                           <td><div id="bottomDiv" class="box" style="background-color:${article.bottom }">&nbsp&nbsp&nbsp&nbsp${article.bottom }</div></td>
-                           <td><div id="shoesDiv" class="box" style="background-color:${article.shoes }">&nbsp&nbsp&nbsp&nbsp${article.shoes }</div></td>
+                           <td>${article.id }</td>
+                           <td><div id="topDiv" class="box" style="background-color:${article.top }"> </div></td>
+                           <td><div id="bottomDiv" class="box" style="background-color:${article.bottom }"></div></td>
+                           <td><div id="shoesDiv" class="box" style="background-color:${article.shoes }"> </div></td>
                            <td><input type="submit" value="Delete" id="deleteBtn"/></td>
                         </tr>
                      </c:forEach>

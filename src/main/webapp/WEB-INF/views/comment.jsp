@@ -56,25 +56,21 @@ function commentList(){
         
         success : function(data){
         	
- 			  var a =''; 
- 
-          //console.log(data);
-            data.commentList.forEach(function(item,index){
-            	  a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-            	  a += '<br>';
-                 /*  a += '<div class="commentInfo'+item.cno+'">'+'Date : '+item.reg_date+' ';   */  
-                  a += '<div><i class="far fa-grin-wink fa-2x"></i> :'+item.writer+'님의 댓글</div>';
-                  a += '<br>';
-                  a += '<div class="commentContent'+item.cno+'"> <p> : '+item.content +'</p>';
-                  a += '<span style="display: inline-block; width: 1000px; background-color: burlywood;"></span>'
-                  a += '<a  class="btn btn-outline-dark" onclick="commentUpdate('+item.cno+',\''+item.content+'\');"> 수정 </a>';
-                  a += '<a class="btn btn-outline-dark" onclick="commentDelete('+item.cno+',\''+item.writer+'\');"> 삭제 </a> </div>';
-                  a += '</div></div>';
-                //console.log(item.content);
-            });
-        
-            $(".commentList").html(a);
-        },
+			  var a =''; 
+          data.commentList.forEach(function(item,index){
+          	  a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+          	  a += '<br>';
+                a += '<div><i class="far fa-grin-wink fa-2x"></i> :'+item.writer+'님의 댓글</div>';
+                a += '<br>';
+                a += '<div class="commentContent'+item.cno+'"> <p> : '+item.content +'</p>';
+                a += '<span style="display: inline-block; width: 1000px; background-color: burlywood;"></span>'
+                a += '<a  class="btn btn-outline-dark" onclick="commentUpdate('+item.cno+',\''+item.content+'\');"> 수정 </a>';
+                a += '<a class="btn btn-outline-dark" onclick="commentDelete('+item.cno+',\''+item.writer+'\');"> 삭제 </a> </div>';
+                a += '</div></div>';
+          });
+      
+          $(".commentList").html(a);
+      },
    
     });
 }  
@@ -82,26 +78,26 @@ function commentList(){
 //댓글 등록
 function commentInsert(insertData){
 
-    const id=getCookie("id");
-    
-		    $.post('commentInsert',{insertData,id},function(){		 	
-		    
-		    	    alert("댓글이 등록되었습니다.");
-		    		commentList();
-		    		$("#content").val('');
+    		const id=getCookie("id");
+    		
+    if(window.confirm("댓글을 등록하시겠습니까?")){
+	        $.post('commentInsert',{insertData,id},function(){		 	
+			    
+	    	    alert("댓글이 등록되었습니다.");
+	    		commentList();
+	    		$("#content").val('');
+	   			 }); 
+    	}else{
+		    	alert("등록이 취소되었습니다.");
+		    	$("#content").val('');
+   	 }
 		 
-		    });  
 }
 
 //댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
-function commentUpdate(cno, content){
-<%-- var coID='<%=(String)session.getAttribute("coID")%>'; --%>
+function commentUpdate(cno,content){
+
   	var id=getCookie("id");
-  	//console.log(coID);
-	//alert(coID+":"+id);
- /*  	if(coID==id){
- 		alert("같음");
-  */
   	var a ='';
    
     a += '<div class="input-group">';
@@ -110,43 +106,45 @@ function commentUpdate(cno, content){
     a += '</div>';
     
     $('.commentContent'+cno).html(a);
- /* 	}else{
- 		alert("작성자 본인만 수정이 가능합니다.");
- 	} */
-	
+
 }
 
-//댓글 수정
-function commentUpdateProc(cno){
+ //댓글 수정
+ function commentUpdateProc(cno){
   
     var updateContent=$("#updateContent").val();
-    
-		    $.post('commentUpdate',{updateContent,'cno':cno},function(){
-		    		alert("댓글이 수정되었습니다.");
-		    		commentList(bno);
-		  
-		    })
-  
-}
+		if(window.confirm("댓글을 수정하시겠습니까?")){
+			    $.post('commentUpdate',{updateContent,'cno':cno},function(data){
+					alert(data);
+					commentList(bno);						
+				})
+		}else{
+			alert("수정이 취소되었습니다.");
+			$("#updateContent").val(updateContent);
+			commentList(bno);
+		}
+} 
  
 //댓글 삭제 
 function commentDelete(cno,writer){
 	
 	 const id=getCookie("id");
-	 
-		if(writer==id){
-			//alert(writer+":"+id);
-				 $.post('commentDelete',{cno},function(){
-					alert("댓글이 삭제되었습니다.");
-					 commentList(bno);
-				 }); 
-			}else{
-				
-			alert("작성자 본인만 삭제가 가능합니다.");
-		}
+	 if(window.confirm("댓글을 삭제하시겠습니까?")){
+			if(writer==id){
+					 $.post('commentDelete',{cno},function(){
+						alert("댓글이 삭제되었습니다.");
+						 commentList(bno);
+					 }); 
+				}else{
+					
+				alert("작성자 본인만 삭제가 가능합니다.");
+			}
+	 }else{
+		 alert("취소되었습니다.");
+	 }
+	
 } 
 
- 
 
  $(document).ready(function(){
     commentList(); //페이지 로딩시 댓글 목록 출력 
