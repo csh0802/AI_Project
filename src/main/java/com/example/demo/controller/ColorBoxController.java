@@ -78,44 +78,39 @@ public class ColorBoxController {
 	}
 	
 	@RequestMapping("basketList")
-	public ModelAndView showBasket(HttpSession session, ColorBoxVO colorBoxVO) {
-		String id = (String)session.getAttribute("id");
-		ModelAndView mav = new ModelAndView();
-		colorBoxVO.setId(id);
-		
-		List<ColorBoxVO> list = colorBoxService.selectAllBasketList(colorBoxVO);
-		System.out.println(list);
-		mav.addObject("pColor", list.get(0).getPColor());
-		session.setAttribute("pColor", list.get(0).getPColor());
-		if(id!=null) {
-			colorBoxVO.setId(id);
-		}else {
-			System.out.println("로그인안됨");
-		}
-		try {
-			System.out.println(id);
-			List<ColorCombVO> blist = colorCombService.selectAllColorCombList(id);
-			System.out.println(blist);
-			if(blist.size()==0) {
-				session.setAttribute("msg", "no");
-			}else {
-				session.setAttribute("comblist", blist);
-				
-				
-				session.setAttribute("id",id);
-				mav.addObject("blist",blist);
-				mav.addObject("id",id);
-				System.out.println("blist:"+blist);
-			}
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-			System.out.println("가져온 멤버정보 없음");
-		}	
-		
-		
-		return mav;
-	}
+      public ModelAndView showBasket(HttpSession session, ColorBoxVO colorBoxVO) {
+         System.out.println(session.getId());
+         ModelAndView mav = new ModelAndView();
+         String id = (String)session.getAttribute("id");
+         System.out.println(id);
+         if(id==null) {
+            //mav.addObject("id",null);
+            System.out.println("id is null");
+            
+            
+         }else {
+            colorBoxVO.setId(id);
+            try {
+               List<ColorBoxVO> list = colorBoxService.selectAllBasketList(colorBoxVO);
+               mav.addObject("pColor", list.get(0).getPColor());
+               session.setAttribute("pColor", list.get(0).getPColor());
+               System.out.println(list);
+               List<ColorCombVO> blist = colorCombService.selectAllColorCombList(id); 
+               mav.addObject("blist",blist);
+               mav.addObject("id",id);
+               System.out.println(mav);
+               
+            }catch (Exception e) {
+               e.printStackTrace();
+            }
+            
+         }
+         
+         mav.setViewName("basketList");
+         return mav;
+         
+   }
+
 	@RequestMapping("simulator")	
 	public ModelAndView goSimul(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
