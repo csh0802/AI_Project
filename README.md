@@ -111,3 +111,13 @@ Spring boot, MariaDB, AWS, Docker
 - colorbox 구상 및 설계
 
 - 전체적 디버깅 및 오류수정
+
+https://docs.google.com/presentation/d/1wOKcAbf6IjimekPK1aeoKcIH0oic1vMD/edit#slide=id.p1
+
+
+4조 컬너드림_Final Project.pptx
+AI 활용 지능형 서비스 개발 Final Project 옛다 컬너 4조 컬너드림 차성호 박호준 김가연 이수현 곽윤진 장진엽 온 ·오프 연계 AI활용 지능형 서비스 개발 L반
+
+docs.google.com
+
+​
